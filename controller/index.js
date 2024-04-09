@@ -5,7 +5,11 @@ const { loadPublicControllers } = require("./public");
 const app = express();
 
 loadPrivateControllers.forEach((item) => {
-  app.use(`/api/private`, item.router);
+  app.use(`/api/private/${item.controllerName}`, item.router);
+});
+
+loadPublicControllers.forEach((item) => {
+  app.use(`/api/${item.controllerName}`, item.router);
 });
 
 app.listen(8080, () => {

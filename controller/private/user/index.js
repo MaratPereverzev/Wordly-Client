@@ -1,5 +1,5 @@
 const get = (req, res) => {
-  console.log("hi");
+  res.send("ok");
 };
 
 module.exports = (router) => {

@@ -44,7 +44,6 @@ findFiles.forEach((item) => {
     const router = express.Router();
 
     loadController(router);
-    router.use(`/${controllerName}`, router);
 
     loadPrivateControllers.push({ controllerName, router });
   }

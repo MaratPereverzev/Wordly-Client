@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const { readDirSync } = require("@utils");
+const { readDirSync, routerCheck } = require("@utils");
 
 const findFiles = [];
 const loadPublicControllers = [];
@@ -42,8 +42,17 @@ findFiles.forEach((item) => {
 
   if (typeof loadController === "function") {
     const router = express.Router();
-    loadController(router);
 
+    loadController(router);
+    const dangerousMethods = routerCheck(router, ["put", "post", "delete"]);
+
+    if (dangerousMethods.length > 0) {
+      console.log(
+        `\x1b[33m⚠️\tDangerous methods in \x1b[0m${controllerName}\x1b[33m public router: \x1b[0m${dangerousMethods.join(
+          ", "
+        )}\x1b[0m\t⚠️`
+      );
+    }
     loadPublicControllers.push({ controllerName, router });
   }
 });
