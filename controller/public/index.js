@@ -1,15 +1,15 @@
 const path = require("path");
 const express = require("express");
 const { readDirSync, routerCheck } = require("@utils");
+const fileExt = ".js";
+const basename = path.basename(__filename, fileExt);
 
 const findFiles = [];
 const loadPublicControllers = [];
 
-const fileExt = ".js";
-
 //capitalizeFirstLetterWithoutIndex
 const CFLWI = (str) => {
-  if (str === "index") return "";
+  if (str === basename) return "";
   return str[0].toUpperCase() + str.slice(1);
 };
 
@@ -18,7 +18,7 @@ readDirSync(__dirname, (dir, dirs, files) => {
     .filter(
       (item) =>
         item.slice(-3) === fileExt &&
-        (path.basename(item, fileExt) !== "index" ||
+        (path.basename(item, fileExt) !== basename ||
           path.dirname(item.replace(__dirname + path.sep, ""), "") !== ".")
     )
     .forEach((item) => {
@@ -56,5 +56,11 @@ findFiles.forEach((item) => {
     loadPublicControllers.push({ controllerName, router });
   }
 });
+
+console.log(
+  `\x1b[34m[PUBLIC]\x1b[0m controllers: ${loadPublicControllers
+    .map((item) => item.controllerName)
+    .join(", ")}`
+);
 
 module.exports = { loadPublicControllers };
