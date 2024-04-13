@@ -1,4 +1,4 @@
-const { user } = require("@models");
+const { word } = require("@models");
 const { Op } = require("sequelize");
 
 const get = (req, res) => {
@@ -6,7 +6,7 @@ const get = (req, res) => {
 
   const where = caption ? { caption: { [Op.getLike()]: caption } } : {};
 
-  user.findAll({ where: where }).then((data) => {
+  word.findAll({ where: where }).then((data) => {
     res.send(data.map((item) => item.toJSON()));
   });
 };
@@ -14,12 +14,12 @@ const get = (req, res) => {
 const getById = (req, res) => {
   const { id } = req.params;
 
-  user.findOne({ where: { id } }).then((data) => res.send(data.toJSON()));
+  word.findOne({ where: { id } }).then((data) => res.send(data.toJSON()));
 };
 
 const post = (req, res) => {
   const data = req.body;
-  user.create(data).then((data) => res.send(data.toJSON()));
+  word.create(data).then((data) => res.send(data.toJSON()));
 };
 
 module.exports = (router) => {

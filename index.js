@@ -1,13 +1,21 @@
 require("module-alias/register");
 require("@config");
+//const fileUpload = require("express-fileupload");
 const express = require("express");
 const { bindControllers } = require("@controller");
-const { task } = require("@models");
+
 const app = express();
+app.use(express.json());
+/*
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
+*/
 
 bindControllers(app);
-
-console.log(task);
 
 app.listen(8080, () => {
   console.log("listening on PORT :8080");

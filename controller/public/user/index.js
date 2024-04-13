@@ -2,11 +2,11 @@ const { user } = require("@models");
 const { Op } = require("sequelize");
 
 const get = (req, res) => {
-  const { caption } = req.query;
+  const { caption, limit, offset } = req.query;
 
   const where = caption ? { caption: { [Op.getLike()]: caption } } : {};
 
-  user.findAll({ where: where }).then((data) => {
+  user.findAll({ where: where, limit, offset }).then((data) => {
     res.send(data.map((item) => item.toJSON()));
   });
 };
@@ -17,13 +17,7 @@ const getById = (req, res) => {
   user.findOne({ where: { id } }).then((data) => res.send(data.toJSON()));
 };
 
-const post = (req, res) => {
-  const data = req.body;
-  user.create(data).then((data) => res.send(data.toJSON()));
-};
-
 module.exports = (router) => {
   router.get("/", get);
   router.get("/:id", getById);
-  router.post("/", post);
 };
