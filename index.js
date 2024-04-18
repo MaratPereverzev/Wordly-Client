@@ -3,6 +3,7 @@ require("@config");
 //const fileUpload = require("express-fileupload");
 const express = require("express");
 const { bindControllers } = require("@controller");
+const { user, word } = require("@models");
 
 const app = express();
 app.use(express.json());

@@ -1,1 +1,2 @@
-http://localhost:8080/api/user?limit=2&offset=2
+http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mn0.ykTlv3F2gZ5T3NHNOu0JCprx1asOj27_r5-0OX-BywQ
+

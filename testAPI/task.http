@@ -1,9 +1,0 @@
-http://localhost:8080/api/private/word?caption=PING
-###
-POST http://localhost:8080/api/private/word
-content-type: application/json
-
-{
-  "caption": "ping",
-  "description": "pong"
-}

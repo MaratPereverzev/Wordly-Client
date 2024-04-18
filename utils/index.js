@@ -1,1 +1,6 @@
-module.exports = { ...require("./file"), ...require("./express") };
+module.exports = {
+  ...require("./file"),
+  ...require("./express"),
+  ...require("./sequelize"),
+  ...require("./jwt"),
+};

@@ -1,0 +1,19 @@
+http://localhost:8080/api/private/word
+###
+PUT http://localhost:8080/api/private/word?id=2
+content-type: application/json
+
+{
+  "caption": "nill",
+  "description": "x;xx",
+  "userId": 2
+}
+###
+POST http://localhost:8080/api/private/word
+content-type: application/json
+
+{
+  "caption": "ok",
+  "description": "x;okasdfs",
+  "userId": 2
+}

@@ -2,7 +2,7 @@
 require("module-alias/register");
 const path = require("path");
 const fileExt = ".js";
-const { readDirSync } = require("@utils");
+const { readDirSync } = require("@utils/file");
 const Sequelize = require("sequelize");
 const process = require("process");
 const basename = path.basename(__filename, "js");
