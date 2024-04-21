@@ -9,13 +9,5 @@ module.exports = (db, modelName, options) => {
     },
     options
   );
-
-  model.associate = (models) => {
-    model.belongsToMany(models.user, {
-      onDelete: "NO ACTION",
-      onUpdate: "NO ACTION",
-      through: "userWord",
-    });
-  };
   return model;
 };

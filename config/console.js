@@ -23,3 +23,11 @@ console.log = (...input) => {
     );
   }
 };
+
+console.load = (...input) => {
+  console.log(`\x1b[32m[LOAD]\x1b[0m`, ...input);
+};
+
+console.warning = (...input) => {
+  console.log(`\x1b[33m[WARNING]\x1b[0m`, ...input);
+};

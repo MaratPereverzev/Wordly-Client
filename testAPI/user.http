@@ -1,2 +1,15 @@
-http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mn0.ykTlv3F2gZ5T3NHNOu0JCprx1asOj27_r5-0OX-BywQ
+http://localhost:8080/api/user?limit=2&offset=2
+###
+http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+###
+http://localhost:8080/api/private/user/2?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+###
+POST http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+content-type: application/json
 
+{
+  "caption": "correct",
+  "description": "okay",
+  "login": "john",
+  "password": "doe"
+}

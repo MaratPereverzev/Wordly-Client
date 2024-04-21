@@ -1,5 +1,6 @@
 "use strict";
 require("module-alias/register");
+require("@config/console");
 const path = require("path");
 const fileExt = ".js";
 const { readDirSync } = require("@utils/file");
@@ -11,8 +12,6 @@ const config = require(__dirname + "/../../config/config.json")[env];
 
 const db = {};
 const defOptions = { paranoid: true };
-
-const findFiles = [];
 
 //capitalizeFirstLetterWithoutIndex
 const CFLWI = (str) => {
@@ -60,6 +59,13 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
+
+const loadModelsMsg = `models: ${Object.keys(db).join(", ")}`;
+if (typeof console.load === "function") {
+  console.load(loadModelsMsg);
+} else {
+  console.log(loadModelsMsg);
+}
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

@@ -6,14 +6,12 @@ module.exports = (db, modelName, options) => {
     {
       caption: DataTypes.TEXT,
       description: DataTypes.TEXT,
-      login: DataTypes.STRING,
-      password: DataTypes.STRING,
     },
     options
   );
 
   model.associate = (models) => {
-    model.hasMany(models.dictionary, {
+    model.hasMany(models.word, {
       onDelete: "NO ACTION",
       onUpdate: "NO ACTION",
     });

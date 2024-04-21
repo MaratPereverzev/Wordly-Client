@@ -13,8 +13,10 @@ const jwtValidate = async (req, res, next) => {
   const tokenData = jwt.verify(authorization, jwtPassword);
   const userData = await user.findOne({ where: tokenData });
 
-  if (userData !== null) next();
-  else {
+  if (userData !== null) {
+    req.userData = userData;
+    next();
+  } else {
     console.log("ACCESS DENIED");
   }
 };

@@ -57,10 +57,14 @@ findFiles.forEach((item) => {
   }
 });
 
-console.log(
-  `\x1b[34m[PUBLIC]\x1b[0m controllers: ${loadPublicControllers
-    .map((item) => item.controllerName)
-    .join(", ")}`
-);
+const loadControllersMsg = `\x1b[34m[PUBLIC]\x1b[0m controllers: ${loadPublicControllers
+  .map((item) => item.controllerName)
+  .join(", ")}`;
+
+if (typeof console.load === "function") {
+  console.load(loadControllersMsg);
+} else {
+  console.log(loadControllersMsg);
+}
 
 module.exports = { loadPublicControllers };

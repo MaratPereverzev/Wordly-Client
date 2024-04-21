@@ -1,20 +1,39 @@
-const { user } = require("@models");
-const { Op } = require("sequelize");
+const models = require("@models");
+
+const userFieldsExclude = [
+  "id",
+  "password",
+  "createdAt",
+  "deletedAt",
+  "updatedAt",
+];
 
 const get = (req, res) => {
-  const { caption, limit, offset } = req.query;
+  const { limit, offset, ...queryParams } = req.query;
 
-  const where = caption ? { caption: { [Op.getLike()]: caption } } : {};
+  const where = Object.keys(queryParams).length
+    ? getLikeTemplate({ ...queryParams }, ["caption"], queryExclude)
+    : {};
 
-  user.findAll({ where: where, limit, offset }).then((data) => {
-    res.send(data.map((item) => item.toJSON()));
-  });
+  models.user
+    .findAll({
+      where: where,
+      include: models.dictionary,
+      limit,
+      offset,
+      attributes: userFieldsExclude,
+    })
+    .then((data) => {
+      res.send(data.map((item) => item.toJSON()));
+    });
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
 
-  user.findOne({ where: { id } }).then((data) => res.send(data.toJSON()));
+  models.user
+    .findOne({ where: { id } })
+    .then((data) => res.send(data.toJSON()));
 };
 
 module.exports = (router) => {

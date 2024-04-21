@@ -1,14 +1,26 @@
-const { word, user } = require("@models");
-const { Op } = require("sequelize");
+const models = require("@models");
+const { getLikeTemplate } = require("@utils");
+
+const queryExclude = ["authorization"];
 
 const get = (req, res) => {
-  const { caption } = req.query;
+  const { login, password } = req?.tokenData;
 
-  const where = caption ? { caption: { [Op.getLike()]: caption } } : {};
+  const where = Object.keys(req.query).length
+    ? getLikeTemplate(
+        { ...req.query, ...{ login, password } },
+        ["caption"],
+        queryExclude
+      )
+    : { login, password };
 
-  word.findAll({ where: where, include: user }).then((data) => {
-    res.send(data.map((item) => item.toJSON()));
-  });
+  models.user
+    .findOne({
+      where: where,
+    })
+    .then((data) => {
+      res.send(data.toJSON());
+    });
 };
 
 const getById = (req, res) => {

@@ -1,5 +1,51 @@
 {
   "tables": {
+    "dictionaries": {
+      "tableName": "dictionaries",
+      "schema": {
+        "id": {
+          "allowNull": false,
+          "primaryKey": true,
+          "autoIncrement": true,
+          "field": "id",
+          "seqType": "Sequelize.INTEGER"
+        },
+        "caption": {
+          "field": "caption",
+          "seqType": "Sequelize.TEXT"
+        },
+        "description": {
+          "field": "description",
+          "seqType": "Sequelize.TEXT"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "createdAt",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updatedAt",
+          "seqType": "Sequelize.DATE"
+        },
+        "deletedAt": {
+          "field": "deletedAt",
+          "seqType": "Sequelize.DATE"
+        },
+        "userId": {
+          "allowNull": true,
+          "references": {
+            "model": "users",
+            "key": "id"
+          },
+          "onDelete": "NO ACTION",
+          "onUpdate": "NO ACTION",
+          "field": "userId",
+          "seqType": "Sequelize.INTEGER"
+        }
+      },
+      "indexes": []
+    },
     "users": {
       "tableName": "users",
       "schema": {
@@ -17,6 +63,14 @@
         "description": {
           "field": "description",
           "seqType": "Sequelize.TEXT"
+        },
+        "login": {
+          "field": "login",
+          "seqType": "Sequelize.STRING"
+        },
+        "password": {
+          "field": "password",
+          "seqType": "Sequelize.STRING"
         },
         "createdAt": {
           "allowNull": false,
@@ -66,49 +120,22 @@
         "deletedAt": {
           "field": "deletedAt",
           "seqType": "Sequelize.DATE"
-        }
-      },
-      "indexes": []
-    },
-    "userWord": {
-      "tableName": "userWord",
-      "schema": {
-        "createdAt": {
-          "allowNull": false,
-          "field": "createdAt",
-          "seqType": "Sequelize.DATE"
         },
-        "updatedAt": {
-          "allowNull": false,
-          "field": "updatedAt",
-          "seqType": "Sequelize.DATE"
-        },
-        "userId": {
-          "primaryKey": true,
+        "dictionaryId": {
+          "allowNull": true,
           "references": {
-            "model": "users",
+            "model": "dictionaries",
             "key": "id"
           },
           "onDelete": "NO ACTION",
           "onUpdate": "NO ACTION",
-          "field": "userId",
-          "seqType": "Sequelize.INTEGER"
-        },
-        "wordId": {
-          "primaryKey": true,
-          "references": {
-            "model": "words",
-            "key": "id"
-          },
-          "onDelete": "NO ACTION",
-          "onUpdate": "NO ACTION",
-          "field": "wordId",
+          "field": "dictionaryId",
           "seqType": "Sequelize.INTEGER"
         }
       },
       "indexes": []
     }
   },
-  "exists": true,
-  "revision": 7
+  "exists": false,
+  "revision": 1
 }
