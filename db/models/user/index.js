@@ -8,6 +8,15 @@ module.exports = (db, modelName, options) => {
       description: DataTypes.TEXT,
       login: DataTypes.STRING,
       password: DataTypes.STRING,
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      isSuperAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      test: DataTypes.BOOLEAN,
     },
     options
   );

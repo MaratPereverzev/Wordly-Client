@@ -1,39 +1,39 @@
 const models = require("@models");
-
-const userFieldsExclude = [
-  "id",
-  "password",
-  "createdAt",
-  "deletedAt",
-  "updatedAt",
-];
+const { getLikeTemplate, defInclude, defAnswer } = require("@utils");
 
 const get = (req, res) => {
   const { limit, offset, ...queryParams } = req.query;
 
   const where = Object.keys(queryParams).length
-    ? getLikeTemplate({ ...queryParams }, ["caption"], queryExclude)
+    ? getLikeTemplate({ ...queryParams }, ["caption"])
     : {};
 
   models.user
     .findAll({
       where: where,
-      include: models.dictionary,
       limit,
       offset,
-      attributes: userFieldsExclude,
+      attributes: defInclude(["login"]),
+      include: [
+        {
+          model: models.dictionary,
+          attributes: defInclude(),
+        },
+      ],
     })
-    .then((data) => {
-      res.send(data.map((item) => item.toJSON()));
-    });
+    .defAnswer(res);
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
 
   models.user
-    .findOne({ where: { id } })
-    .then((data) => res.send(data.toJSON()));
+    .findOne({
+      where: { id },
+      attributes: defInclude(),
+      include: [{ model: models.dictionary, attributes: defInclude() }],
+    })
+    .defAnswer(res);
 };
 
 module.exports = (router) => {

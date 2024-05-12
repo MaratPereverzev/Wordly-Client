@@ -1,1 +1,1 @@
-module.exports = { ...require("./routerCheck") };
+module.exports = { ...require("./routerCheck"), ...require("./checkFields") };

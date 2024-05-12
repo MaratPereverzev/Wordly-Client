@@ -11,8 +11,8 @@ const Sequelize = require("sequelize");
 
 const info = {
   revision: 1,
-  name: "addedTableDictionaryAndSomeEdits",
-  created: "2024-04-20T10:49:13.134Z",
+  name: "init",
+  created: "2024-05-11T19:34:26.206Z",
   comment: "",
 };
 
@@ -33,6 +33,17 @@ const migrationCommands = (transaction) => [
         description: { type: Sequelize.TEXT, field: "description" },
         login: { type: Sequelize.STRING, field: "login" },
         password: { type: Sequelize.STRING, field: "password" },
+        isAdmin: {
+          type: Sequelize.BOOLEAN,
+          field: "isAdmin",
+          defaultValue: false,
+        },
+        isSuperAdmin: {
+          type: Sequelize.BOOLEAN,
+          field: "isSuperAdmin",
+          defaultValue: false,
+        },
+        test: { type: Sequelize.BOOLEAN, field: "test" },
         createdAt: {
           type: Sequelize.DATE,
           field: "createdAt",

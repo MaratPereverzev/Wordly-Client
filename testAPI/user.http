@@ -1,15 +1,29 @@
-http://localhost:8080/api/user?limit=2&offset=2
+http://localhost:8080/api/user
 ###
-http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+http://localhost:8080/api/user/1
 ###
-http://localhost:8080/api/private/user/2?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
 ###
-POST http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns
+http://localhost:8080/api/private/user/1?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+###
+POST http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
 content-type: application/json
 
 {
-  "caption": "correct",
+  "caption": "Marat",
   "description": "okay",
-  "login": "john",
-  "password": "doe"
+  "login": "Marat",
+  "password": "123321"
 }
+###
+PUT http://localhost:8080/api/private/user?id=1&authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+content-type: application/json
+
+{
+  "caption": "Updated",
+  "description": "version",
+  "login": "marat",
+  "password": "123321Ok"
+}
+###
+DELETE http://localhost:8080/api/private/user?id=5&authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU

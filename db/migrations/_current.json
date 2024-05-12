@@ -72,6 +72,24 @@
           "field": "password",
           "seqType": "Sequelize.STRING"
         },
+        "isAdmin": {
+          "defaultValue": {
+            "value": false
+          },
+          "field": "isAdmin",
+          "seqType": "Sequelize.BOOLEAN"
+        },
+        "isSuperAdmin": {
+          "defaultValue": {
+            "value": false
+          },
+          "field": "isSuperAdmin",
+          "seqType": "Sequelize.BOOLEAN"
+        },
+        "test": {
+          "field": "test",
+          "seqType": "Sequelize.BOOLEAN"
+        },
         "createdAt": {
           "allowNull": false,
           "field": "createdAt",

@@ -1,25 +1,23 @@
 const models = require("@models");
-const { getLikeTemplate } = require("@utils");
+const {
+  getLikeTemplate,
+  checkFields,
+  excludeFields,
+  defInclude,
+} = require("@utils");
 
 const queryExclude = ["authorization"];
 
 const get = (req, res) => {
-  const { login, password } = req?.tokenData;
+  models.dictionary
+    .findAll({ where: { userId: req.userData.id }, include: models.word })
+    .then((dictionaries) => {
+      const wordsList = [];
 
-  const where = Object.keys(req.query).length
-    ? getLikeTemplate(
-        { ...req.query, ...{ login, password } },
-        ["caption"],
-        queryExclude
-      )
-    : { login, password };
-
-  models.user
-    .findOne({
-      where: where,
-    })
-    .then((data) => {
-      res.send(data.toJSON());
+      dictionaries.forEach((dict) =>
+        dict.words.forEach((word) => wordsList.push(word))
+      );
+      res.send(wordsList);
     });
 };
 
@@ -31,7 +29,7 @@ const getById = (req, res) => {
 
 const post = (req, res) => {
   const data = req.body;
-  word.create(data).then((data) => res.send(data.toJSON()));
+  word.create(data).defAnswer(res);
 };
 
 const put = (req, res) => {
@@ -41,10 +39,34 @@ const put = (req, res) => {
   word.update(data, { where: { id } }).then((data) => res.send(data));
 };
 
+const del = (req, res) => {
+  const { id } = req.query;
+
+  if (id && (req?.userData.isAdmin || req?.userData.isSuperAdmin))
+    models.word.destroy({ where: { id } }).then(() => res.send("DELETED"));
+  else {
+    throw new Error("error");
+  }
+};
+
 module.exports = (router) => {
   router.get("/", get);
   router.get("/:id", getById);
-  router.post("/", post);
-  router.put("/", put);
-  //router.delete("/", del);
+  router.post(
+    "/",
+    checkFields(
+      excludeFields(defInclude(["login", "password"]), ["id"]),
+      "body"
+    ),
+    post
+  );
+  router.put(
+    "/",
+    checkFields(
+      excludeFields(defInclude(["login", "password"]), ["id"]),
+      "body"
+    ),
+    put
+  );
+  router.delete("/", del);
 };

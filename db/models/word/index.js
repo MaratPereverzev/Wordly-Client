@@ -9,5 +9,9 @@ module.exports = (db, modelName, options) => {
     },
     options
   );
+
+  model.associate = (models) => {
+    model.belongsTo(models.dictionary);
+  };
   return model;
 };

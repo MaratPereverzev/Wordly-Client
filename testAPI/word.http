@@ -1,6 +1,8 @@
-http://localhost:8080/api/private/word
+http://localhost:8080/api/word
 ###
-PUT http://localhost:8080/api/private/word?id=2
+http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+###
+PUT http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns&id=2
 content-type: application/json
 
 {

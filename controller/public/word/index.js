@@ -1,20 +1,34 @@
-const { word } = require("@models");
-const { Op } = require("sequelize");
+const models = require("@models");
+const { defInclude, getLikeTemplate, defAnswer } = require("@utils");
 
 const get = (req, res) => {
-  const { caption } = req.query;
+  const { limit, offset, ...queryParams } = req.query;
 
-  const where = caption ? { caption: { [Op.getLike()]: caption } } : {};
+  const where = Object.keys(queryParams).length
+    ? getLikeTemplate({ ...queryParams }, ["caption"])
+    : {};
 
-  word.findAll({ where: where }).then((data) => {
-    res.send(data.map((item) => item.toJSON()));
-  });
+  models.word
+    .findAll({
+      where: where,
+      limit,
+      offset,
+      attributes: defInclude(),
+      //include: models.dictionary,
+    })
+    .defAnswer(res);
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
 
-  word.findOne({ where: { id } }).then((data) => res.send(data.toJSON()));
+  models.word
+    .findOne({
+      where: { id },
+      attributes: defInclude(),
+      include: [{ model: models.dictionary, attributes: defInclude() }],
+    })
+    .defAnswer(res);
 };
 
 module.exports = (router) => {

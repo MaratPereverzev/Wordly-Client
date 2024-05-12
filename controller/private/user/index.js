@@ -32,9 +32,7 @@ const get = (req, res) => {
         },
       ],
     })
-    .then((data) => {
-      res.send(data.toJSON());
-    });
+    .defAnswer(res);
 };
 
 const getById = (req, res) => {
@@ -48,26 +46,48 @@ const getById = (req, res) => {
         : defInclude(["login"]),
       include: [{ model: models.dictionary, attributes: defInclude() }],
     })
-    .then((data) => res.send(data.toJSON()));
+    .defAnswer(res);
 };
 
 const post = (req, res) => {
   const data = req.body;
 
-  models.user.create(data).then((data) => res.send(data.toJSON()));
+  models.user.create(data).defAnswer(res);
 };
 
-const put = (req, res) => {};
+const put = (req, res) => {
+  const { id } = req.query;
 
-const del = () => {};
+  models.user.update(req.body, { where: { id } }).defAnswer(res);
+};
+
+const del = (req, res) => {
+  const { id } = req.query;
+
+  if (id && (req?.userData.isAdmin || req?.userData.isSuperAdmin))
+    models.user.destroy({ where: { id } }).then(() => res.send("DELETED"));
+  else {
+    throw new Error("error");
+  }
+};
 
 module.exports = (router) => {
   router.get("/", get);
   router.get("/:id", getById);
-  router.put("/", put);
+  router.put(
+    "/",
+    checkFields(
+      excludeFields(defInclude(["login", "password"]), ["id"]),
+      "body"
+    ),
+    put
+  );
   router.post(
     "/",
-    checkFields(excludeFields(defInclude(["login", "password"]), ["id"])),
+    checkFields(
+      excludeFields(defInclude(["login", "password"]), ["id"]),
+      "body"
+    ),
     post
   );
   router.delete("/", del);
