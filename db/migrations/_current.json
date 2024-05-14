@@ -86,10 +86,6 @@
           "field": "isSuperAdmin",
           "seqType": "Sequelize.BOOLEAN"
         },
-        "test": {
-          "field": "test",
-          "seqType": "Sequelize.BOOLEAN"
-        },
         "createdAt": {
           "allowNull": false,
           "field": "createdAt",
@@ -154,6 +150,6 @@
       "indexes": []
     }
   },
-  "exists": false,
-  "revision": 1
+  "exists": true,
+  "revision": 2
 }

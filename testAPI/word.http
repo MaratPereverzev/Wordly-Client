@@ -1,21 +1,23 @@
-http://localhost:8080/api/word
+http://localhost:8080/api/word?userId=2
 ###
-http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+http://localhost:8080/api/word/1
 ###
-PUT http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.uF0iXq0ALrNOvyh454l24htjQgcmdAttrLN5OcJGTns&id=2
-content-type: application/json
-
-{
-  "caption": "nill",
-  "description": "x;xx",
-  "userId": 2
-}
-###
-POST http://localhost:8080/api/private/word
+POST http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
 content-type: application/json
 
 {
   "caption": "ok",
   "description": "x;okasdfs",
-  "userId": 2
+  "dictionaryId": 2
 }
+###
+PUT http://localhost:8080/api/private/word?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+content-type: application/json
+
+{
+  "caption": "Hello",
+  "description": "Привет",
+  "dictionaryId": 2
+}
+###
+DELETE http://localhost:8080/api/private/user?id=5&authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU

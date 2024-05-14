@@ -2,21 +2,29 @@ const models = require("@models");
 const { defInclude, getLikeTemplate, defAnswer } = require("@utils");
 
 const get = (req, res) => {
-  const { limit, offset, ...queryParams } = req.query;
+  const { userId, limit, offset, ...queryParams } = req.query;
 
   const where = Object.keys(queryParams).length
     ? getLikeTemplate({ ...queryParams }, ["caption"])
     : {};
 
-  models.word
-    .findAll({
-      where: where,
-      limit,
-      offset,
-      attributes: defInclude(),
-      //include: models.dictionary,
-    })
-    .defAnswer(res);
+  if (userId) {
+    models.dictionary
+      .findAll({ where: { userId } })
+      .then((dictionaries) =>
+        models.word.findAll({
+          where: {
+            dictionaryId: dictionaries.map((dict) => dict.id),
+            ...where,
+          },
+          include: [{ model: models.dictionary, attributes: defInclude() }],
+          attributes: defInclude(),
+        })
+      )
+      .defAnswer(res);
+  } else {
+    models.word.findAll({ where }).defAnswer(res);
+  }
 };
 
 const getById = (req, res) => {

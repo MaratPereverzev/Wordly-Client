@@ -16,7 +16,6 @@ module.exports = (db, modelName, options) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      test: DataTypes.BOOLEAN,
     },
     options
   );

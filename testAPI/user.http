@@ -2,18 +2,14 @@ http://localhost:8080/api/user
 ###
 http://localhost:8080/api/user/1
 ###
-http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
-###
-http://localhost:8080/api/private/user/1?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
-###
 POST http://localhost:8080/api/private/user?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
 content-type: application/json
 
 {
-  "caption": "Marat",
-  "description": "okay",
-  "login": "Marat",
-  "password": "123321"
+  "caption": "Anthony",
+  "description": "user",
+  "login": "Anthony32",
+  "password": "Anthony32"
 }
 ###
 PUT http://localhost:8080/api/private/user?id=1&authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU

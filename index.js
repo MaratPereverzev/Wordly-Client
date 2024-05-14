@@ -4,17 +4,9 @@ const fileUpload = require("express-fileupload");
 const express = require("express");
 const { bindControllers } = require("@controller");
 const { dictionary, word, user } = require("@models");
-const { jwtCreate } = require("@utils");
 
 const app = express();
 app.use(express.json());
-
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/temp/",
-  })
-);
 
 bindControllers(app);
 
@@ -28,9 +20,9 @@ word
   */
 /*
 dictionary
-  .create({ caption: "dictionarySpanish", description: "spanish", userId: 1 })
+  .create({ caption: "English", description: "learning english", userId: 2 })
   .then((data) => console.log(data));
-  */
+*/
 //console.log(jwtCreate({ login: "Marat", password: "123321" }, "password"));
 /*
 user

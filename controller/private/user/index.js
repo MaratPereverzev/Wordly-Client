@@ -1,53 +1,5 @@
 const models = require("@models");
-const {
-  getLikeTemplate,
-  defInclude,
-  checkFields,
-  excludeFields,
-} = require("@utils");
-
-const queryExclude = ["authorization"];
-
-const get = (req, res) => {
-  const { login, password } = req?.userData;
-
-  const where = Object.keys(req.query).length
-    ? getLikeTemplate(
-        { ...req.query, ...{ login, password } },
-        ["caption", "description"],
-        queryExclude
-      )
-    : { login, password };
-
-  models.user
-    .findOne({
-      where: where,
-      attributes: req?.userData?.isAdmin
-        ? req.userData._options.attributes
-        : defInclude(["login"]),
-      include: [
-        {
-          model: models.dictionary,
-          attributes: defInclude(),
-        },
-      ],
-    })
-    .defAnswer(res);
-};
-
-const getById = (req, res) => {
-  const { id } = req.params;
-
-  models.user
-    .findOne({
-      where: { id },
-      attributes: req?.userData?.isAdmin
-        ? req.userData._options.attributes
-        : defInclude(["login"]),
-      include: [{ model: models.dictionary, attributes: defInclude() }],
-    })
-    .defAnswer(res);
-};
+const { defInclude, checkFields, excludeFields } = require("@utils");
 
 const post = (req, res) => {
   const data = req.body;
@@ -72,8 +24,6 @@ const del = (req, res) => {
 };
 
 module.exports = (router) => {
-  router.get("/", get);
-  router.get("/:id", getById);
   router.put(
     "/",
     checkFields(
