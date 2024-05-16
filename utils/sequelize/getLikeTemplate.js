@@ -1,6 +1,12 @@
 const { Op } = require("sequelize");
 
-const getLikeTemplate = (data, fields, excludeFields) => {
+//Returns an object represents a filter for sequelize query
+//Accepts:
+//  data (from url) {object},
+//  fields (which getLike() needs to be implemented for) {array},
+//  excludeFields (fields that must be excluded from sequelize query) {array}
+
+const getLikeTemplate = (data, fields, excludeFields = []) => {
   if (!typeof data === "object" || !Array.isArray(fields)) {
     throw new Error("ok");
   }

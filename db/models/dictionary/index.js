@@ -12,7 +12,7 @@ module.exports = (db, modelName, options) => {
 
   model.associate = (models) => {
     model.hasMany(models.word, {
-      onDelete: "NO ACTION",
+      onDelete: "CASCADE",
       onUpdate: "NO ACTION",
     });
   };
