@@ -3,26 +3,24 @@ require("@config");
 const fileUpload = require("express-fileupload");
 const express = require("express");
 const { bindControllers } = require("@controller");
-const { user } = require("@models");
-const { jwtCreate } = require("@utils");
 
 const app = express();
 
 app.use(express.json());
-/*
+
 app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/temp/",
   })
 );
-*/
 
 bindControllers(app);
 
 app.listen(8080, () => {
   console.log("listening on PORT :8080");
 });
+
 //console.log(jwtCreate({ login: "Admin", password: "QWERTY" }, "password"));
 /*
 user

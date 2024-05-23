@@ -8,7 +8,7 @@ const jwtCreate = (data) => {
 };
 
 const jwtValidate = async (req, res, next) => {
-  const { authorization } = req.query;
+  const { authorization } = req.headers;
 
   const tokenData = jwt.verify(authorization, jwtPassword);
 

@@ -1,5 +1,10 @@
 const models = require("@models");
-const { getLikeTemplate, defInclude, defAnswer } = require("@utils");
+const {
+  getLikeTemplate,
+  defInclude,
+  excludeFields,
+  defAnswer,
+} = require("@utils");
 
 const get = (req, res) => {
   const { limit, offset, ...queryParams } = req.query;
@@ -9,7 +14,7 @@ const get = (req, res) => {
     : {};
 
   models.user
-    .findAll({
+    .findAndCountAll({
       where: where,
       limit,
       offset,
@@ -17,7 +22,7 @@ const get = (req, res) => {
       include: [
         {
           model: models.dictionary,
-          attributes: defInclude(),
+          attributes: excludeFields(defInclude(), ["id"]),
         },
       ],
     })

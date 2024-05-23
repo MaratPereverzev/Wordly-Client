@@ -1,4 +1,4 @@
-Promise.prototype.defAnswer = function (res, status = 404) {
+Promise.prototype.defAnswer = function (res, errorStatus = 404) {
   this.then((data) => {
     if (Array.isArray(data)) {
       res.send(
@@ -6,9 +6,6 @@ Promise.prototype.defAnswer = function (res, status = 404) {
           res.socket._httpMessage.req.method === "PUT" ? item : item.toJSON()
         )
       );
-    } else
-      res.send(
-        res.socket._httpMessage.req.method === "PUT" ? data : data.toJSON()
-      );
-  }).catch((err) => res.status(status).send("Something went wrong"));
+    } else res.send(data);
+  }).catch((err) => res.status(errorStatus).send("Something went wrong"));
 };

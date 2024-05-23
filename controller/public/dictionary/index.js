@@ -9,13 +9,17 @@ const get = (req, res) => {
     excludeFields(defInclude(), ["id"])
   );
 
-  models.dictionary.findAll({ where, limit, offset }).defAnswer(res);
+  models.dictionary
+    .findAndCountAll({ where, limit, offset, attributes: defInclude() })
+    .defAnswer(res);
 };
 
 const getById = (req, res) => {
   const { id } = req.params;
 
-  models.dictionary.findOne({ where: { id } }).defAnswer(res);
+  models.dictionary
+    .findOne({ where: { id }, attributes: defInclude() })
+    .defAnswer(res);
 };
 
 module.exports = (router) => {

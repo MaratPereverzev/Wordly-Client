@@ -46,6 +46,57 @@
       },
       "indexes": []
     },
+    "media": {
+      "tableName": "media",
+      "schema": {
+        "id": {
+          "allowNull": false,
+          "primaryKey": true,
+          "autoIncrement": true,
+          "field": "id",
+          "seqType": "Sequelize.INTEGER"
+        },
+        "caption": {
+          "field": "caption",
+          "seqType": "Sequelize.TEXT"
+        },
+        "description": {
+          "field": "description",
+          "seqType": "Sequelize.TEXT"
+        },
+        "name": {
+          "field": "name",
+          "seqType": "Sequelize.TEXT"
+        },
+        "size": {
+          "field": "size",
+          "seqType": "Sequelize.FLOAT"
+        },
+        "mimetype": {
+          "field": "mimetype",
+          "seqType": "Sequelize.TEXT"
+        },
+        "md5": {
+          "field": "md5",
+          "seqType": "Sequelize.TEXT"
+        },
+        "createdAt": {
+          "allowNull": false,
+          "field": "createdAt",
+          "seqType": "Sequelize.DATE"
+        },
+        "updatedAt": {
+          "allowNull": false,
+          "field": "updatedAt",
+          "seqType": "Sequelize.DATE"
+        },
+        "deletedAt": {
+          "field": "deletedAt",
+          "seqType": "Sequelize.DATE"
+        }
+      },
+      "indexes": []
+    },
     "users": {
       "tableName": "users",
       "schema": {
@@ -141,7 +192,7 @@
             "model": "dictionaries",
             "key": "id"
           },
-          "onDelete": "NO ACTION",
+          "onDelete": "CASCADE",
           "onUpdate": "NO ACTION",
           "field": "dictionaryId",
           "seqType": "Sequelize.INTEGER"
@@ -151,5 +202,5 @@
     }
   },
   "exists": true,
-  "revision": 2
+  "revision": 5
 }

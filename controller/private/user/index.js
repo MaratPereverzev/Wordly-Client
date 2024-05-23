@@ -19,7 +19,7 @@ const del = (req, res) => {
   if (id && (req?.userData.isAdmin || req?.userData.isSuperAdmin))
     models.user.destroy({ where: { id } }).then(() => res.send("DELETED"));
   else {
-    throw new Error("error");
+    throw new Error("YOU AREN'T AN ADMIN BRO");
   }
 };
 

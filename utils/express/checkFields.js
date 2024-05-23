@@ -9,7 +9,7 @@ const checkFields =
 
     if (errorFields.length > 0) {
       console.warning(
-        `missing fields for in \x1b[4m${
+        `missing fields for \x1b[4m${
           req.baseUrl
         }\x1b[0m: [\x1b[31m${errorFields.join(", ")}\x1b[0m]`
       );

@@ -1,0 +1,13 @@
+POST http://localhost:8080/api/private/media
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="image"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< C:\\Users\marat\Desktop\1.jpg
+--MfnBoundry--
+
+###
+http://localhost:8080/media?fileId=0c199508c092a1820417a53160522777
