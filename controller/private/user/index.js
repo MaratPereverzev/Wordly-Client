@@ -1,16 +1,30 @@
 const models = require("@models");
+const bcrypt = require("bcrypt");
 const { defInclude, checkFields, excludeFields } = require("@utils");
 
-const post = (req, res) => {
+const post = async (req, res) => {
   const data = req.body;
 
+  data.password = await bcrypt.hash(data.password, 10);
   models.user.create(data).defAnswer(res);
 };
 
-const put = (req, res) => {
+const put = async (req, res) => {
   const { id } = req.query;
+  const { password, ...bodyParams } = req.body;
 
-  models.user.update(req.body, { where: { id } }).defAnswer(res);
+  const findUser = await models.user.findOne({ where: { id } });
+
+  if (await bcrypt.compare(password, findUser.password)) {
+    findUser.update(bodyParams).defAnswer(res);
+  } else {
+    findUser
+      .update({
+        ...bodyParams,
+        password: await bcrypt.hash(req.body.password, 10),
+      })
+      .defAnswer(res);
+  }
 };
 
 const del = (req, res) => {
@@ -24,14 +38,7 @@ const del = (req, res) => {
 };
 
 module.exports = (router) => {
-  router.put(
-    "/",
-    checkFields(
-      excludeFields(defInclude(["login", "password"]), ["id"]),
-      "body"
-    ),
-    put
-  );
+  router.put("/", put);
   router.post(
     "/",
     checkFields(
