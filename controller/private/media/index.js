@@ -1,14 +1,22 @@
 const models = require("@models");
-const { checkFields, defInclude, excludeFields } = require("@utils");
+const { checkFields, createPath } = require("@utils");
 
 const post = async (req, res) => {
   const files = Object.keys(req.files);
 
   for (const file of files) {
-    const fileExists = await models.media.findOne({ where: { md5: file.md5 } });
+    models.media
+      .findOne({
+        where: { md5: req.files[file].md5 },
+      })
+      .then((data) => {
+        req.files[file].mv(`${createPath(req.files[file].md5)}`);
+        if (data.md5 !== req.files[file].md5)
+          return models.media.create({ ...req.files[file] });
 
-    if (!fileExists) models.media.create({ ...req.files[file] }).defAnswer(res);
-    req.files[file].mv(`./testAPI/${req.files[file].md5}`);
+        return data;
+      })
+      .defAnswer(res);
   }
 };
 

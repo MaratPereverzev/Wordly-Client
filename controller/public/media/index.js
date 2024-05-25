@@ -1,6 +1,7 @@
 const models = require("@models");
 const fs = require("fs");
 const zlib = require("zlib");
+const { createPath } = require("@utils");
 
 const get = (req, res) => {
   const { md5 } = req.query;
@@ -19,7 +20,7 @@ const get = (req, res) => {
         "Content-Length": data.size,
         "Content-Range": `0-*/${data.size}`,
       };
-      const filePipe = fs.createReadStream(`./testAPI/${data.md5}`);
+      const filePipe = fs.createReadStream(`${createPath(data.md5)}`);
 
       res.set(headers);
       if (!!req.acceptsEncoding("gzip")) {

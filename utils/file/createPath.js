@@ -1,5 +1,13 @@
+const fs = require("fs");
+
 const createPath = (path) => {
-  return `./testAPI/${path}`;
+  const saveFolder = "./media";
+
+  if (!fs.existsSync(saveFolder)) {
+    fs.mkdirSync(saveFolder);
+  }
+
+  return `${saveFolder}/${path}`;
 };
 
 module.exports = { createPath };
