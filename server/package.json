@@ -1,0 +1,33 @@
+{
+  "name": "financetracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "mic": "npx sequelize-mig migration:make -n",
+    "mi": "npx sequelize-cli db:migrate"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.2",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-mig": "github:MaratPereverzev/sequelize-mig"
+  },
+  "_moduleAliases": {
+    "@models": "db/models",
+    "@config": "config",
+    "@controller": "controller",
+    "@utils": "utils"
+  },
+  "keywords": [],
+  "description": ""
+}
