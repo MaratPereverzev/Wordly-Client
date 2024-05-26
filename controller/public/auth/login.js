@@ -1,5 +1,6 @@
 const models = require("@models");
 const { jwtCreate } = require("@utils");
+const { jwtPassword } = require("@config");
 const bcrypt = require("bcrypt");
 
 const get = async (req, res) => {
@@ -19,10 +20,14 @@ const get = async (req, res) => {
 
   res.setHeader(
     "Authorization",
-    jwtCreate({ login: findUser.login, password })
+    jwtCreate({ login: findUser.login, password }, jwtPassword)
   );
 
-  res.send("ok");
+  res.send({
+    isAuth: true,
+    accessToken: jwtCreate({ login: findUser.login, password }, jwtPassword),
+    userLogin: findUser.login,
+  });
 };
 
 module.exports = (router) => {

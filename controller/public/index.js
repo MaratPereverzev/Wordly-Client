@@ -24,7 +24,11 @@ readDirSync(__dirname, (dir, dirs, files) => {
     .forEach((item) => {
       findFiles.push({
         path: item,
-        dirName: path.dirname(item.replace(__dirname + path.sep, ""), ""),
+        dirName: path.dirname(item.replace(__dirname + path.sep, "")),
+        routePostfix:
+          path.basename(item, fileExt) === basename
+            ? ""
+            : "/" + path.basename(item, fileExt),
       });
     });
 });
@@ -36,8 +40,7 @@ findFiles.forEach((item) => {
       : item.dirName
           .split(path.sep)
           .map((item, index) => (index !== 0 ? CFLWI(item) : item))
-          .join("");
-
+          .join("") + item.routePostfix;
   const loadController = require(`${item.path}`);
 
   if (typeof loadController === "function") {
