@@ -29,7 +29,7 @@ const Default = (props) => {
     if (grow) sx.flexGrow = typeof grow === "boolean" ? 1 : grow;
   }
 
-  return <Box sx={{ m: 0, p: 0, ...sx }} {...other} />;
+  return <Box sx={{ ...sx }} {...other} />;
 };
 
 export { Default as Box };

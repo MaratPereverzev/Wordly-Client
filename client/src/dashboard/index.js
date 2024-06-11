@@ -1,17 +1,15 @@
 import { Box } from "@components";
 import { Header } from "./header";
+import { Sidebar } from "./sidebar";
+import { Page } from "../page";
 
 const Default = (props) => {
   return (
     <Box flex column grow>
       <Header />
       <Box flex grow sx={{ border: "1px solid black" }}>
-        <Box flex center column>
-          dashboard navigation
-        </Box>
-        <Box flex grow={3} center sx={{ border: "1px solid black" }}>
-          hello
-        </Box>
+        <Sidebar />
+        <Page />
       </Box>
     </Box>
   );
