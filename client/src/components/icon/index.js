@@ -6,6 +6,10 @@ const iconList = {
   account: "person",
   search: "search",
   dictionary: "book",
+  open: "chevron_right",
+  word: "translate",
+  saved: "bookmark",
+  home: "home",
 };
 
 const Default = (props) => {

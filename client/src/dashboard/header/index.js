@@ -1,24 +1,14 @@
 import { Box, ButtonIcon, Input } from "@components";
-import { dispatchEvent } from "@utils";
 
 const Default = (props) => {
+  const { sx } = props;
   return (
-    <Box flex sx={{ border: "1px solid black" }}>
-      <Box flex ai jc="space-between">
-        <ButtonIcon
-          variant="text"
-          icon="menu"
-          sx={{ m: 1 }}
-          onClick={() => {
-            dispatchEvent("sidebarOpen");
-          }}
-        />
-      </Box>
-      <Box flex ai grow sx={{ m: 1 }} jc="space-between">
+    <Box flex sx={{ p: 1, ...sx }}>
+      <Box flex ai grow jc="space-between">
         some text
       </Box>
       <Box flex ai gap grow jc="flex-end">
-        <Box flex ai gap sx={{ m: 1 }}>
+        <Box flex ai gap>
           <Input
             icon="search"
             placeholder="Search"

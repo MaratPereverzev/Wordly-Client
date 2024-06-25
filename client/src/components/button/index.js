@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@mui/material";
 import { Icon } from "../icon";
-import { Typography } from "../typography";
+import { Text } from "../text";
 
 const Default = (props) => {
   const {
@@ -18,11 +18,10 @@ const Default = (props) => {
     <Button
       size="small"
       sx={{
-        m: 0,
         p: 0.5,
-        minWidth: 0,
+        justifyContent: "flex-start",
+        minWidth: "min-content",
         textTransform: "capitalize",
-        color: "inherit",
         ...sx,
       }}
       variant={variant}
@@ -30,7 +29,7 @@ const Default = (props) => {
     >
       {icon && <Icon icon={icon} sx={{ ...sxIcon }} />}
       {captionIsString ? (
-        <Typography caption={caption} sx={{ ...sxText }} />
+        <Text caption={caption} sx={{ ...sxText }} />
       ) : (
         caption
       )}
@@ -40,13 +39,12 @@ const Default = (props) => {
 };
 
 const MenuButtonTemplate = (props) => {
-  const { sx, name, active, ...other } = props;
+  const { sx, name, variant, ...other } = props;
 
   return (
     <Default
-      variant={active ? "contained" : "text"}
+      variant={variant}
       sx={{
-        justifyContent: "flex-start",
         ...sx,
       }}
       {...other}

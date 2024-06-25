@@ -10,4 +10,4 @@ const Default = (props) => {
   );
 };
 
-export { Default as Typography };
+export { Default as Text };

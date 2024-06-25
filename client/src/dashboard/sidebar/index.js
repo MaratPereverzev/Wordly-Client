@@ -1,19 +1,28 @@
-import { Box, MenuButtonTemplate, Icon, Typography } from "@components";
-import { addEventListener, dispatchEvent, getPageHash } from "@utils";
-import { useEffect, useState } from "react";
+import { Box, MenuButtonTemplate, Icon, Text, Divider } from "@components";
+import {
+  addEventListener,
+  dispatchEvent,
+  getPageHash,
+  setPageHash,
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "@utils";
+import { useRender } from "@hooks";
+import { useEffect, useState, useCallback } from "react";
 
 const MenuButton = (props) => {
-  const { sx, icon, name, iconSx, open, caption, ...other } = props;
+  const { sx, sxIcon, icon, name, open, caption, ...other } = props;
   let active = name === getPageHash();
 
   return (
     <MenuButtonTemplate
       color="inherit"
       variant={active ? "contained" : "text"}
+      sx={{ gap: "5px", ...sx }}
       caption={
         <>
-          <Icon icon={icon} />
-          {open && <Typography caption={caption} />}
+          <Icon icon={icon} sx={{ ...sxIcon }} />
+          {open && <Text caption={caption} />}
         </>
       }
       onClick={() => {
@@ -27,9 +36,15 @@ const MenuButton = (props) => {
 
 const Default = (props) => {
   const { sx } = props;
-  const [open, setOpen] = useState(true);
-  const [, setRender] = useState(true);
+  const [open, setOpen] = useState(
+    getLocalStorageValue("sidebarOpen") ?? false
+  );
+  const handleOnClick = useCallback(() => {
+    dispatchEvent("sidebarOpen");
+  }, []);
+  const setRender = useRender();
 
+  useEffect(() => setRender(), [setRender]);
   useEffect(
     () =>
       addEventListener("sidebarOpen", () => {
@@ -38,14 +53,24 @@ const Default = (props) => {
     []
   );
 
+  useEffect(() =>
+    addEventListener("closeSideBar", () => {
+      setOpen(false);
+    })
+  );
+
   useEffect(
     () =>
       addEventListener("onChangePage", ({ detail }) => {
-        setRender((prev) => !prev);
-        window.location.hash = detail.hash;
+        setRender();
+        setPageHash(detail.hash);
       }),
-    []
+    [setRender]
   );
+
+  useEffect(() => {
+    setLocalStorageValue("sidebarOpen", open);
+  }, [open]);
 
   return (
     <Box
@@ -58,26 +83,27 @@ const Default = (props) => {
       }}
     >
       <Box flex grow gap column sx={{ p: 1 }}>
+        <MenuButton name="home" caption="home" icon="home" open={open} />
         <MenuButton
           name="dictionaries"
-          caption="Dictionaries"
+          caption="dictionaries"
           icon="dictionary"
           open={open}
         />
-        <MenuButton
-          name="hello"
-          caption="hello"
-          icon={"dictionary"}
-          open={open}
-        />
+        <MenuButton name="words" caption="words" icon="word" open={open} />
+        <MenuButton name="saved" caption="saved" icon="saved" open={open} />
       </Box>
-      <Box flex column sx={{ p: 1 }}>
+      <Box flex gap="5px" column sx={{ p: 1 }}>
+        <Divider />
         <MenuButton
-          name="hello1"
-          sx={{ gap: "10px" }}
-          icon="dictionary"
-          caption="hello"
+          sxIcon={{
+            transform: open ? "rotate(180deg)" : "rotate(0)",
+            transition: "transform 200ms ease-in-out",
+          }}
+          icon="open"
+          caption="close"
           open={open}
+          onClick={handleOnClick}
         />
       </Box>
     </Box>
