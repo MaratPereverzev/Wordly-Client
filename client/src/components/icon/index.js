@@ -1,4 +1,5 @@
 import { Box } from "../box";
+import { memo } from "react";
 
 const iconList = {
   menu: "menu",
@@ -12,7 +13,11 @@ const iconList = {
   home: "home",
 };
 
-const Default = (props) => {
+const areEqual = (prev, next) => {
+  return JSON.stringify(prev.sx) === JSON.stringify(next.sx);
+};
+
+const Default = memo((props) => {
   const { icon, sx, ...other } = props;
 
   return (
@@ -22,6 +27,6 @@ const Default = (props) => {
       </span>
     </Box>
   );
-};
+}, areEqual);
 
 export { Default as Icon };

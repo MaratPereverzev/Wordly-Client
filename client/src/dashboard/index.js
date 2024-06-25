@@ -3,12 +3,13 @@ import { Header } from "./header";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
 import { useEffect } from "react";
-import { setPageHash } from "@utils";
+import { setPageHash, getLocalStorageValue } from "@utils";
 
 const Default = (props) => {
   useEffect(() => {
-    setPageHash("home");
+    setPageHash(getLocalStorageValue("page") ?? "home");
   }, []);
+
   return (
     <Box flex column gap grow sx={{ backgroundColor: "#ededed", p: 1 }}>
       <Header

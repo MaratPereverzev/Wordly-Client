@@ -8,7 +8,12 @@ import {
   setLocalStorageValue,
 } from "@utils";
 import { useRender } from "@hooks";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
+
+function areEqual(prev, next) {
+  console.log(prev, next);
+  return true;
+}
 
 const MenuButton = (props) => {
   const { sx, sxIcon, icon, name, open, caption, ...other } = props;
@@ -34,7 +39,7 @@ const MenuButton = (props) => {
   );
 };
 
-const Default = (props) => {
+const Default = memo((props) => {
   const { sx } = props;
   const [open, setOpen] = useState(
     getLocalStorageValue("sidebarOpen") ?? false
@@ -61,8 +66,8 @@ const Default = (props) => {
   useEffect(
     () =>
       addEventListener("onChangePage", ({ detail }) => {
-        setRender();
         setPageHash(detail.hash);
+        setRender();
       }),
     [setRender]
   );
@@ -107,6 +112,6 @@ const Default = (props) => {
       </Box>
     </Box>
   );
-};
+}, areEqual);
 
 export { Default as Sidebar };
