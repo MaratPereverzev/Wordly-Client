@@ -1,6 +1,12 @@
 const getLocalStorageValue = (key) => {
   if (typeof key !== "string") throw new Error("incorrect key");
-  return JSON.parse(localStorage.getItem(key));
+
+  const data = localStorage.getItem(key);
+  try {
+    return JSON.parse(data);
+  } catch {
+    return data;
+  }
 };
 
 const setLocalStorageValue = (key, value) => {

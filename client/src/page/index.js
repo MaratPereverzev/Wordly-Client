@@ -1,10 +1,16 @@
 import { Box } from "@components";
 import { Dictionaries } from "./dictionaries";
 import { useEffect, useState } from "react";
-import { addEventListener, getPageHash, dispatchEvent } from "@utils";
+import {
+  addEventListener,
+  getPageHash,
+  dispatchEvent,
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "@utils";
 
 const Default = (props) => {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(getLocalStorageValue("page") ?? "home");
 
   useEffect(
     () =>
@@ -17,6 +23,11 @@ const Default = (props) => {
       }),
     []
   );
+
+  useEffect(() => {
+    setLocalStorageValue("page", page);
+  }, [page]);
+
   return (
     <Box
       flex

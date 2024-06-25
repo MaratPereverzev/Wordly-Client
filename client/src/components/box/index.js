@@ -11,8 +11,11 @@ const Default = (props) => {
     gap,
     grow,
     center,
+    grid,
     ...other
   } = props;
+
+  if (flex && grid) throw new Error("flex && grid display at the same time");
 
   if (flex) {
     sx.display = "flex";
@@ -29,6 +32,9 @@ const Default = (props) => {
     if (grow) sx.flexGrow = typeof grow === "boolean" ? 1 : grow;
   }
 
+  if (grid) {
+    sx.display = "grid";
+  }
   return <Box sx={{ ...sx }} {...other} />;
 };
 

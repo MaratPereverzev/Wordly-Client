@@ -1,2 +1,2 @@
-export * from "./getHash";
+export * from "./pageHash";
 export * from "./localStorage";

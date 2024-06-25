@@ -44,7 +44,6 @@ const Default = (props) => {
   }, []);
   const setRender = useRender();
 
-  useEffect(() => setRender(), [setRender]);
   useEffect(
     () =>
       addEventListener("sidebarOpen", () => {
