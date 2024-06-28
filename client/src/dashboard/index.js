@@ -1,5 +1,4 @@
 import { Box } from "@components";
-import { Header } from "./header";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
 import { useEffect } from "react";
@@ -11,22 +10,19 @@ const Default = (props) => {
   }, []);
 
   return (
-    <Box flex column gap grow sx={{ backgroundColor: "#ededed", p: 1 }}>
-      <Header
+    <Box
+      flex
+      gap
+      grow
+      sx={{ backgroundColor: "#ededed", p: 1, overflow: "hidden" }}
+    >
+      <Sidebar
         sx={{
           backgroundColor: "white",
           borderRadius: 2,
         }}
       />
-      <Box flex grow gap>
-        <Sidebar
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 2,
-          }}
-        />
-        <Page />
-      </Box>
+      <Page />
     </Box>
   );
 };

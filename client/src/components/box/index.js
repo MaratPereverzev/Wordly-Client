@@ -12,6 +12,11 @@ const Default = (props) => {
     grow,
     center,
     grid,
+    columnWidth,
+    rowWidth,
+    gridFlow,
+    gridTemplate,
+    templateColumns,
     ...other
   } = props;
 
@@ -34,7 +39,16 @@ const Default = (props) => {
 
   if (grid) {
     sx.display = "grid";
+    if (columnWidth)
+      sx.gridAutoColumns = typeof columnWidth === "boolean" ? 1 : columnWidth;
+    if (rowWidth)
+      sx.gridAutoRows = typeof rowWidth === "boolean" ? 1 : rowWidth;
+    if (gridFlow)
+      sx.gridAutoFlow = typeof gridFlow === "boolean" ? "row" : gridFlow;
+    if (templateColumns) sx.gridTemplateColumns = templateColumns;
+    if (gridTemplate) sx.gridTemplate = gridTemplate;
   }
+
   return <Box sx={{ ...sx }} {...other} />;
 };
 

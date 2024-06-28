@@ -8,7 +8,9 @@
     "@mui/material": "^5.15.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-virtualized": "^9.22.5",
+    "use-http": "^1.0.28"
   },
   "scripts": {
     "start": "craco start"

@@ -97,6 +97,14 @@ const Default = memo((props) => {
         <MenuButton name="words" caption="words" icon="word" open={open} />
         <MenuButton name="saved" caption="saved" icon="saved" open={open} />
       </Box>
+      <Box flex column sx={{ p: 1 }}>
+        <MenuButton
+          icon="profile"
+          name="account"
+          open={open}
+          caption="profile"
+        />
+      </Box>
       <Box flex gap="5px" column sx={{ p: 1 }}>
         <Divider />
         <MenuButton

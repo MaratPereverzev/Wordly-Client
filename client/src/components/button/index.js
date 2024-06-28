@@ -27,7 +27,7 @@ const Default = (props) => {
       variant={variant}
       {...other}
     >
-      {icon && <Icon icon={icon} sx={{ ...sxIcon }} />}
+      {icon && <Icon icon={icon} sx={{ fontSize: "100px", ...sxIcon }} />}
       {captionIsString ? (
         <Text caption={caption} sx={{ ...sxText }} />
       ) : (

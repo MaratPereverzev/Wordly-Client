@@ -16,6 +16,7 @@ module.exports = {
       "@hooks": resolvePath("./src/hooks"),
       "@utils": resolvePath("./src/utils"),
       "@pages": resolvePath("./src/pages"),
+      "react-virtualized/List": "react-virtualized/dist/es/List",
     },
   },
   eslint: false,

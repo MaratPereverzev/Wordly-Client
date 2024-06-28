@@ -4,13 +4,14 @@ import { memo } from "react";
 const iconList = {
   menu: "menu",
   default: "do_not_disturb_on",
-  account: "person",
+  profile: "person",
   search: "search",
   dictionary: "book",
   open: "chevron_right",
   word: "translate",
   saved: "bookmark",
   home: "home",
+  filter: "filter_alt",
 };
 
 const areEqual = (prev, next) => {

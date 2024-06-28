@@ -1,5 +1,5 @@
 import { Box } from "@components";
-import { Dictionaries } from "./dictionaries";
+import { Dictionaries } from "./dictionary";
 import { useEffect, useState } from "react";
 import {
   addEventListener,
@@ -31,9 +31,12 @@ const Default = (props) => {
   return (
     <Box
       flex
-      grow={3}
-      center
-      sx={{ backgroundColor: "white", borderRadius: 2 }}
+      column
+      grow
+      sx={{
+        backgroundColor: "white",
+        borderRadius: 2,
+      }}
     >
       {page === "dictionaries" && <Dictionaries />}
     </Box>
