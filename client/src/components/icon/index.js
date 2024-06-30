@@ -12,6 +12,11 @@ const iconList = {
   saved: "bookmark",
   home: "home",
   filter: "filter_alt",
+  sort: "swap_vert",
+  more: "keyboard_arrow_down",
+  merge: "arrow_and_edge",
+  select: "check_box",
+  selectOff: "check_box_outline_blank",
 };
 
 const areEqual = (prev, next) => {

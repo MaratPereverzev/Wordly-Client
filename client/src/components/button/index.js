@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, ButtonGroup } from "@mui/material";
 import { Icon } from "../icon";
 import { Text } from "../text";
 
@@ -59,4 +59,20 @@ const ButtonIcon = (props) => {
     </IconButton>
   );
 };
-export { Default as Button, ButtonIcon, MenuButtonTemplate };
+
+const GroupButton = (props) => {
+  const { sx, sxButton, ...other } = props;
+
+  return (
+    <ButtonGroup
+      sx={{ ".MuiButtonGroup-grouped": { minWidth: "max-content" }, ...sx }}
+      {...other}
+    />
+  );
+};
+export {
+  Default as Button,
+  ButtonIcon,
+  MenuButtonTemplate,
+  GroupButton as ButtonGroup,
+};
