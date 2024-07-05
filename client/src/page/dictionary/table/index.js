@@ -1,56 +1,12 @@
-import { Box, Loading, Checkbox } from "@components";
+import { Box, Loading } from "@components";
 import { TableHeader } from "./header";
 import { TableFooter } from "./footer";
-import { useEffect, useState, memo } from "react";
+import { ItemBox } from "./itemBox";
+import { useEffect, useState } from "react";
 import { addEventListener } from "@utils";
 import useFetch from "use-http";
 
-const areEqual = (prev, next) => {
-  return (
-    prev.sx === next.sx &&
-    prev.caption === next.caption &&
-    prev.selectMode === next.selectMode &&
-    prev.setSelectCount === next.setSelectCount
-  );
-};
-
-const MyBox = memo((props) => {
-  const { sx, caption, selectMode, setSelectCount, ...other } = props;
-
-  return (
-    <Box
-      flex
-      jc
-      sx={{
-        height: "8.5rem",
-        border: ({ palette }) => `1px solid ${palette.divider}`,
-        borderRadius: 1,
-        cursor: "pointer",
-        transition: "background-color 200ms ease-in-out",
-        "&:hover": {
-          backgroundColor: ({ palette }) => palette.divider,
-        },
-        ...sx,
-      }}
-      {...other}
-    >
-      <Box center flex grow>
-        {caption}
-      </Box>
-      <Box>
-        {selectMode && (
-          <Checkbox
-            onChange={(e) => {
-              e.target.checked
-                ? setSelectCount((prev) => prev + 1)
-                : setSelectCount((prev) => prev - 1);
-            }}
-          />
-        )}
-      </Box>
-    </Box>
-  );
-}, areEqual);
+const selectedItems = new Map();
 
 const Default = (props) => {
   const { itemsPerPage } = props;
@@ -62,7 +18,7 @@ const Default = (props) => {
   const { get, loading, error, response } = useFetch("https://dummyjson.com");
 
   useEffect(() => {
-    const getUsers = async () => {
+    const getDictionaries = async () => {
       const dictionaries = await get(
         `/products?limit=${itemsPerPage}&skip=${(page - 1) * itemsPerPage}`
       );
@@ -74,12 +30,22 @@ const Default = (props) => {
         });
     };
 
-    getUsers();
+    getDictionaries();
   }, [get, response, page, itemsPerPage]);
 
   useEffect(() =>
     addEventListener("onSelectMode", () => {
+      if (!selectMode) {
+        setSelectCount(0);
+        selectedItems.clear();
+      }
       setSelectMode((prev) => !prev);
+    })
+  );
+  useEffect(() =>
+    addEventListener("onCheck/dictionary", ({ detail }) => {
+      if (detail.checked) selectedItems.set(detail.id, detail.checked);
+      else selectedItems.delete(detail.id);
     })
   );
 
@@ -90,7 +56,10 @@ const Default = (props) => {
         {(error && "Error!") || (loading && <Loading />) || (
           <Box grid templateColumns="1fr 1fr 1fr" sx={{ gap: 1, p: 1, py: 0 }}>
             {data?.products?.map((dictionary) => (
-              <MyBox
+              <ItemBox
+                checked={selectedItems.get(dictionary.id) ?? false}
+                itemId={dictionary.id}
+                selectedItems={selectedItems}
                 key={dictionary.id}
                 caption={`${dictionary.id} - ${dictionary.title}`}
                 setSelectCount={setSelectCount}

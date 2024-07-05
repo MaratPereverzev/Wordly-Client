@@ -30,9 +30,10 @@ const Default = (props) => {
         {...other}
       >
         <Box flex column>
-          {children && Array.isArray(children) ? (
-            children.map((child) => (
+          {Array.isArray(children) ? (
+            children.map((child, index) => (
               <child.type
+                key={index}
                 {...child.props}
                 onClick={() => {
                   child.props?.onClick();
@@ -42,8 +43,9 @@ const Default = (props) => {
             ))
           ) : (
             <children.type {...children.props}>
-              {children.props?.children.map((child) => (
+              {children.props?.children.map((child, index) => (
                 <child.type
+                  key={index}
                   {...child.props}
                   onClick={() => {
                     child.props?.onClick();

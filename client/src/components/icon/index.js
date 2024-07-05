@@ -1,5 +1,6 @@
 import { Box } from "../box";
 import { memo } from "react";
+import { areEqual } from "@utils";
 
 const iconList = {
   menu: "menu",
@@ -17,10 +18,6 @@ const iconList = {
   merge: "arrow_and_edge",
   select: "check_box",
   selectOff: "check_box_outline_blank",
-};
-
-const areEqual = (prev, next) => {
-  return JSON.stringify(prev.sx) === JSON.stringify(next.sx);
 };
 
 const Default = memo((props) => {

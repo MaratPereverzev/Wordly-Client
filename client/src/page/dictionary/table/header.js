@@ -1,10 +1,6 @@
 import { Input, Box, Button, ButtonGroup, Popover } from "@components";
-import { dispatchEvent } from "@utils";
+import { dispatchEvent, areEqual } from "@utils";
 import { memo } from "react";
-
-function areEqual(prev, next) {
-  return prev.selectMode === next.selectMode;
-}
 
 const Default = memo((props) => {
   const { selectMode } = props;
@@ -16,7 +12,14 @@ const Default = memo((props) => {
           <Button caption="new" sx={{ px: 1 }} />
           <Popover
             closeOnClick
-            button={<Button icon="more" sx={{ p: 0 }} />}
+            button={
+              <Button
+                icon="more"
+                sx={{
+                  p: 0,
+                }}
+              />
+            }
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "center",
@@ -28,10 +31,9 @@ const Default = memo((props) => {
           >
             <Box flex column gap sx={{ p: 1 }}>
               <Button
-                justifyContent="flex-start"
                 icon={!selectMode ? "select" : "selectOff"}
                 caption={!selectMode ? "select" : "undo"}
-                sx={{ px: 1, gap: 1 }}
+                sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
                 variant="text"
                 onClick={() => {
                   dispatchEvent("onSelectMode");

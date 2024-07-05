@@ -6,14 +6,10 @@ import {
   setPageHash,
   getLocalStorageValue,
   setLocalStorageValue,
+  areEqual,
 } from "@utils";
 import { useRender } from "@hooks";
 import { useEffect, useState, useCallback, memo } from "react";
-
-function areEqual(prev, next) {
-  console.log(prev, next);
-  return true;
-}
 
 const MenuButton = (props) => {
   const { sx, sxIcon, icon, name, open, caption, ...other } = props;
