@@ -1,15 +1,13 @@
 import { Box, Loading } from "@components";
-import { TableHeader } from "./header";
-import { TableFooter } from "./footer";
-import { ItemBox } from "./itemBox";
-import { useEffect, useState } from "react";
-import { addEventListener } from "@utils";
+import { addEventListener, areEqual } from "@utils";
+import { useEffect, useState, memo } from "react";
 import useFetch from "use-http";
+import { TableFooter } from "./footer";
+import { TableHeader } from "./header";
+import { ItemBox } from "./itemBox";
 
-const selectedItems = new Map();
-
-const Default = (props) => {
-  const { itemsPerPage } = props;
+const Default = memo((props) => {
+  const { itemsPerPage, selectedItems } = props;
   const [data, setData] = useState({});
   const [selectCount, setSelectCount] = useState(0);
   const [selectMode, setSelectMode] = useState(false);
@@ -51,7 +49,10 @@ const Default = (props) => {
 
   return (
     <>
-      <TableHeader selectMode={selectMode} />
+      <TableHeader
+        selectMode={selectMode}
+        selectedItemsCount={selectedItems.size}
+      />
       <Box flex grow column sx={{ height: "100%", overflowY: "auto" }}>
         {(error && "Error!") || (loading && <Loading />) || (
           <Box grid templateColumns="1fr 1fr 1fr" sx={{ gap: 1, p: 1, py: 0 }}>
@@ -79,6 +80,6 @@ const Default = (props) => {
       />
     </>
   );
-};
+}, areEqual);
 
 export { Default as Table };

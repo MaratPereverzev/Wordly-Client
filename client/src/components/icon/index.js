@@ -3,6 +3,7 @@ import { memo } from "react";
 import { areEqual } from "@utils";
 
 const iconList = {
+  delete: "delete",
   menu: "menu",
   default: "do_not_disturb_on",
   profile: "person",
@@ -18,6 +19,7 @@ const iconList = {
   merge: "arrow_and_edge",
   select: "check_box",
   selectOff: "check_box_outline_blank",
+  settings: "settings",
 };
 
 const Default = memo((props) => {

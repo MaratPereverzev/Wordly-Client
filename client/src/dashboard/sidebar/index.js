@@ -1,4 +1,4 @@
-import { Box, MenuButtonTemplate, Icon, Text, Divider } from "@components";
+import { Box, MenuButtonTemplate, Text, Divider } from "@components";
 import {
   addEventListener,
   dispatchEvent,
@@ -13,6 +13,7 @@ import { useEffect, useState, useCallback, memo } from "react";
 
 const MenuButton = (props) => {
   const { sx, sxIcon, icon, name, open, caption, ...other } = props;
+
   let active = name === getPageHash();
 
   return (
@@ -20,14 +21,10 @@ const MenuButton = (props) => {
       color="inherit"
       variant={active ? "contained" : "text"}
       sx={{ gap: "5px", ...sx }}
-      caption={
-        <>
-          <Icon icon={icon} sx={{ ...sxIcon }} />
-          {open && <Text caption={caption} />}
-        </>
-      }
+      icon={icon}
+      caption={open && <Text caption={caption} />}
       onClick={() => {
-        dispatchEvent("onChangePage", { hash: name });
+        dispatchEvent("onChangePage/sidebar", { hash: name });
         active = name === getPageHash();
       }}
       {...other}
@@ -61,7 +58,7 @@ const Default = memo((props) => {
 
   useEffect(
     () =>
-      addEventListener("onChangePage", ({ detail }) => {
+      addEventListener("onChangePage/sidebar", ({ detail }) => {
         setPageHash(detail.hash);
         setRender();
       }),

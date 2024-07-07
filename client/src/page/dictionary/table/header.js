@@ -1,9 +1,13 @@
 import { Input, Box, Button, ButtonGroup, Popover } from "@components";
 import { dispatchEvent, areEqual } from "@utils";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 const Default = memo((props) => {
-  const { selectMode } = props;
+  const { selectMode, selectedItemsCount } = props;
+
+  const handleOnClick = useCallback(() => {
+    dispatchEvent("onSelectMode");
+  }, []);
 
   return (
     <Box flex jc="space-between" sx={{ p: 1 }} ai>
@@ -35,11 +39,17 @@ const Default = memo((props) => {
                 caption={!selectMode ? "select" : "undo"}
                 sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
                 variant="text"
-                onClick={() => {
-                  dispatchEvent("onSelectMode");
-                }}
+                onClick={handleOnClick}
               />
-              <Button caption="ok" />
+              {selectMode && (
+                <Button
+                  caption="delete"
+                  disabled={selectedItemsCount === 0}
+                  icon="delete"
+                  variant="text"
+                  sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
+                />
+              )}
             </Box>
           </Popover>
         </ButtonGroup>

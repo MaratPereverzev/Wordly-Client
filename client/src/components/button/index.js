@@ -1,8 +1,10 @@
 import { Button, IconButton, ButtonGroup } from "@mui/material";
 import { Icon } from "../icon";
 import { Text } from "../text";
+import { areEqual } from "@utils";
+import { memo } from "react";
 
-const Default = (props) => {
+const Default = memo((props) => {
   const {
     sx = {},
     sxIcon = {},
@@ -36,7 +38,8 @@ const Default = (props) => {
       {other.children}
     </Button>
   );
-};
+}, areEqual);
+
 const MenuButtonTemplate = (props) => {
   const { sx, name, variant, ...other } = props;
 
@@ -53,6 +56,7 @@ const MenuButtonTemplate = (props) => {
 
 const ButtonIcon = (props) => {
   const { sx, sxIcon, icon, ...other } = props;
+
   return (
     <IconButton variant="text" sx={{ color: "inherit", ...sx }} {...other}>
       <Icon icon={icon} sx={{ ...sxIcon }} />
@@ -70,6 +74,7 @@ const GroupButton = (props) => {
     />
   );
 };
+
 export {
   Default as Button,
   ButtonIcon,

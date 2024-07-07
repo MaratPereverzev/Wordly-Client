@@ -14,7 +14,7 @@ const Default = (props) => {
 
   useEffect(
     () =>
-      addEventListener("onChangePage", () => {
+      addEventListener("onChangePage/sidebar", () => {
         setPage((prev) => {
           prev = getPageHash();
           return prev;

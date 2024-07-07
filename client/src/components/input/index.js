@@ -1,9 +1,12 @@
 import { Icon } from "../icon";
 import { Box } from "../box";
+import { areEqual } from "@utils";
+import { memo } from "react";
 import { TextField } from "@mui/material";
 
-const Default = (props) => {
+const Default = memo((props) => {
   const { icon, iconSx, sx, variant = "outlined", ...other } = props;
+
   return (
     <Box flex center gap="5px">
       <TextField
@@ -19,6 +22,6 @@ const Default = (props) => {
       />
     </Box>
   );
-};
+}, areEqual);
 
 export { Default as Input };

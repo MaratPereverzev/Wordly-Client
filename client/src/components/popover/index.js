@@ -31,28 +31,34 @@ const Default = (props) => {
       >
         <Box flex column>
           {Array.isArray(children) ? (
-            children.map((child, index) => (
-              <child.type
-                key={index}
-                {...child.props}
-                onClick={() => {
-                  child.props?.onClick();
-                  handleClose();
-                }}
-              />
-            ))
-          ) : (
-            <children.type {...children.props}>
-              {children.props?.children.map((child, index) => (
+            children.map((child, index) => {
+              if (typeof child === "boolean" && child === false) return null;
+              return (
                 <child.type
                   key={index}
                   {...child.props}
                   onClick={() => {
-                    child.props?.onClick();
-                    if (closeOnClick) handleClose();
+                    if (child.props?.onClick) child.props.onClick();
+                    handleClose();
                   }}
                 />
-              ))}
+              );
+            })
+          ) : (
+            <children.type {...children.props}>
+              {children.props?.children.map((child, index) => {
+                if (typeof child === "boolean" && child === false) return null;
+                return (
+                  <child.type
+                    key={index}
+                    {...child.props}
+                    onClick={() => {
+                      if (child.props?.onClick) child.props.onClick();
+                      if (closeOnClick) handleClose();
+                    }}
+                  />
+                );
+              })}
             </children.type>
           )}
         </Box>
