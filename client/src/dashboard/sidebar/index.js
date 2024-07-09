@@ -14,7 +14,7 @@ import { useEffect, useState, useCallback, memo } from "react";
 const MenuButton = (props) => {
   const { sx, sxIcon, icon, name, open, caption, ...other } = props;
 
-  let active = name === getPageHash();
+  let active = name === getLocalStorageValue("page");
 
   return (
     <MenuButtonTemplate

@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { Popover } from "@mui/material";
-import { Box } from "@components";
+import { Box, Button } from "@components";
 
 const Default = (props) => {
-  const { button, children, closeOnClick, ...other } = props;
+  const {
+    button,
+    children,
+    closeOnClick,
+    sxPopover,
+    sxButton,
+    boxProps,
+    className,
+    ...other
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -16,9 +25,22 @@ const Default = (props) => {
 
   const open = !!anchorEl;
 
-  return button ? (
-    <Box flex grow>
-      {<button.type {...button.props} onClick={handleClick} />}
+  return (
+    <Box flex>
+      {button ? (
+        <button.type
+          {...button.props}
+          onClick={handleClick}
+          sx={{ ...sxButton }}
+          className={className}
+        />
+      ) : (
+        <Button
+          onClick={handleClick}
+          sx={{ ...sxButton }}
+          className={className}
+        />
+      )}
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -29,24 +51,10 @@ const Default = (props) => {
         }}
         {...other}
       >
-        <Box flex column>
-          {Array.isArray(children) ? (
-            children.map((child, index) => {
-              if (typeof child === "boolean" && child === false) return null;
-              return (
-                <child.type
-                  key={index}
-                  {...child.props}
-                  onClick={() => {
-                    if (child.props?.onClick) child.props.onClick();
-                    handleClose();
-                  }}
-                />
-              );
-            })
-          ) : (
-            <children.type {...children.props}>
-              {children.props?.children.map((child, index) => {
+        {children && (
+          <Box flex column sx={{ ...sxPopover }} {...boxProps}>
+            {Array.isArray(children) ? (
+              children.map((child, index) => {
                 if (typeof child === "boolean" && child === false) return null;
                 return (
                   <child.type
@@ -58,13 +66,25 @@ const Default = (props) => {
                     }}
                   />
                 );
-              })}
-            </children.type>
-          )}
-        </Box>
+              })
+            ) : (
+              <children.type {...children.props}>
+                {typeof children === "boolean" && children === false ? null : (
+                  <children.type
+                    {...children.props}
+                    onClick={() => {
+                      if (children.props?.onClick) children.props.onClick();
+                      if (closeOnClick) handleClose();
+                    }}
+                  />
+                )}
+              </children.type>
+            )}
+          </Box>
+        )}
       </Popover>
     </Box>
-  ) : null;
+  );
 };
 
 export { Default as Popover };

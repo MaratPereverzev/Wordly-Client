@@ -1,4 +1,4 @@
-import { Box } from "@components";
+import { Box, Dialog } from "@components";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
 import { useEffect } from "react";
@@ -16,6 +16,7 @@ const Default = (props) => {
       grow
       sx={{ backgroundColor: "#ededed", p: 1, overflow: "hidden" }}
     >
+      <Dialog />
       <Sidebar
         sx={{
           backgroundColor: "white",

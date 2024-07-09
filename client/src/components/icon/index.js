@@ -20,6 +20,8 @@ const iconList = {
   select: "check_box",
   selectOff: "check_box_outline_blank",
   settings: "settings",
+  moreOptions: "more_horiz",
+  explore: "keyboard_arrow_right",
 };
 
 const Default = memo((props) => {

@@ -12,6 +12,7 @@ const Default = memo((props) => {
     icon,
     caption,
     variant = "contained",
+    iconAtTheEnd,
     ...other
   } = props;
 
@@ -29,13 +30,14 @@ const Default = memo((props) => {
       variant={variant}
       {...other}
     >
-      {icon && <Icon icon={icon} sx={{ ...sxIcon }} />}
+      {icon && !iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
       {captionIsString ? (
         <Text caption={caption} sx={{ ...sxText }} />
       ) : (
         caption
       )}
       {other.children}
+      {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
     </Button>
   );
 }, areEqual);

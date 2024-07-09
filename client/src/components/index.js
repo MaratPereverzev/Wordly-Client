@@ -8,3 +8,4 @@ export * from "./pagination";
 export * from "./popover";
 export * from "./loading";
 export * from "./checkbox";
+export * from "./dialog";

@@ -1,5 +1,5 @@
-import { Input, Box, Button, ButtonGroup, Popover } from "@components";
-import { dispatchEvent, areEqual } from "@utils";
+import { Box, Button, ButtonGroup, Input, Popover } from "@components";
+import { areEqual, dispatchEvent } from "@utils";
 import { memo, useCallback } from "react";
 
 const Default = memo((props) => {
@@ -15,6 +15,8 @@ const Default = memo((props) => {
         <ButtonGroup caption="new">
           <Button caption="new" sx={{ px: 1 }} />
           <Popover
+            boxProps={{ gap: true }}
+            sxPopover={{ p: 0.5 }}
             closeOnClick
             button={
               <Button
@@ -33,24 +35,25 @@ const Default = memo((props) => {
               horizontal: "center",
             }}
           >
-            <Box flex column gap sx={{ p: 1 }}>
+            <Button
+              icon={!selectMode ? "select" : "selectOff"}
+              caption={!selectMode ? "select" : "undo"}
+              sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
+              variant="text"
+              onClick={handleOnClick}
+            />
+            {selectMode && (
               <Button
-                icon={!selectMode ? "select" : "selectOff"}
-                caption={!selectMode ? "select" : "undo"}
-                sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
+                caption="delete"
+                disabled={selectedItemsCount === 0}
+                icon="delete"
                 variant="text"
-                onClick={handleOnClick}
+                sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
+                onClick={() => {
+                  dispatchEvent("onOpenDialog");
+                }}
               />
-              {selectMode && (
-                <Button
-                  caption="delete"
-                  disabled={selectedItemsCount === 0}
-                  icon="delete"
-                  variant="text"
-                  sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
-                />
-              )}
-            </Box>
+            )}
           </Popover>
         </ButtonGroup>
         <Button icon="filter" variant="text" />

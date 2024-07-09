@@ -13,12 +13,14 @@ const Default = memo((props) => {
   const [selectMode, setSelectMode] = useState(false);
   const [page, setPage] = useState(1);
 
-  const { get, loading, error, response } = useFetch("https://dummyjson.com");
+  const { get, loading, error, response } = useFetch("http://localhost:8080");
 
   useEffect(() => {
     const getDictionaries = async () => {
       const dictionaries = await get(
-        `/products?limit=${itemsPerPage}&skip=${(page - 1) * itemsPerPage}`
+        `api/dictionary?limit=${itemsPerPage}&offset=${
+          (page - 1) * itemsPerPage
+        }`
       );
 
       if (response.ok)
@@ -56,17 +58,19 @@ const Default = memo((props) => {
       <Box flex grow column sx={{ height: "100%", overflowY: "auto" }}>
         {(error && "Error!") || (loading && <Loading />) || (
           <Box grid templateColumns="1fr 1fr 1fr" sx={{ gap: 1, p: 1, py: 0 }}>
-            {data?.products?.map((dictionary) => (
-              <ItemBox
-                checked={selectedItems.get(dictionary.id) ?? false}
-                itemId={dictionary.id}
-                selectedItems={selectedItems}
-                key={dictionary.id}
-                caption={`${dictionary.id} - ${dictionary.title}`}
-                setSelectCount={setSelectCount}
-                selectMode={selectMode}
-              />
-            ))}
+            {data?.rows?.map((dictionary) => {
+              return (
+                <ItemBox
+                  checked={selectedItems.get(dictionary.id) ?? false}
+                  itemId={dictionary.id}
+                  selectedItems={selectedItems}
+                  key={dictionary.id}
+                  caption={`${dictionary.id} - ${dictionary.caption}`}
+                  setSelectCount={setSelectCount}
+                  selectMode={selectMode}
+                />
+              );
+            })}
           </Box>
         )}
       </Box>
@@ -75,7 +79,7 @@ const Default = memo((props) => {
         selectCount={selectCount}
         setSelectCount={setSelectCount}
         page={page}
-        pageCount={Math.ceil(data.total / itemsPerPage)}
+        pageCount={Math.ceil(data.rows / itemsPerPage)}
         setPage={setPage}
       />
     </>
