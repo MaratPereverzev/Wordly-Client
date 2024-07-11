@@ -2,8 +2,6 @@ import { memo } from "react";
 import { areEqual, dispatchEvent } from "@utils";
 import { Checkbox, Box, Popover, ButtonIcon, Button, Text } from "@components";
 
-const backgroundColors = ["#e46b6e", "#eed233", "#c671f4", "#0064f5"];
-
 const Default = memo((props) => {
   const {
     sx,
@@ -29,10 +27,6 @@ const Default = memo((props) => {
         border: ({ palette }) => `1px solid ${palette.divider}`,
         borderRadius: 1,
         transition: "background-color 200ms ease-in-out",
-        backgroundColor:
-          backgroundColors[
-            Math.floor(Math.random() * 10) % (backgroundColors.length - 1)
-          ],
         ...sx,
       }}
       {...other}

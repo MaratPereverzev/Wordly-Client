@@ -2,7 +2,6 @@ import { Box, MenuButtonTemplate, Text, Divider } from "@components";
 import {
   addEventListener,
   dispatchEvent,
-  getPageHash,
   setPageHash,
   getLocalStorageValue,
   setLocalStorageValue,
@@ -12,7 +11,7 @@ import { useRender } from "@hooks";
 import { useEffect, useState, useCallback, memo } from "react";
 
 const MenuButton = (props) => {
-  const { sx, sxIcon, icon, name, open, caption, ...other } = props;
+  const { sx, icon, name, open, caption, ...other } = props;
 
   let active = name === getLocalStorageValue("page");
 
@@ -25,7 +24,7 @@ const MenuButton = (props) => {
       caption={open && <Text caption={caption} />}
       onClick={() => {
         dispatchEvent("onChangePage/sidebar", { hash: name });
-        active = name === getPageHash();
+        active = name === getLocalStorageValue("page");
       }}
       {...other}
     />
@@ -37,9 +36,11 @@ const Default = memo((props) => {
   const [open, setOpen] = useState(
     getLocalStorageValue("sidebarOpen") ?? false
   );
+
   const handleOnClick = useCallback(() => {
     dispatchEvent("sidebarOpen");
   }, []);
+
   const setRender = useRender();
 
   useEffect(
@@ -59,6 +60,7 @@ const Default = memo((props) => {
   useEffect(
     () =>
       addEventListener("onChangePage/sidebar", ({ detail }) => {
+        setLocalStorageValue("page", detail.hash);
         setPageHash(detail.hash);
         setRender();
       }),

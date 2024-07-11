@@ -47,5 +47,6 @@ module.exports = (router) => {
     ),
     post
   );
+
   router.delete("/", del);
 };

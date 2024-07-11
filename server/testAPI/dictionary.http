@@ -3,12 +3,12 @@ http://localhost:8080/api/dictionary?userId=2
 http://localhost:8080/api/dictionary/1
 ###
 POST http://localhost:8080/api/private/dictionary
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkFkbWluSGVIZUhlIiwicGFzc3dvcmQiOiIxMjMzMjEifQ.PQwBeKY7KsCHRM9pmoIhzP8BpiiGsn3aS-f0BtiKzdw
 content-type: application/json
 
 {
-  "caption": "ok",
-  "description": "x;okasdfs",
+  "caption": "English",
+  "description": "dict",
   "dictionaryId": 2
 }
 ###

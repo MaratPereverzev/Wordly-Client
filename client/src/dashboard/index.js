@@ -1,8 +1,11 @@
 import { Box, Dialog } from "@components";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
-import { useEffect } from "react";
-import { setPageHash, getLocalStorageValue } from "@utils";
+import { useEffect, useContext } from "react";
+import { setPageHash, getLocalStorageValue, addEventListener } from "@utils";
+import { useRender } from "@hooks";
+import { UserContextData } from "@context";
+import { Login } from "@auth";
 
 const Default = (props) => {
   useEffect(() => {
@@ -28,4 +31,20 @@ const Default = (props) => {
   );
 };
 
-export { Default as Dashboard };
+const DefaultContext = (props) => {
+  const user = useContext(UserContextData);
+
+  const setRender = useRender();
+
+  useEffect(
+    () =>
+      addEventListener("onLogin", () => {
+        setRender();
+      }),
+    [setRender]
+  );
+
+  return user?.isAuth === true ? <Default /> : <Login />;
+};
+
+export { DefaultContext as Dashboard };
