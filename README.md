@@ -30,6 +30,14 @@ cd ..
 npm i
 ```
 
+- There'll be a Test DB for demo with TestDB filename. To get the test database go the the following path
+
+```
+server/client
+```
+
+- Then, open pgAdmin 4 and with right mouse click import this test database by clicking `Restore` button. After that just put a path where this test database is located.
+
 - Launch the project by running a command
 
 ```
