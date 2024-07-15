@@ -74,9 +74,9 @@ const Default = memo((props) => {
               onClick={handleOnClick}
             />
             <Button
-              icon="delete"
+              icon="edit"
               variant="text"
-              caption="delete"
+              caption="edit"
               onClick={handleOnClick}
             />
           </Popover>
@@ -85,7 +85,7 @@ const Default = memo((props) => {
         <Button
           color="inherit"
           caption="explore"
-          icon="explore"
+          icon="arrowRight"
           variant="text"
           iconAtTheEnd
           sx={{

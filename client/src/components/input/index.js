@@ -1,15 +1,23 @@
 import { Icon } from "../icon";
 import { Box } from "../box";
-import { areEqual } from "@utils";
-import { memo } from "react";
 import { TextField } from "@mui/material";
 
-const Default = memo((props) => {
-  const { icon, iconSx, sx, variant = "outlined", ...other } = props;
+const Default = (props) => {
+  const {
+    icon,
+    iconSx,
+    sx,
+    variant = "outlined",
+    label,
+    onChange,
+    name,
+    ...other
+  } = props;
 
   return (
     <Box flex center gap="5px">
       <TextField
+        label={label ?? name}
         variant={variant}
         size="small"
         sx={{ ...sx }}
@@ -19,9 +27,10 @@ const Default = memo((props) => {
           ),
         }}
         {...other}
+        onChange={typeof onChange === "function" ? onChange(name) : (e) => {}}
       />
     </Box>
   );
-}, areEqual);
+};
 
 export { Default as Input };

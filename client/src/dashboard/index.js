@@ -2,14 +2,19 @@ import { Box, Dialog } from "@components";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
 import { useEffect, useContext } from "react";
-import { setPageHash, getLocalStorageValue, addEventListener } from "@utils";
+import {
+  setPageHash,
+  getLocalStorageValue,
+  setLocalStorageValue,
+  addEventListener,
+} from "@utils";
 import { useRender } from "@hooks";
 import { UserContextData } from "@context";
 import { Login } from "@auth";
 
 const Default = (props) => {
   useEffect(() => {
-    setPageHash(getLocalStorageValue("page") ?? "home");
+    setPageHash(getLocalStorageValue("page") ?? "home", true);
   }, []);
 
   return (
@@ -38,7 +43,9 @@ const DefaultContext = (props) => {
 
   useEffect(
     () =>
-      addEventListener("onLogin", () => {
+      addEventListener("onLogin", ({ detail }) => {
+        if (detail?.toLocalStorage === true)
+          setLocalStorageValue("isAuth", detail.isAuth);
         setRender();
       }),
     [setRender]

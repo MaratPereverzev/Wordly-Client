@@ -1,6 +1,26 @@
 import { Box, Button, ButtonGroup, Input, Popover } from "@components";
 import { areEqual, dispatchEvent } from "@utils";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState, useEffect } from "react";
+
+const InputBox = (props) => {
+  const [data, setData] = useState({});
+
+  const handleOnChange = useCallback(
+    (name) => (e) => {
+      setData((prev) => {
+        prev[name] = e?.target?.value;
+        return { ...prev };
+      }, []);
+    },
+    []
+  );
+
+  useEffect(() => {
+    dispatchEvent("onChangeQuery", { query: data["search"] });
+  }, [data]);
+
+  return <Input name="search" onChange={handleOnChange} />;
+};
 
 const Default = memo((props) => {
   const { selectMode, selectedItemsCount } = props;
@@ -59,14 +79,7 @@ const Default = memo((props) => {
         <Button icon="filter" variant="text" />
         <Button icon="sort" variant="text" />
       </Box>
-      <Input
-        placeholder="search"
-        sx={{
-          ".css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input": {
-            p: 0.5,
-          },
-        }}
-      />
+      <InputBox />
     </Box>
   );
 }, areEqual);

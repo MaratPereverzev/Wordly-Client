@@ -21,7 +21,9 @@ const iconList = {
   selectOff: "check_box_outline_blank",
   settings: "settings",
   moreOptions: "more_horiz",
-  explore: "keyboard_arrow_right",
+  arrowRight: "keyboard_arrow_right",
+  logout: "logout",
+  edit: "edit",
 };
 
 const Default = memo((props) => {

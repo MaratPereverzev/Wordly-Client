@@ -4,8 +4,9 @@ const getPageHash = () => {
     : "home";
 };
 
-const setPageHash = (hash) => {
-  return (window.location.hash = hash);
+const setPageHash = (hash, toLocalStorage) => {
+  window.location.hash = hash;
+  if (toLocalStorage === true) localStorage.setItem("page", hash);
 };
 
 export { getPageHash, setPageHash };

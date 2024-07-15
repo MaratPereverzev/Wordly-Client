@@ -7,7 +7,6 @@ const areEqual = (prev, next) => {
   const keys2 = Object.keys(next);
 
   if (keys1.length !== keys2.length) return false;
-
   for (const key of keys1) {
     const val1 = prev[key];
     const val2 = next[key];

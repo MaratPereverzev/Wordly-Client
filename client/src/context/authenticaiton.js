@@ -1,15 +1,13 @@
 import { createContext } from "react";
-import { getLocalStorageValue } from "@utils";
+import { getLocalStorageValue, setLocalStorageValue } from "@utils";
 
 class User {
-  isAuth = getLocalStorageValue("isAuth") ?? false;
-
-  get Auth() {
-    return this.isAuth;
+  get isAuth() {
+    return getLocalStorageValue("isAuth") ?? false;
   }
 
-  set Auth(isAuth) {
-    this.isAuth = isAuth;
+  set isAuth(isAuth) {
+    setLocalStorageValue("isAuth", isAuth);
   }
 }
 

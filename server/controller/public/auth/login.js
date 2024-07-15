@@ -3,8 +3,8 @@ const { jwtCreate } = require("@utils");
 const { jwtPassword } = require("@config");
 const bcrypt = require("bcrypt");
 
-const post = async (req, res) => {
-  const { login, password } = req.body;
+const get = async (req, res) => {
+  const { login, password } = req.query;
 
   const findUser = await models.user.findOne({ where: { login } });
   if (!findUser) {
@@ -31,5 +31,5 @@ const post = async (req, res) => {
 };
 
 module.exports = (router) => {
-  router.post("/", post);
+  router.get("/", get);
 };

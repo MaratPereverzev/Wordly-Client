@@ -6,11 +6,15 @@ import {
   getPageHash,
   dispatchEvent,
   getLocalStorageValue,
-  setLocalStorageValue,
+  setPageHash,
 } from "@utils";
 
 const Default = (props) => {
   const [page, setPage] = useState(getLocalStorageValue("page") ?? "home");
+
+  useEffect(() => {
+    setPageHash(page, true);
+  }, [page]);
 
   useEffect(
     () =>
@@ -23,10 +27,6 @@ const Default = (props) => {
       }),
     []
   );
-
-  useEffect(() => {
-    setLocalStorageValue("page", page);
-  }, [page]);
 
   return (
     <Box

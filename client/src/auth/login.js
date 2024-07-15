@@ -1,16 +1,15 @@
 import { Box, Button, Text, Input } from "@components";
 import { useContext } from "react";
 import { UserContextData } from "@context";
-import { dispatchEvent, setLocalStorageValue } from "@utils";
+import { dispatchEvent } from "@utils";
 import useFetch from "use-http";
 
 const Default = () => {
   const user = useContext(UserContextData);
 
-  const { post } = useFetch("http://localhost:8080/api/auth/login", {
-    method: "POST",
-    body: { login: "AdminHeHeHe", password: "123321" },
-  });
+  const { get } = useFetch(
+    "http://localhost:8080/api/auth/login?login=AdminHeHeHe&password=123321"
+  );
 
   return (
     <Box
@@ -44,25 +43,24 @@ const Default = () => {
             />
             <Text caption="ordly" sx={{ fontSize: "50px" }} />
           </Box>
-          <Box flex column gap>
-            <Input label="login" />
-            <Input label="password" />
+          <Box flex column gap ai>
+            <Input name="login" />
+            <Input name="password" />
           </Box>
         </Box>
         <Box flex jc="flex-end">
           <Button
             caption="Enter"
             color="inherit"
-            icon="explore"
+            icon="arrowRight"
             iconAtTheEnd
             variant="text"
             sx={{ paddingLeft: 1.5 }}
             onClick={async () => {
-              const data = await post();
+              const data = await get();
 
-              user.Auth = data.isAuth;
+              user.isAuth = data.isAuth;
               dispatchEvent("onLogin");
-              setLocalStorageValue("isAuth", true);
             }}
           />
         </Box>

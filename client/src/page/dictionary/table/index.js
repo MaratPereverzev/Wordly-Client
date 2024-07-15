@@ -33,6 +33,28 @@ const Default = memo((props) => {
     getDictionaries();
   }, [get, response, page, itemsPerPage]);
 
+  useEffect(
+    () =>
+      addEventListener("onChangeQuery", ({ detail }) => {
+        const getDictionaries = async () => {
+          const dictionaries = await get(
+            `api/dictionary?limit=${itemsPerPage}&offset=${
+              (page - 1) * itemsPerPage
+            }&caption=${detail.query}`
+          );
+
+          if (response.ok)
+            setData((prev) => {
+              prev = dictionaries;
+              return prev;
+            });
+        };
+
+        getDictionaries();
+      }),
+    [get, itemsPerPage, page, response]
+  );
+
   useEffect(() =>
     addEventListener("onSelectMode", () => {
       if (!selectMode) {
@@ -49,6 +71,7 @@ const Default = memo((props) => {
     })
   );
 
+  console.log(data.rows);
   return (
     <>
       <TableHeader
@@ -79,7 +102,7 @@ const Default = memo((props) => {
         selectCount={selectCount}
         setSelectCount={setSelectCount}
         page={page}
-        pageCount={Math.ceil(data.rows / itemsPerPage)}
+        pageCount={Math.ceil(data.count / itemsPerPage)}
         setPage={setPage}
       />
     </>

@@ -1,13 +1,15 @@
 import { Typography } from "@mui/material";
+import { areEqual } from "@utils";
+import { memo } from "react";
 
-const Default = (props) => {
+const Default = memo((props) => {
   const { sx, caption, ...other } = props;
+
   return (
     <Typography sx={{ ...sx }} {...other}>
       {caption}
-      {other.children}
     </Typography>
   );
-};
+}, areEqual);
 
 export { Default as Text };
