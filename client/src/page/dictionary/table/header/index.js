@@ -1,25 +1,22 @@
 import { Box, Button, ButtonGroup, Input, Popover } from "@components";
 import { areEqual, dispatchEvent } from "@utils";
-import { memo, useCallback, useState, useEffect } from "react";
+import { memo, useCallback, useRef } from "react";
 
 const InputBox = (props) => {
-  const [data, setData] = useState({});
+  const data = useRef("");
 
-  const handleOnChange = useCallback(
-    (name) => (e) => {
-      setData((prev) => {
-        prev[name] = e?.target?.value;
-        return { ...prev };
-      }, []);
-    },
-    []
+  return (
+    <Input
+      name="search"
+      onChange={() => (e) => {
+        data.current = e?.target?.value;
+
+        dispatchEvent("onChangeQuery", {
+          caption: data.current,
+        });
+      }}
+    />
   );
-
-  useEffect(() => {
-    dispatchEvent("onChangeQuery", { query: data["search"] });
-  }, [data]);
-
-  return <Input name="search" onChange={handleOnChange} />;
 };
 
 const Default = memo((props) => {

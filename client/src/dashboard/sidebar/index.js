@@ -37,7 +37,7 @@ const Default = (props) => {
   const user = useContext(UserContextData);
 
   const [open, setOpen] = useState(
-    getLocalStorageValue("sidebarOpen") ?? false
+    () => getLocalStorageValue("sidebarOpen") ?? false
   );
 
   const setRender = useRender();

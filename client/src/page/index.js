@@ -10,7 +10,9 @@ import {
 } from "@utils";
 
 const Default = (props) => {
-  const [page, setPage] = useState(getLocalStorageValue("page") ?? "home");
+  const [page, setPage] = useState(
+    () => getLocalStorageValue("page") ?? "home"
+  );
 
   useEffect(() => {
     setPageHash(page, true);

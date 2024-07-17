@@ -1,0 +1,43 @@
+.progress {
+  width: 134.4px;
+  height: 24.6px;
+  border-radius: 22.4px;
+  color: #474bff;
+  border: 2.2px solid;
+  position: relative;
+  animation: progress-box 3s infinite;
+}
+
+.progress::before {
+  content: "";
+  position: absolute;
+  margin: 5px;
+  inset: 0 100% 0 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: progress-pf82op 3s infinite;
+}
+
+@keyframes progress-box {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes progress-pf82op {
+  100% {
+    inset: 0;
+  }
+}
