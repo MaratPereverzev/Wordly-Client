@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback } from "react";
 
 const Default = (callback, delay) => {
   const callbackRef = useRef(callback);
-  const callbackTimeoutRef = useRef();
+  const callbackTimeoutRef = useRef(callbackRef);
 
   useEffect(() => {
     callbackRef.current = callback;
@@ -18,7 +18,7 @@ const Default = (callback, delay) => {
   );
 
   const timeoutClear = useCallback(() => {
-    if (callbackTimeoutRef.current) clearTimeout(callbackTimeoutRef.current);
+    callbackTimeoutRef.current && clearTimeout(callbackTimeoutRef.current);
   }, []);
 
   const timeoutReset = useCallback(

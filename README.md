@@ -45,4 +45,5 @@ npm start
 ```
 
 If you aren't able to launch the project here's a video for you
-https://youtu.be/fPpskLnaqIM
+Part 1: https://youtu.be/fPpskLnaqIM
+Part 2: https://youtu.be/jMLRQBixRZQ

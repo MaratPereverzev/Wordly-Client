@@ -1,21 +1,24 @@
 import { Box, Pagination, Text } from "@components";
-import { areEqual, addEventListener } from "@utils";
+import { areEqual, addEventListener, dispatchEvent } from "@utils";
 import { memo, useCallback, useEffect, useState } from "react";
 
 const Default = memo((props) => {
-  const { page, setPage, selectMode, selectCount } = props;
+  const { page, setPage, selectMode, selectCount, itemsPerPage } = props;
   const [pageCount, setPageCount] = useState(0);
 
   const handleOnChange = useCallback(
     (_, value) => {
       setPage(value);
+      dispatchEvent("onChangeQuery/dictionary", {
+        offset: itemsPerPage * (value - 1),
+      });
     },
-    [setPage]
+    [setPage, itemsPerPage]
   );
 
   useEffect(
     () =>
-      addEventListener("onLoadData", ({ detail }) => {
+      addEventListener("onLoadData/dictionary", ({ detail }) => {
         setPageCount((prev) => (prev = detail.pageCount));
       }),
     []

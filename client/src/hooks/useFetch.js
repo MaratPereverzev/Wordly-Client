@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 const Default = (url, defOptions = {}, callback) => {
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState(defOptions);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState("");
   const callbackRef = useRef(callback);
@@ -32,7 +32,7 @@ const Default = (url, defOptions = {}, callback) => {
         })
         .join("&")
     );
-  }, [options?.queryParams]);
+  }, [options]);
 
   useEffect(() => {
     abortController.current?.abort();
@@ -50,7 +50,7 @@ const Default = (url, defOptions = {}, callback) => {
         if (response.ok) setData(json);
         else setError(true);
       } catch (err) {
-        setError(true);
+        if (err.name !== "AbortError") setError(true);
       } finally {
         setLoading(false);
       }

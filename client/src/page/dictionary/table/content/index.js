@@ -1,5 +1,5 @@
 import { Box, Loading, Error } from "@components";
-import { useFetch } from "@hooks";
+import { useFetch, useTimeout } from "@hooks";
 import { addEventListener, dispatchEvent } from "@utils";
 import { useEffect } from "react";
 import { ItemBox } from "./itemBox";
@@ -14,8 +14,8 @@ const Default = (props) => {
     page,
   } = props;
 
-  const { loading, error, data } = useFetch(
-    "http://localhost:8080/api/dictionaries",
+  const { loading, error, data, setOptions } = useFetch(
+    "http://localhost:8080/api/dictionary",
     {
       queryParams: {
         limit: itemsPerPage,
@@ -24,13 +24,38 @@ const Default = (props) => {
     },
     (data) => {
       if (data !== null)
-        dispatchEvent("onLoadData", {
-          pageCount: Math.ceil(data?.count / data?.rows?.length),
+        dispatchEvent("onLoadData/dictionary", {
+          itemsPerPage,
+          pageCount: Math.ceil(data?.count / itemsPerPage),
         });
     }
   );
 
-  console.log(error);
+  const { timeoutReset } = useTimeout((data) => {
+    setOptions((prev) => {
+      prev.queryParams = { ...prev.queryParams, ...data };
+      return { ...prev };
+    });
+  }, 1000);
+
+  useEffect(
+    () =>
+      addEventListener("onChangeDictionarySearch", ({ detail }) => {
+        timeoutReset(detail);
+      }),
+    [timeoutReset]
+  );
+
+  useEffect(
+    () =>
+      addEventListener("onChangeQuery/dictionary", ({ detail }) => {
+        setOptions((prev) => {
+          prev.queryParams = { ...prev.queryParams, ...detail };
+          return { ...prev };
+        });
+      }),
+    [setOptions]
+  );
 
   useEffect(() =>
     addEventListener("onSelectMode", () => {
@@ -41,11 +66,14 @@ const Default = (props) => {
       setSelectMode((prev) => !prev);
     })
   );
-  useEffect(() =>
-    addEventListener("onCheck/dictionary", ({ detail }) => {
-      if (detail.checked) selectedItems.set(detail.id, detail.checked);
-      else selectedItems.delete(detail.id);
-    })
+
+  useEffect(
+    () =>
+      addEventListener("onCheck/dictionary", ({ detail }) => {
+        if (detail.checked) selectedItems.set(detail.id, detail.checked);
+        else selectedItems.delete(detail.id);
+      }),
+    [selectedItems]
   );
 
   return (

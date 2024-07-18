@@ -1,15 +1,15 @@
 import { Box, Button, Text, Input } from "@components";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { UserContextData } from "@context";
 import { dispatchEvent } from "@utils";
 import useFetch from "use-http";
 
 const Default = () => {
   const user = useContext(UserContextData);
+  const login = useRef();
+  const password = useRef();
 
-  const { get } = useFetch(
-    "http://localhost:8080/api/auth/login?login=AdminHeHeHe&password=123321"
-  );
+  const { get } = useFetch("http://localhost:8080/api/auth/login");
 
   return (
     <Box
@@ -44,8 +44,19 @@ const Default = () => {
             <Text caption="ordly" sx={{ fontSize: "50px" }} />
           </Box>
           <Box flex column gap ai>
-            <Input name="login" />
-            <Input name="password" />
+            <Input
+              name="login"
+              onChange={() => (e) => {
+                login.current = e?.target?.value;
+              }}
+            />
+            <Input
+              type="password"
+              name="password"
+              onChange={() => (e) => {
+                password.current = e?.target?.value;
+              }}
+            />
           </Box>
         </Box>
         <Box flex jc="flex-end">
@@ -57,10 +68,13 @@ const Default = () => {
             variant="text"
             sx={{ paddingLeft: 1.5 }}
             onClick={async () => {
-              const data = await get();
-
-              user.isAuth = data.isAuth;
-              dispatchEvent("onLogin");
+              const data = await get(
+                `?login=${login.current}&password=${password.current}`
+              );
+              if (data) {
+                user.isAuth = data.isAuth;
+                dispatchEvent("onLogin");
+              }
             }}
           />
         </Box>

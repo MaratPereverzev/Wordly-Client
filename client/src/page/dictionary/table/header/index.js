@@ -1,23 +1,7 @@
-import { Box, Button, ButtonGroup, Input, Popover } from "@components";
+import { Box, Button, ButtonGroup, Popover } from "@components";
 import { areEqual, dispatchEvent } from "@utils";
-import { memo, useCallback, useRef } from "react";
-
-const InputBox = (props) => {
-  const data = useRef("");
-
-  return (
-    <Input
-      name="search"
-      onChange={() => (e) => {
-        data.current = e?.target?.value;
-
-        dispatchEvent("onChangeQuery", {
-          caption: data.current,
-        });
-      }}
-    />
-  );
-};
+import { memo, useCallback } from "react";
+import { InputCaption } from "./inputCaption";
 
 const Default = memo((props) => {
   const { selectMode, selectedItemsCount } = props;
@@ -76,7 +60,7 @@ const Default = memo((props) => {
         <Button icon="filter" variant="text" />
         <Button icon="sort" variant="text" />
       </Box>
-      <InputBox />
+      <InputCaption />
     </Box>
   );
 }, areEqual);

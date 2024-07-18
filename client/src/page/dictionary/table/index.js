@@ -25,6 +25,7 @@ const Default = memo((props) => {
         page={page}
       />
       <TableFooter
+        itemsPerPage={itemsPerPage}
         selectMode={selectMode}
         selectCount={selectCount}
         setSelectCount={setSelectCount}
