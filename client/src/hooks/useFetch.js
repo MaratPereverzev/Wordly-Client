@@ -16,15 +16,15 @@ const Default = (url, defOptions = {}, callback) => {
 
   useEffect(() => {
     setQuery(
-      Object.keys(options?.queryParams ?? {})
+      Object.keys(options?.query ?? {})
         .filter(
           (param) =>
-            options?.queryParams[param] !== undefined &&
-            options?.queryParams[param] !== null &&
-            options?.queryParams[param] !== ""
+            options?.query[param] !== undefined &&
+            options?.query[param] !== null &&
+            options?.query[param] !== ""
         )
         .map((param) => {
-          let value = options.queryParams[param];
+          let value = options.query[param];
 
           if (typeof value === "string") value = value.replace(" ", "%20");
 
@@ -41,10 +41,13 @@ const Default = (url, defOptions = {}, callback) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}?${query ?? ""}`, {
-          ...options,
-          signal: abortController.current?.signal,
-        });
+        const response = await fetch(
+          `${url}?${query.length > 0 ? query : ""}`,
+          {
+            ...options,
+            signal: abortController.current?.signal,
+          }
+        );
         const json = await response.json();
 
         if (response.ok) setData(json);

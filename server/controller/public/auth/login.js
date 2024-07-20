@@ -8,18 +8,22 @@ const get = async (req, res) => {
 
   const findUser = await models.user.findOne({ where: { login } });
   if (!findUser) {
-    res.status(401).send("Incorrent login or password");
+    res.status(401).send({
+      message: "Incorrect login or password",
+    });
     return;
   }
 
   const isValid = await bcrypt.compare(password, findUser.password);
   if (!isValid) {
-    res.status(401).send("Incorrect login or password");
+    res.status(401).send({
+      message: "Incorrect login or password",
+    });
     return;
   }
 
   res.setHeader(
-    "Authorization",
+    "authorization",
     jwtCreate({ login: findUser.login, password }, jwtPassword)
   );
 

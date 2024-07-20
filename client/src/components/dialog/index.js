@@ -7,7 +7,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { addEventListener } from "@utils";
+import { addEventListener, dispatchEvent } from "@utils";
 import { useState, useEffect } from "react";
 
 const Default = (props) => {
@@ -29,6 +29,10 @@ const Default = (props) => {
   };
 
   const handleClose = () => {
+    dispatchEvent("snackbarTrigger", {
+      message: "Delete",
+      status: "success",
+    });
     setOpen(false);
   };
 

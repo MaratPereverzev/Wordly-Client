@@ -9,6 +9,14 @@ class User {
   set isAuth(isAuth) {
     setLocalStorageValue("isAuth", isAuth);
   }
+
+  get accessToken() {
+    return getLocalStorageValue("accessToken") ?? null;
+  }
+
+  set accessToken(accessToken) {
+    setLocalStorageValue("accessToken", accessToken);
+  }
 }
 
 const UserContextData = createContext(undefined);

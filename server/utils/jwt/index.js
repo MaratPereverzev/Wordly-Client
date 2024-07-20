@@ -9,6 +9,7 @@ const jwtCreate = (data) => {
 
 const jwtValidate = async (req, res, next) => {
   const { authorization } = req.headers;
+
   const { password, ...tokenData } = jwt.verify(authorization, jwtPassword);
 
   const userData = await user.findOne({ where: tokenData });

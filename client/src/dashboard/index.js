@@ -1,4 +1,4 @@
-import { Box, Dialog } from "@components";
+import { Box, Dialog, Snackbar } from "@components";
 import { Sidebar } from "./sidebar";
 import { Page } from "../page";
 import { useEffect, useContext } from "react";
@@ -10,7 +10,7 @@ import {
 } from "@utils";
 import { useRender } from "@hooks";
 import { UserContextData } from "@context";
-import { Login } from "@auth";
+import { Login } from "./auth";
 
 const Default = (props) => {
   useEffect(() => {
@@ -51,7 +51,12 @@ const DefaultContext = (props) => {
     [setRender]
   );
 
-  return user?.isAuth === true ? <Default /> : <Login />;
+  return (
+    <>
+      <Snackbar />
+      {user?.isAuth === true ? <Default /> : <Login />}
+    </>
+  );
 };
 
 export { DefaultContext as Dashboard };

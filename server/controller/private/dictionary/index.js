@@ -1,5 +1,30 @@
 const models = require("@models");
-const { defInclude, checkFields, excludeFields } = require("@utils");
+const {
+  defInclude,
+  checkFields,
+  excludeFields,
+  getLikeTemplate,
+} = require("@utils");
+
+const get = (req, res) => {
+  const { offset, limit, ...queryParams } = req.query;
+
+  const where = getLikeTemplate(queryParams, defInclude());
+
+  where.userId = req.userData?.id;
+
+  models.dictionary
+    .findAndCountAll({ where, limit, offset, attributes: defInclude() })
+    .defAnswer(res);
+};
+
+const getById = (req, res) => {
+  const { id } = req.params;
+
+  models.dictionary
+    .findOne({ where: { id }, attributes: defInclude() })
+    .defAnswer(res);
+};
 
 const post = (req, res) => {
   const data = req.body;
@@ -26,6 +51,8 @@ const del = (req, res) => {
 };
 
 module.exports = (router) => {
+  router.get("/", get);
+  router.get("/:id", getById);
   router.put(
     "/",
     checkFields(excludeFields(defInclude(), ["id"]), "body"),

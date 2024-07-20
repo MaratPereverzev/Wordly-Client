@@ -1,8 +1,9 @@
 import { Box, Loading, Error } from "@components";
 import { useFetch, useTimeout } from "@hooks";
 import { addEventListener, dispatchEvent } from "@utils";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { ItemBox } from "./itemBox";
+import { UserContextData } from "@context";
 
 const Default = (props) => {
   const {
@@ -14,12 +15,21 @@ const Default = (props) => {
     page,
   } = props;
 
+  const userData = useContext(UserContextData);
+
   const { loading, error, data, setOptions } = useFetch(
-    "http://localhost:8080/api/dictionary",
+    "http://localhost:8080/api/private/dictionary",
     {
-      queryParams: {
+      query: {
         limit: itemsPerPage,
         offset: (page - 1) * itemsPerPage,
+      },
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: userData?.accessToken,
+        "User-Agent": "any-name",
       },
     },
     (data) => {
