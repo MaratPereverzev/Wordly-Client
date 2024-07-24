@@ -1,6 +1,6 @@
 import { Box, Dialog, Snackbar } from "@components";
 import { Sidebar } from "./sidebar";
-import { Page } from "../page";
+import { Page } from "../pages";
 import { useEffect, useContext } from "react";
 import {
   setPageHash,

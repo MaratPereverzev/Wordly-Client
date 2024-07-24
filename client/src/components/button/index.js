@@ -17,6 +17,7 @@ const Default = memo((props) => {
   } = props;
 
   const captionIsString = typeof caption === "string";
+
   return (
     <Button
       size="small"
@@ -36,7 +37,7 @@ const Default = memo((props) => {
       ) : (
         caption
       )}
-      {other.children}
+
       {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
     </Button>
   );

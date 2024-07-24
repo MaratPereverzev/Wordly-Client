@@ -5,8 +5,9 @@ import { TextField } from "@mui/material";
 const Default = (props) => {
   const {
     icon,
-    iconSx,
+    sxIcon,
     sx,
+    sxBox,
     variant = "outlined",
     label,
     onChange,
@@ -15,7 +16,7 @@ const Default = (props) => {
   } = props;
 
   return (
-    <Box flex center gap="5px">
+    <Box flex center gap="5px" sx={{ ...sxBox }}>
       <TextField
         label={label ?? name}
         variant={variant}
@@ -23,7 +24,7 @@ const Default = (props) => {
         sx={{ ...sx }}
         InputProps={{
           startAdornment: icon && (
-            <Icon icon={icon} sx={{ color: "black", pr: 1, ...iconSx }} />
+            <Icon icon={icon} sx={{ color: "black", pr: 1, ...sxIcon }} />
           ),
         }}
         {...other}

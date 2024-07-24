@@ -6,6 +6,23 @@ const bcrypt = require("bcrypt");
 const get = async (req, res) => {
   const { login, password } = req.query;
 
+  const inputData = { login, password };
+  if (
+    login === "undefined" ||
+    login === "" ||
+    password === "undefined" ||
+    password === ""
+  ) {
+    res.status(401).send({
+      message: `missed fields: ${Object.keys(inputData)
+        .filter(
+          (key) => inputData[key] === "undefined" || inputData[key] === ""
+        )
+        .join(", ")}`,
+    });
+    return;
+  }
+
   const findUser = await models.user.findOne({ where: { login } });
   if (!findUser) {
     res.status(401).send({

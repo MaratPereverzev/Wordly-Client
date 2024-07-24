@@ -73,8 +73,10 @@ const Default = (props) => {
                   <children.type
                     {...children.props}
                     onClick={() => {
-                      if (children.props?.onClick) children.props.onClick();
-                      if (closeOnClick) handleClose();
+                      if (children.props?.onClick) {
+                        children.props.onClick();
+                        if (closeOnClick) handleClose();
+                      }
                     }}
                   />
                 )}

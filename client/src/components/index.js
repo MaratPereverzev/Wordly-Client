@@ -11,3 +11,4 @@ export * from "./checkbox";
 export * from "./dialog";
 export * from "./error";
 export * from "./snackbar";
+export * from "./autocomplete";

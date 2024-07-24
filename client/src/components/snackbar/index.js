@@ -41,9 +41,16 @@ const Default = (props) => {
       message={data.current?.message}
       key={vertical + horizontal}
     >
-      <Alert severity={data.current?.status ?? "error"} sx={{ width: "100%" }}>
-        {data.current?.message}
-      </Alert>
+      {data.current?.status ? (
+        <Alert
+          severity={data.current?.status ?? "error"}
+          sx={{ width: "100%" }}
+        >
+          {data.current?.message}
+        </Alert>
+      ) : (
+        data.current?.message
+      )}
     </Snackbar>
   );
 };

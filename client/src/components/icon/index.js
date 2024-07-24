@@ -24,14 +24,16 @@ const iconList = {
   arrowRight: "keyboard_arrow_right",
   logout: "logout",
   edit: "edit",
+  addIcon: "add_reaction",
+  photo: "image",
 };
 
 const Default = memo((props) => {
-  const { icon, sx, ...other } = props;
+  const { icon, sx, sxIcon, ...other } = props;
 
   return (
     <Box flex ai sx={{ ...sx }}>
-      <span className="material-symbols-rounded" {...other}>
+      <span className="material-symbols-rounded span" style={sxIcon} {...other}>
         {iconList[icon ?? "default"]}
       </span>
     </Box>

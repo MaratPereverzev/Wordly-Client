@@ -25,5 +25,5 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFz
   "password": "123321Ok"
 }
 ###
-DELETE http://localhost:8080/api/private/user?id=4
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Ik1hcmF0IiwicGFzc3dvcmQiOiIxMjMzMjEifQ.oeaBvNq0zzSEeyjh6S_bvm-2wQ3EMTSY3sub2aMpLEU
+DELETE http://localhost:8080/api/private/user?id=5
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkFkbWluIiwicGFzc3dvcmQiOiIxMjMzMjEifQ.AH4EQdVo4PVTNGZfA9d8QWiU1BX_iy-P9HmZ4CgP8mE
