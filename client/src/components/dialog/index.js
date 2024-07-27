@@ -17,6 +17,14 @@ const Default = (props) => {
     []
   );
 
+  useEffect(
+    () =>
+      addEventListener("dialogTrigger", ({ detail }) => {
+        if (detail?.opened !== null) setOpen((prev) => (prev = detail.opened));
+      }),
+    []
+  );
+
   const handleClose = () => {
     setOpen(false);
   };

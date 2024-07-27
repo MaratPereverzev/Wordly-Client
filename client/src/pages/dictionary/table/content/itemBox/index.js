@@ -50,7 +50,7 @@ const Default = memo((props) => {
             <Checkbox
               checked={checked}
               onChange={(e) => {
-                dispatchEvent(`onCheck/dictionary`, {
+                dispatchEvent("onCheck/dictionary", {
                   id: itemId,
                   checked: e?.target?.checked,
                 });

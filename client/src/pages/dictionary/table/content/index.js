@@ -1,9 +1,8 @@
-import { Box, Loading, Error } from "@components";
-import { useFetch, useTimeout } from "@hooks";
-import { addEventListener, dispatchEvent } from "@utils";
-import { useEffect, useContext } from "react";
+import { Box, Error, Icon, Loading, Text } from "@components";
+import { useGetDictionary } from "@fetch";
+import { addEventListener } from "@utils";
+import { useEffect } from "react";
 import { ItemBox } from "./itemBox";
-import { UserContextData } from "@context";
 
 const Default = (props) => {
   const {
@@ -15,56 +14,8 @@ const Default = (props) => {
     page,
   } = props;
 
-  const userData = useContext(UserContextData);
-
-  const { loading, error, data, setOptions } = useFetch(
-    "http://localhost:8080/api/private/dictionary",
-    {
-      query: {
-        limit: itemsPerPage,
-        offset: (page - 1) * itemsPerPage,
-      },
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: userData?.accessToken,
-        "User-Agent": "any-name",
-      },
-    },
-    (data) => {
-      if (data !== null)
-        dispatchEvent("onLoadData/dictionary", {
-          itemsPerPage,
-          pageCount: Math.ceil(data?.count / itemsPerPage),
-        });
-    }
-  );
-
-  const { timeoutReset } = useTimeout((data) => {
-    setOptions((prev) => {
-      prev.queryParams = { ...prev.queryParams, ...data };
-      return { ...prev };
-    });
-  }, 1000);
-
-  useEffect(
-    () =>
-      addEventListener("onChangeDictionarySearch", ({ detail }) => {
-        timeoutReset(detail);
-      }),
-    [timeoutReset]
-  );
-
-  useEffect(
-    () =>
-      addEventListener("onChangeQuery/dictionary", ({ detail }) => {
-        setOptions((prev) => {
-          prev.queryParams = { ...prev.queryParams, ...detail };
-          return { ...prev };
-        });
-      }),
-    [setOptions]
+  const { data, loading, error } = useGetDictionary(
+    `limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
   );
 
   useEffect(() =>
@@ -90,7 +41,7 @@ const Default = (props) => {
     <Box flex grow column sx={{ height: "100%", overflowY: "auto" }}>
       {(loading && <Loading />) ||
         (error && <Error />) ||
-        (data && (
+        (data && data?.rows.length && (
           <Box grid templateColumns="1fr 1fr 1fr" sx={{ gap: 1, p: 1, py: 0 }}>
             {data?.rows?.map((dictionary) => {
               return (
@@ -105,6 +56,15 @@ const Default = (props) => {
                 />
               );
             })}
+          </Box>
+        )) ||
+        (data?.rows?.length === 0 && (
+          <Box flex grow center column sx={{ color: "grey" }}>
+            <Icon icon="empty" sx={{ ".span": { fontSize: "70px" } }} />
+            <Text
+              caption="It seems, you don't have any dictionary yet"
+              sx={{ fontSize: "25px" }}
+            />
           </Box>
         ))}
     </Box>

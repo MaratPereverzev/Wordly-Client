@@ -7,6 +7,7 @@ const Default = (props) => {
 
   return (
     <Input
+      placeholder="search"
       name="search"
       onChange={() => (e) => {
         data.current = e?.target?.value;

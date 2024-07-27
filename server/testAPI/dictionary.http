@@ -3,13 +3,13 @@ http://localhost:8080/api/dictionary?userId=2
 http://localhost:8080/api/dictionary/1
 ###
 POST http://localhost:8080/api/private/dictionary
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkFkbWluSGVIZUhlIiwicGFzc3dvcmQiOiIxMjMzMjEifQ.PQwBeKY7KsCHRM9pmoIhzP8BpiiGsn3aS-f0BtiKzdw
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkFkbWluIiwicGFzc3dvcmQiOiIxMjMzMjEifQ.AH4EQdVo4PVTNGZfA9d8QWiU1BX_iy-P9HmZ4CgP8mE
 content-type: application/json
 
 {
   "caption": "English",
-  "description": "dict",
-  "dictionaryId": 2
+  "description": "for myself",
+  "userId": 6
 }
 ###
 PUT http://localhost:8080/api/private/dictionary

@@ -2,14 +2,12 @@ import { Box, Button, Input, Text } from "@components";
 import { UserContextData } from "@context";
 import { dispatchEvent } from "@utils";
 import { useContext, useRef } from "react";
-import useFetch from "use-http";
+import axios from "axios";
 
 const Default = () => {
   let user = useContext(UserContextData);
   const login = useRef();
   const password = useRef();
-
-  const { get, response } = useFetch("http://localhost:8080/api/auth/login");
 
   return (
     <Box
@@ -109,7 +107,7 @@ const Default = () => {
             sx={{ paddingLeft: 1.5 }}
             onClick={async () => {
               try {
-                const data = await get(
+                const { data, response } = await axios.get(
                   `?login=${login.current}&password=${password.current}`
                 );
                 if (response.ok) {

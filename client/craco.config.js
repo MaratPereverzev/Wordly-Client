@@ -9,8 +9,8 @@ const resolvePath = (p) => path.resolve(__dirname, p);
 module.exports = {
   webpack: {
     alias: {
+      "@fetch": resolvePath("./src/fetch"),
       "@components": resolvePath("./src/components"),
-      "@api": resolvePath("./src/api"),
       "@context": resolvePath("./src/context"),
       "@data": resolvePath("./src/data"),
       "@hooks": resolvePath("./src/hooks"),

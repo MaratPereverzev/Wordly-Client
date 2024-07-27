@@ -26,6 +26,7 @@ const iconList = {
   edit: "edit",
   addIcon: "add_reaction",
   photo: "image",
+  empty: "package_2",
 };
 
 const Default = memo((props) => {

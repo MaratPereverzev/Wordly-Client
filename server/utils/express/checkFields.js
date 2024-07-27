@@ -13,6 +13,7 @@ const checkFields =
           req.baseUrl
         }\x1b[0m: [\x1b[31m${errorFields.join(", ")}\x1b[0m]`
       );
+      return;
     } else {
       next();
     }

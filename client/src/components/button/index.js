@@ -1,6 +1,7 @@
 import { Button, IconButton, ButtonGroup } from "@mui/material";
 import { Icon } from "../icon";
 import { Text } from "../text";
+import { Tooltip } from "../tooltip";
 import { areEqual } from "@utils";
 import { memo } from "react";
 
@@ -13,34 +14,63 @@ const Default = memo((props) => {
     caption,
     variant = "contained",
     iconAtTheEnd,
+    tooltipPosition,
     ...other
   } = props;
 
   const captionIsString = typeof caption === "string";
 
-  return (
-    <Button
-      size="small"
-      sx={{
-        p: 0.5,
-        justifyContent: "flex-start",
-        minWidth: "min-content",
-        textTransform: "capitalize",
-        ...sx,
-      }}
-      variant={variant}
-      {...other}
-    >
-      {icon && !iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
-      {captionIsString ? (
-        <Text caption={caption} sx={{ ...sxText }} />
-      ) : (
-        caption
-      )}
+  if (!!tooltipPosition && !caption) {
+    return (
+      <Tooltip disableInteractive title={icon} placement={tooltipPosition}>
+        <Button
+          size="small"
+          sx={{
+            p: 0.5,
+            justifyContent: "flex-start",
+            minWidth: "min-content",
+            textTransform: "capitalize",
+            ...sx,
+          }}
+          variant={variant}
+          {...other}
+        >
+          {icon && !iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
+          {captionIsString ? (
+            <Text caption={caption} sx={{ ...sxText }} />
+          ) : (
+            caption
+          )}
 
-      {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
-    </Button>
-  );
+          {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
+        </Button>
+      </Tooltip>
+    );
+  } else {
+    return (
+      <Button
+        size="small"
+        sx={{
+          p: 0.5,
+          justifyContent: "flex-start",
+          minWidth: "min-content",
+          textTransform: "capitalize",
+          ...sx,
+        }}
+        variant={variant}
+        {...other}
+      >
+        {icon && !iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
+        {captionIsString ? (
+          <Text caption={caption} sx={{ ...sxText }} />
+        ) : (
+          caption
+        )}
+
+        {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
+      </Button>
+    );
+  }
 }, areEqual);
 
 const MenuButtonTemplate = (props) => {
@@ -52,6 +82,7 @@ const MenuButtonTemplate = (props) => {
       sx={{
         ...sx,
       }}
+      tooltipPosition="right"
       {...other}
     />
   );
