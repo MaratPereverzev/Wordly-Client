@@ -1,13 +1,13 @@
 import { UserContextData } from "@context";
 import { useFetch } from "@hooks";
-import axios from "axios";
+import { dispatchEvent } from "@utils";
 import { useContext } from "react";
 
 const useGetDictionary = (prefix) => {
   const userData = useContext(UserContextData);
 
-  const response = useFetch({
-    method: "get",
+  const { response, fetchData, loading, error } = useFetch({
+    method: "GET",
     url: `http://localhost:8080/api/private/dictionary${
       prefix ? "?" + prefix : ""
     }`,
@@ -16,64 +16,85 @@ const useGetDictionary = (prefix) => {
       "Content-Type": "application/json",
       Authorization: userData?.accessToken,
     },
-    responseType: "json",
   });
 
-  return response;
+  return { ...response, loading, error, get: fetchData };
 };
 
-const usePostDictionary = async (props) => {
+const usePostDictionary = (dictionaryData) => {
   const userData = useContext(UserContextData);
 
-  const response = await axios.get(
-    "http://localhost:8080/api/private/dictionary",
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: userData?.accessToken,
-        "User-Agent": "any-name",
-      },
-    }
-  );
+  const { response, loading, error, fetchData } = useFetch({
+    method: "POST",
+    url: "http://localhost:8080/api/private/dictionary",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: userData?.accessToken,
+    },
+    data: dictionaryData,
+  });
 
-  return response;
+  if (response?.status === 200) {
+    dispatchEvent("snackbarTrigger", {
+      status: "success",
+      message: "created successfully",
+    });
+    dispatchEvent("onReload");
+  }
+
+  return { ...response, loading, error, post: fetchData };
 };
 
-const useDelDictionary = async () => {
+const useDelDictionary = (prefix) => {
   const userData = useContext(UserContextData);
 
-  const response = await axios.get(
-    "http://localhost:8080/api/private/dictionary",
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: userData?.accessToken,
-        "User-Agent": "any-name",
-      },
-    }
-  );
+  const { response, loading, error, fetchData } = useFetch({
+    method: "DELETE",
+    url: `http://localhost:8080/api/private/dictionary${
+      prefix ? "?" + prefix : ""
+    }`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: userData?.accessToken,
+    },
+  });
 
-  return response;
+  if (response.status === 200) {
+    dispatchEvent("snackbarTrigger", {
+      status: "success",
+      message: "created successfully",
+    });
+    dispatchEvent("onReload");
+  }
+
+  return { ...response, loading, error, del: fetchData };
 };
 
-const usePutDictionary = async (props) => {
+const usePutDictionary = async (dictionaryData) => {
   const userData = useContext(UserContextData);
 
-  const response = await axios.get(
-    "http://localhost:8080/api/private/dictionary",
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: userData?.accessToken,
-        "User-Agent": "any-name",
-      },
-    }
-  );
+  const { response, loading, error, fetchData } = useFetch({
+    method: "POST",
+    url: "http://localhost:8080/api/private/dictionary",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: userData?.accessToken,
+    },
+    data: dictionaryData,
+  });
 
-  return response;
+  if (response?.status === 200) {
+    dispatchEvent("snackbarTrigger", {
+      status: "success",
+      message: "created successfully",
+    });
+    dispatchEvent("onReload");
+  }
+
+  return { ...response, loading, error, put: fetchData };
 };
 
 export {

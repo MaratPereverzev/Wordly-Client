@@ -107,10 +107,12 @@ const Default = () => {
             sx={{ paddingLeft: 1.5 }}
             onClick={async () => {
               try {
-                const { data, response } = await axios.get(
-                  `?login=${login.current}&password=${password.current}`
+                const { data, statusText } = await axios.get(
+                  `http://localhost:8080/api/auth/login?login=${login.current}&password=${password.current}`,
+                  { responseType: "json" }
                 );
-                if (response.ok) {
+
+                if (statusText === "OK") {
                   user.isAuth = data.isAuth;
                   user.accessToken = data?.accessToken;
                   dispatchEvent("onLogin");
@@ -118,7 +120,7 @@ const Default = () => {
                     message: "Access granted",
                     status: "success",
                   });
-                } else throw new Error(response.data?.message);
+                } else throw new Error(statusText);
               } catch (err) {
                 dispatchEvent("snackbarTrigger", {
                   message: err.message,

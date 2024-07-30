@@ -28,6 +28,7 @@ const getById = (req, res) => {
 
 const post = (req, res) => {
   const data = req.body;
+  data.userId = req.userData.id;
 
   models.dictionary.create(data).defAnswer(res);
 };

@@ -1,29 +1,21 @@
 import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@components";
-import { useEffect, useRef, useCallback } from "react";
-import { addEventListener } from "@utils";
 import { usePostDictionary } from "@fetch";
+import { addEventListener } from "@utils";
+import { useEffect, useRef } from "react";
 
 const Default = (props) => {
   const dictionaryData = useRef({});
-  const { post, response } = usePostDictionary();
 
-  const postDictionary = useCallback(async () => {
-    const newDictionary = await post({
-      caption: dictionaryData.name,
-      description: dictionaryData.description,
-      userId: 6,
-    });
-
-    if (response.ok) console.log(newDictionary);
-  }, [post, response]);
+  const { post } = usePostDictionary(dictionaryData.current);
 
   useEffect(
     () =>
-      addEventListener("onCreateDictionary", () => {
-        postDictionary();
+      addEventListener("onCreateDicitonary", () => {
+        post(dictionaryData.current);
       }),
-    [postDictionary]
+    [post]
   );
+
   return (
     <>
       <Box className="createDictionary content" column flex>
@@ -31,7 +23,7 @@ const Default = (props) => {
           <Box flex gap="20px" ai>
             <Icon icon="word" sx={{ ".span": { fontSize: "30px" } }} />
             <Input
-              name="name"
+              name="caption"
               autoComplete="off"
               placeholder="Dictionary name"
               variant="standard"

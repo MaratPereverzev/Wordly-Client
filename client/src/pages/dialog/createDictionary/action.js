@@ -9,7 +9,7 @@ const Default = () => {
         sxText={{ px: 1 }}
         onClick={() => {
           dispatchEvent("dialogTrigger", { opened: false });
-          dispatchEvent("onCreateDictionary");
+          dispatchEvent("onCreateDicitonary");
         }}
       />
       <Button

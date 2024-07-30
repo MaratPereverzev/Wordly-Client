@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 const Default = (defOptions = {}) => {
   const [loading, setLoading] = useState(false);
@@ -8,24 +8,23 @@ const Default = (defOptions = {}) => {
   const options = useRef(defOptions);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios(options.current);
+    options.current = defOptions;
+  }, [defOptions]);
 
-        setResponse(response);
-      } catch (err) {
-        setError(true);
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios(options.current);
 
-    fetchData();
+      setResponse(response);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { ...response, loading, error };
+  return { response, loading, error, fetchData };
 };
 
 export { Default as useFetch };
