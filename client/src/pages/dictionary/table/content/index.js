@@ -64,7 +64,7 @@ const Default = (props) => {
                   itemId={dictionary.id}
                   selectedItems={selectedItems}
                   key={dictionary.id}
-                  caption={`${dictionary.id} - ${dictionary.caption}`}
+                  data={dictionary}
                   setSelectCount={setSelectCount}
                   selectMode={selectMode}
                 />

@@ -1,11 +1,12 @@
 import { memo } from "react";
 import { areEqual, dispatchEvent } from "@utils";
 import { Checkbox, Box, Popover, ButtonIcon, Button, Text } from "@components";
+import { DeleteDictionaryDialog } from "../../../../dialog";
 
 const Default = memo((props) => {
   const {
     sx,
-    caption,
+    data,
     selectMode,
     setSelectCount,
     selectedItems,
@@ -13,10 +14,6 @@ const Default = memo((props) => {
     checked,
     ...other
   } = props;
-
-  const handleOnClick = () => {
-    dispatchEvent("onOpenDialog");
-  };
 
   return (
     <Box
@@ -40,8 +37,12 @@ const Default = memo((props) => {
             borderRadius: 1,
           }}
         />
-        <Box flex sx={{ p: 1 }}>
-          <Text caption={caption} />
+        <Box flex column sx={{ p: 1 }}>
+          <Text caption={data?.caption} sx={{ fontSize: "20px" }} />
+          <Text
+            caption={data?.description}
+            sx={{ fontSize: "12px", color: "grey", grow: 1 }}
+          />
         </Box>
       </Box>
       <Box flex column sx={{ p: 1 }} jc="space-between">
@@ -68,16 +69,27 @@ const Default = memo((props) => {
             sxPopover={{ p: 0.5 }}
           >
             <Button
+              color="inherit"
+              sx={{
+                "&:hover": {
+                  color: "red",
+                },
+              }}
               icon="delete"
               variant="text"
               caption="delete"
-              onClick={handleOnClick}
+              onClick={() => {
+                dispatchEvent("onOpenDialog", {
+                  dialogContent: <DeleteDictionaryDialog id={data.id} />,
+                });
+              }}
             />
             <Button
+              color="inherit"
               icon="edit"
               variant="text"
               caption="edit"
-              onClick={handleOnClick}
+              onClick={() => {}}
             />
           </Popover>
         </Box>

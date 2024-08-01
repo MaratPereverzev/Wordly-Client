@@ -3,19 +3,19 @@ import { dispatchEvent } from "@utils";
 
 const Default = () => {
   return (
-    <Box flex jc="flex-end" gap>
+    <Box flex jc="flex-end" gap sx={{ paddingTop: 4 }}>
       <Button
-        color="success"
-        caption="Create"
+        color="error"
+        caption="Delete"
         sxText={{ px: 1 }}
         onClick={() => {
           dispatchEvent("dialogTrigger", { opened: false });
-          dispatchEvent("onCreateDicitonary");
+          dispatchEvent("onDeleteDicitonary");
         }}
       />
       <Button
-        variant="text"
         caption="Cancel"
+        variant="text"
         sxText={{ px: 1 }}
         onClick={() => {
           dispatchEvent("dialogTrigger", { opened: false });
@@ -25,4 +25,4 @@ const Default = () => {
   );
 };
 
-export { Default as Action };
+export { Default as Actions };

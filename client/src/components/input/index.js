@@ -16,7 +16,8 @@ const Default = (props) => {
 
   return (
     <TextField
-      label={label ?? name}
+      label={label}
+      name={name}
       variant={variant}
       size="small"
       sx={{ ...sx }}

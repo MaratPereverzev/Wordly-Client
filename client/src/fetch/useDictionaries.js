@@ -46,14 +46,13 @@ const usePostDictionary = (dictionaryData) => {
   return { ...response, loading, error, post: fetchData };
 };
 
-const useDelDictionary = (prefix) => {
+const useDelDictionary = (dictionaryData) => {
+  const { id } = dictionaryData;
   const userData = useContext(UserContextData);
 
   const { response, loading, error, fetchData } = useFetch({
     method: "DELETE",
-    url: `http://localhost:8080/api/private/dictionary${
-      prefix ? "?" + prefix : ""
-    }`,
+    url: `http://localhost:8080/api/private/dictionary?id=${id}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -61,10 +60,10 @@ const useDelDictionary = (prefix) => {
     },
   });
 
-  if (response.status === 200) {
+  if (response?.status === 200) {
     dispatchEvent("snackbarTrigger", {
       status: "success",
-      message: "created successfully",
+      message: "deleted successfully",
     });
     dispatchEvent("onReload");
   }

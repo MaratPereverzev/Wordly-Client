@@ -27,14 +27,15 @@ const iconList = {
   addIcon: "add_reaction",
   photo: "image",
   empty: "package_2",
+  exclamation: "error",
 };
 
 const Default = memo((props) => {
   const { icon, sx, sxIcon, ...other } = props;
 
   return (
-    <Box flex ai sx={{ ...sx }}>
-      <span className="material-symbols-rounded span" style={sxIcon} {...other}>
+    <Box flex ai sx={{ ...sx }} {...other}>
+      <span className="material-symbols-rounded span" style={sxIcon}>
         {iconList[icon ?? "default"]}
       </span>
     </Box>

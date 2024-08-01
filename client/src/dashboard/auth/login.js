@@ -43,6 +43,7 @@ const Default = () => {
           </Box>
           <Box flex column gap ai>
             <Input
+              label="login"
               name="login"
               sx={{
                 color: "white",
@@ -69,6 +70,7 @@ const Default = () => {
               }}
             />
             <Input
+              label="password"
               type="password"
               name="password"
               onChange={() => (e) => {
