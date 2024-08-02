@@ -7,6 +7,7 @@ const get = async (req, res) => {
   const { login, password } = req.query;
 
   const inputData = { login, password };
+
   if (
     login === "undefined" ||
     login === "" ||
@@ -14,7 +15,7 @@ const get = async (req, res) => {
     password === ""
   ) {
     res.status(401).send({
-      message: `missed fields: ${Object.keys(inputData)
+      message: `missing fields: ${Object.keys(inputData)
         .filter(
           (key) => inputData[key] === "undefined" || inputData[key] === ""
         )

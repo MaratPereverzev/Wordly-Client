@@ -20,7 +20,7 @@ const Default = memo((props) => {
       flex
       jc
       sx={{
-        height: "200px",
+        height: "300px",
         border: ({ palette }) => `1px solid ${palette.divider}`,
         borderRadius: 1,
         transition: "background-color 200ms ease-in-out",

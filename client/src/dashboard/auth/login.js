@@ -122,10 +122,12 @@ const Default = () => {
                     message: "Access granted",
                     status: "success",
                   });
-                } else throw new Error(statusText);
+                } else {
+                  throw new Error(statusText);
+                }
               } catch (err) {
                 dispatchEvent("snackbarTrigger", {
-                  message: err.message,
+                  message: err.response.data?.message,
                   status: "error",
                 });
               }
