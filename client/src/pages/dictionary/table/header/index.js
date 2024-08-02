@@ -5,7 +5,7 @@ import { InputCaption } from "./inputCaption";
 import { ActionGroup } from "./buttonGroup";
 
 const Default = memo((props) => {
-  const { selectMode, selectedItemsCount } = props;
+  const { selectMode, selectedItemsCount, query } = props;
 
   return (
     <Box flex jc="space-between" sx={{ p: 1 }} ai>
@@ -17,7 +17,7 @@ const Default = memo((props) => {
         <Button icon="filter" variant="text" />
         <Button icon="sort" variant="text" />
       </Box>
-      <InputCaption />
+      <InputCaption query={query} />
     </Box>
   );
 }, areEqual);

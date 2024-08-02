@@ -1,5 +1,4 @@
 import { Box, Error, Icon, Loading, Text } from "@components";
-import { useGetDictionary } from "@fetch";
 import { addEventListener, dispatchEvent } from "@utils";
 import { useEffect } from "react";
 import { ItemBox } from "./itemBox";
@@ -11,20 +10,31 @@ const Default = (props) => {
     setSelectMode,
     selectMode,
     itemsPerPage,
-    page,
+    response,
+    query,
   } = props;
 
-  const { data, loading, error, get } = useGetDictionary(
-    `limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
-  );
+  const { data, loading, error, get } = response;
 
   useEffect(() => {
-    get();
+    get({
+      url:
+        "?" +
+        Object.keys(query)
+          .map((key) => `${key}=${query[key]}`)
+          .join("&"),
+    });
 
     return addEventListener("onReload", () => {
-      get();
+      get({
+        url:
+          "?" +
+          Object.keys(query)
+            .map((key) => `${key}=${query[key]}`)
+            .join("&"),
+      });
     });
-  }, [get]);
+  }, [get, query]);
 
   useEffect(() => {
     dispatchEvent("onLoadData/dictionary", {

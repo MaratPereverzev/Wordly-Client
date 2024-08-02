@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useRef } from "react";
 
 const Default = (defOptions = {}) => {
   const [loading, setLoading] = useState(false);
@@ -7,14 +7,19 @@ const Default = (defOptions = {}) => {
   const [error, setError] = useState(false);
   const options = useRef(defOptions);
 
+  /*
   useEffect(() => {
     options.current = defOptions;
   }, [defOptions]);
+  */
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (additionalOptions) => {
     setLoading(true);
     try {
-      const response = await axios(options.current);
+      const response = await axios({
+        ...options.current,
+        ...additionalOptions,
+      });
 
       setResponse(response);
     } catch (err) {

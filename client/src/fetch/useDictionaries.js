@@ -3,14 +3,12 @@ import { useFetch } from "@hooks";
 import { dispatchEvent } from "@utils";
 import { useContext } from "react";
 
-const useGetDictionary = (prefix) => {
+const useGetDictionary = () => {
   const userData = useContext(UserContextData);
 
   const { response, fetchData, loading, error } = useFetch({
     method: "GET",
-    url: `http://localhost:8080/api/private/dictionary${
-      prefix ? "?" + prefix : ""
-    }`,
+    baseURL: "http://localhost:8080/api/private/dictionary",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
