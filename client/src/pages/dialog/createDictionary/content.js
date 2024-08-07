@@ -1,10 +1,10 @@
 import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@components";
 import { usePostDictionary } from "@fetch";
 import { addEventListener } from "@utils";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const Default = (props) => {
-  const dictionaryData = useRef({});
+  const { dictionaryData } = props;
 
   const { post } = usePostDictionary(dictionaryData.current);
 
@@ -13,7 +13,7 @@ const Default = (props) => {
       addEventListener("onCreateDicitonary", () => {
         post(dictionaryData.current);
       }),
-    [post]
+    [post, dictionaryData]
   );
 
   return (

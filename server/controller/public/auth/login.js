@@ -7,7 +7,6 @@ const get = async (req, res) => {
   const { login, password } = req.query;
 
   const inputData = { login, password };
-
   if (
     login === "undefined" ||
     login === "" ||

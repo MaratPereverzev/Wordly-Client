@@ -12,3 +12,4 @@ export * from "./dialog";
 export * from "./error";
 export * from "./snackbar";
 export * from "./autocomplete";
+export * from "./emptyData";

@@ -1,7 +1,25 @@
-import { memo } from "react";
+import { Box, Text, ButtonIcon } from "@components";
+import { DeleteDictionaryDialog } from "@dialog";
 import { areEqual, dispatchEvent } from "@utils";
-import { Checkbox, Box, Popover, ButtonIcon, Button, Text } from "@components";
-import { DeleteDictionaryDialog } from "../../../../dialog";
+import { memo } from "react";
+/*
+{
+  selectMode && (
+    <Checkbox
+      checked={checked}
+      onChange={(e) => {
+        dispatchEvent("onCheck/dictionary", {
+          id: itemId,
+          checked: e?.target?.checked,
+        });
+        e.target.checked
+          ? setSelectCount((prev) => prev + 1)
+          : setSelectCount((prev) => prev - 1);
+      }}
+    />
+  );
+}
+*/
 
 const Default = memo((props) => {
   const {
@@ -20,91 +38,51 @@ const Default = memo((props) => {
       flex
       jc
       sx={{
-        height: "300px",
+        aspectRatio: "16/10",
         border: ({ palette }) => `1px solid ${palette.divider}`,
-        borderRadius: 1,
-        transition: "background-color 200ms ease-in-out",
+        borderRadius: 3,
         ...sx,
       }}
       {...other}
     >
-      <Box flex grow sx={{ p: 3 }}>
-        <Box
-          sx={{
-            width: "80px",
-            height: "80px",
-            backgroundColor: "black",
-            borderRadius: 1,
-          }}
-        />
-        <Box flex column sx={{ p: 1 }}>
-          <Text caption={data?.caption} sx={{ fontSize: "20px" }} />
-          <Text
-            caption={data?.description}
-            sx={{ fontSize: "12px", color: "grey", grow: 1 }}
-          />
-        </Box>
-      </Box>
-      <Box flex column sx={{ p: 1 }} jc="space-between">
-        <Box flex jc="flex-end">
-          {selectMode && (
-            <Checkbox
-              checked={checked}
-              onChange={(e) => {
-                dispatchEvent("onCheck/dictionary", {
-                  id: itemId,
-                  checked: e?.target?.checked,
-                });
-                e.target.checked
-                  ? setSelectCount((prev) => prev + 1)
-                  : setSelectCount((prev) => prev - 1);
-              }}
-            />
-          )}
-          <Popover
-            className="popover"
-            boxProps={{ gap: true }}
-            closeOnClick
-            button={<ButtonIcon icon="moreOptions" />}
-            sxPopover={{ p: 0.5 }}
+      <Box flex grow sx={{ p: 1 }}>
+        <Box flex column grow>
+          <Box
+            flex
+            column
+            grow
+            sx={{
+              p: 1,
+              background: "#f9f6fe",
+              backgroundSize: "cover",
+              borderTopRightRadius: "8px",
+              borderTopLeftRadius: "8px",
+            }}
           >
-            <Button
-              color="inherit"
-              sx={{
-                "&:hover": {
-                  color: "red",
-                },
-              }}
-              icon="delete"
-              variant="text"
-              caption="delete"
-              onClick={() => {
-                dispatchEvent("onOpenDialog", {
-                  dialogContent: <DeleteDictionaryDialog id={data.id} />,
-                });
-              }}
+            <Box flex gap="5px" jc="flex-end">
+              <ButtonIcon icon="saved" />
+              <ButtonIcon
+                icon="delete"
+                sx={{
+                  "&:hover": { color: "#E41F1F" },
+                  transition: "color 200ms ease-in-out",
+                }}
+                onClick={() => {
+                  dispatchEvent("onOpenDialog", {
+                    dialogContent: <DeleteDictionaryDialog id={data.id} />,
+                  });
+                }}
+              />
+            </Box>
+          </Box>
+          <Box sx={{ p: 1 }}>
+            <Text caption={data?.caption} sx={{ fontSize: "20px" }} />
+            <Text
+              caption={data?.description}
+              sx={{ fontSize: "12px", color: "grey", grow: 1 }}
             />
-            <Button
-              color="inherit"
-              icon="edit"
-              variant="text"
-              caption="edit"
-              onClick={() => {}}
-            />
-          </Popover>
+          </Box>
         </Box>
-
-        <Button
-          color="inherit"
-          caption="explore"
-          icon="arrowRight"
-          variant="text"
-          iconAtTheEnd
-          sx={{
-            gap: 1,
-            borderRadius: 2,
-          }}
-        />
       </Box>
     </Box>
   );

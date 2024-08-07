@@ -32,6 +32,17 @@
           "field": "deletedAt",
           "seqType": "Sequelize.DATE"
         },
+        "mediaId": {
+          "allowNull": true,
+          "references": {
+            "model": "media",
+            "key": "id"
+          },
+          "onDelete": "NO ACTION",
+          "onUpdate": "NO ACTION",
+          "field": "mediaId",
+          "seqType": "Sequelize.INTEGER"
+        },
         "userId": {
           "allowNull": true,
           "references": {
@@ -202,5 +213,5 @@
     }
   },
   "exists": true,
-  "revision": 5
+  "revision": 8
 }

@@ -66,7 +66,6 @@ const Default = memo((props) => {
         ) : (
           caption
         )}
-
         {icon && iconAtTheEnd && <Icon icon={icon} sx={{ ...sxIcon }} />}
       </Button>
     );

@@ -30,7 +30,7 @@ const Default = memo((props) => {
           count={isNaN(pageCount) ? 1 : pageCount}
           page={page}
           onChange={(_, value) => {
-            setPage(value);
+            setPage((prev) => (prev = value));
           }}
         />
       )}

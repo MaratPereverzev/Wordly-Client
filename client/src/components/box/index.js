@@ -47,6 +47,7 @@ const Default = (props) => {
       sx.gridAutoFlow = typeof gridFlow === "boolean" ? "row" : gridFlow;
     if (templateColumns) sx.gridTemplateColumns = templateColumns;
     if (gridTemplate) sx.gridTemplate = gridTemplate;
+    if (gap) sx.gap = typeof gap === "boolean" ? "10px" : gap;
   }
 
   return <Box sx={{ ...sx }} {...other} />;

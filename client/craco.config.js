@@ -17,6 +17,7 @@ module.exports = {
       "@utils": resolvePath("./src/utils"),
       "@pages": resolvePath("./src/pages"),
       "@auth": resolvePath("./src/auth"),
+      "@dialog": resolvePath("./src/pages/dialog"),
     },
   },
   eslint: false,

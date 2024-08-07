@@ -9,7 +9,7 @@ const Default = (props) => {
 
   const { timeoutReset } = useTimeout(() => {
     if (data.current.length > 0) {
-      query.current.caption = data.current;
+      query.current.caption = `%${data.current}%`;
     } else {
       delete query.current.caption;
     }

@@ -1,4 +1,4 @@
-import { Box, Error, Icon, Loading, Text } from "@components";
+import { Box, Error, Loading, EmptyData } from "@components";
 import { addEventListener, dispatchEvent } from "@utils";
 import { useEffect } from "react";
 import { ItemBox } from "./itemBox";
@@ -66,7 +66,12 @@ const Default = (props) => {
       {(loading && <Loading />) ||
         (error && <Error />) ||
         (data && data?.rows.length && (
-          <Box grid templateColumns="1fr 1fr 1fr" sx={{ gap: 1, p: 1, py: 0 }}>
+          <Box
+            grid
+            templateColumns="1fr 1fr 1fr"
+            gap
+            sx={{ gap: 1, p: 1, py: 0 }}
+          >
             {data?.rows?.map((dictionary) => {
               return (
                 <ItemBox
@@ -83,13 +88,10 @@ const Default = (props) => {
           </Box>
         )) ||
         (data?.rows?.length === 0 && (
-          <Box flex grow center column sx={{ color: "grey" }}>
-            <Icon icon="empty" sx={{ ".span": { fontSize: "70px" } }} />
-            <Text
-              caption="It seems, you don't have any dictionary yet"
-              sx={{ fontSize: "25px" }}
-            />
-          </Box>
+          <EmptyData
+            message="It seems, you don't have any dictionary yet"
+            icon="empty"
+          />
         ))}
     </Box>
   );

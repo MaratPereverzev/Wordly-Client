@@ -15,6 +15,11 @@ module.exports = (db, modelName, options) => {
       onDelete: "CASCADE",
       onUpdate: "NO ACTION",
     });
+    model.belongsTo(models.media, {
+      foreignKey: "mediaId",
+      onDelete: "NO ACTION",
+      onUpdate: "NO ACTION",
+    });
   };
 
   return model;
