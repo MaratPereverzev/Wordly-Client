@@ -10,7 +10,18 @@ const get = (req, res) => {
   );
 
   models.dictionary
-    .findAndCountAll({ where, limit, offset, attributes: defInclude() })
+    .findAndCountAll({
+      where,
+      limit,
+      offset,
+      attributes: defInclude(),
+      include: [
+        {
+          model: models.media,
+          attributes: defInclude(),
+        },
+      ],
+    })
     .defAnswer(res);
 };
 

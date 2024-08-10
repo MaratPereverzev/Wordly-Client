@@ -26,8 +26,8 @@ const usePostDictionary = (dictionaryData) => {
     method: "POST",
     url: "http://localhost:8080/api/private/dictionary",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: "multipart/form-data",
+      "Content-Type": "multipart/form-data",
       Authorization: userData?.accessToken,
     },
     data: dictionaryData,

@@ -4,6 +4,7 @@ const {
   checkFields,
   excludeFields,
   getLikeTemplate,
+  createFile,
 } = require("@utils");
 
 const get = (req, res) => {
@@ -14,7 +15,13 @@ const get = (req, res) => {
   where.userId = req.userData?.id;
 
   models.dictionary
-    .findAndCountAll({ where, limit, offset, attributes: defInclude() })
+    .findAndCountAll({
+      where,
+      limit,
+      offset,
+      attributes: defInclude(),
+      includes: { model: models.media, attributes: defInclude() },
+    })
     .defAnswer(res);
 };
 
@@ -26,9 +33,13 @@ const getById = (req, res) => {
     .defAnswer(res);
 };
 
-const post = (req, res) => {
+const post = async (req, res) => {
   const data = req.body;
   data.userId = req.userData.id;
+
+  data.mediaId = (
+    await models.media.findOne({ where: { id: req.mediaId } })
+  ).id;
 
   models.dictionary.create(data).defAnswer(res);
 };
@@ -62,6 +73,7 @@ module.exports = (router) => {
   router.post(
     "/",
     checkFields(excludeFields(defInclude(), ["id"]), "body"),
+    createFile,
     post
   );
   router.delete("/", del);

@@ -4,15 +4,15 @@ const zlib = require("zlib");
 const { createPath } = require("@utils");
 
 const get = (req, res) => {
-  const { md5 } = req.query;
+  const { id } = req.query;
 
-  if (!md5) {
-    res.status(406).send("Requires file's md5");
+  if (!id) {
+    res.status(406).send("Requires file's id");
     return;
   }
 
   models.media
-    .findOne({ where: { md5 } })
+    .findOne({ where: { id } })
     .then((data) => {
       const headers = {
         "Accept-ranges": "bytes",

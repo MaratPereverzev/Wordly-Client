@@ -1,23 +1,8 @@
 const models = require("@models");
-const { checkFields, createPath } = require("@utils");
+const { checkFields, createPath, createFile } = require("@utils");
 
 const post = async (req, res) => {
-  const files = Object.keys(req.files);
-
-  for (const file of files) {
-    models.media
-      .findOne({
-        where: { md5: req.files[file].md5 },
-      })
-      .then((data) => {
-        req.files[file].mv(`${createPath(req.files[file].md5)}`);
-        if (data.md5 !== req.files[file].md5)
-          return models.media.create({ ...req.files[file] });
-
-        return data;
-      })
-      .defAnswer(res);
-  }
+  models.media.findOne({ where: { id: req.mediaId } }).defAnswer(res);
 };
 
 const del = (req, res) => {
@@ -31,6 +16,6 @@ const del = (req, res) => {
 };
 
 module.exports = (router) => {
-  router.post("/", post);
+  router.post("/", createFile, post);
   router.delete("/", checkFields(["id"]), del);
 };
