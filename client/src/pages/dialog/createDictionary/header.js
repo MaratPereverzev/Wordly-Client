@@ -4,6 +4,7 @@ import { useState } from "react";
 const Default = (props) => {
   const { dictionaryData } = props;
   const [selectedImage, setSelectedImage] = useState(null);
+
   return (
     <Box
       className="createDictionary header"
@@ -11,7 +12,7 @@ const Default = (props) => {
         display: "inline-block",
         border: ({ palette }) => `1px solid ${palette.divider}`,
         position: "relative",
-        overflowY: "hidden",
+        overflow: "hidden",
         height: "35%",
         "> div": {
           opacity: 0,
@@ -27,6 +28,7 @@ const Default = (props) => {
         style={{
           width: "100%",
           display: !selectedImage && "none",
+          position: "absolute",
         }}
         alt="ok"
       />
@@ -45,7 +47,7 @@ const Default = (props) => {
               fontSize: "13px",
             }}
             onChange={(data) => {
-              dictionaryData.current.media = data;
+              dictionaryData.current.append("media", data);
               setSelectedImage(data);
             }}
           />
@@ -71,6 +73,13 @@ const Default = (props) => {
           sxText={{ fontSize: "13px" }}
           onChange={(data) => {
             dictionaryData.current.media = data;
+            /*
+            dictionaryData.current.set(
+              "media",
+              new Blob([data.preview]),
+              data.caption
+            );
+            */
             setSelectedImage(data);
           }}
         />

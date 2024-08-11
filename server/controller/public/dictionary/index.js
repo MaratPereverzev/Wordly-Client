@@ -18,7 +18,7 @@ const get = (req, res) => {
       include: [
         {
           model: models.media,
-          attributes: defInclude(),
+          attributes: defInclude(["path"]),
         },
       ],
     })

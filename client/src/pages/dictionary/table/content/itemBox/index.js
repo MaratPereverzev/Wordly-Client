@@ -53,8 +53,12 @@ const Default = memo((props) => {
             grow
             sx={{
               p: 1,
-              background: "#f9f6fe",
+              background: data?.medium?.id
+                ? `url(http://localhost:8080/api/media?id=${data?.medium.id})`
+                : "#f9f6fe",
               backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
               borderTopRightRadius: "8px",
               borderTopLeftRadius: "8px",
             }}

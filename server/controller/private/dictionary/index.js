@@ -20,7 +20,12 @@ const get = (req, res) => {
       limit,
       offset,
       attributes: defInclude(),
-      includes: { model: models.media, attributes: defInclude() },
+      include: [
+        {
+          model: models.media,
+          attributes: defInclude(["path"]),
+        },
+      ],
     })
     .defAnswer(res);
 };
@@ -37,9 +42,11 @@ const post = async (req, res) => {
   const data = req.body;
   data.userId = req.userData.id;
 
-  data.mediaId = (
-    await models.media.findOne({ where: { id: req.mediaId } })
-  ).id;
+  if (req?.mediaId) {
+    data.mediaId = (
+      await models.media.findOne({ where: { id: req.mediaId } })
+    ).id;
+  }
 
   models.dictionary.create(data).defAnswer(res);
 };

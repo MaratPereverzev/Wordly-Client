@@ -91,6 +91,10 @@
           "field": "md5",
           "seqType": "Sequelize.TEXT"
         },
+        "path": {
+          "field": "path",
+          "seqType": "Sequelize.TEXT"
+        },
         "createdAt": {
           "allowNull": false,
           "field": "createdAt",
@@ -213,5 +217,5 @@
     }
   },
   "exists": true,
-  "revision": 8
+  "revision": 2
 }

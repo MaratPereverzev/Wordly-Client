@@ -2,20 +2,22 @@ const models = require("@models");
 const { createPath } = require("../file/createPath");
 
 const createFile = async (req, res, next) => {
-  const files = Object.keys(req.files);
+  if (req?.files) {
+    const files = Object.keys(req.files);
 
-  for (const file of files) {
-    const data = await models.media.findOne({
-      where: { md5: req.files[file].md5 },
-    });
-
-    req.files[file].mv(`${createPath(req.files[file].md5)}`);
-    if (data?.md5 !== req.files[file].md5) {
-      models.media.create({ ...req.files[file] }).then((data) => {
-        req.mediaId = data.id;
+    for (const file of files) {
+      const data = await models.media.findOne({
+        where: { md5: req.files[file].md5 },
       });
-    } else {
-      req.mediaId = data.id;
+      const path = createPath(req.files[file].md5);
+
+      req.files[file].mv(path);
+      if (data?.md5 !== req.files[file].md5) {
+        const image = await models.media.create({ ...req.files[file], path });
+        req.mediaId = image.id;
+      } else {
+        req.mediaId = data.id;
+      }
     }
   }
 

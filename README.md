@@ -49,4 +49,5 @@ If you aren't able to launch the project here's a video for you
 Part 1: https://youtu.be/fPpskLnaqIM \
 Part 2: https://youtu.be/jMLRQBixRZQ \
 Part 3: https://youtu.be/J_kmxcBQvfY \
-Part 4: https://youtu.be/EIiiys1n4R8
+Part 4: https://youtu.be/EIiiys1n4R8 \
+Part 5: https://youtu.be/LmNKcJeQGxs

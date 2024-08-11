@@ -10,6 +10,7 @@ module.exports = (db, modelName, options) => {
       size: DataTypes.FLOAT,
       mimetype: DataTypes.TEXT,
       md5: DataTypes.TEXT,
+      path: DataTypes.TEXT,
     },
     options
   );

@@ -23,13 +23,13 @@ const get = (req, res) => {
       const filePipe = fs.createReadStream(`${createPath(data.md5)}`);
 
       res.set(headers);
-      if (!!req.acceptsEncoding("gzip")) {
+      if (!!req.acceptsEncodings("gzip")) {
         res.setHeader("Content-Encoding", "gzip");
         filePipe.pipe(zlib.createGzip()).pipe(res);
-      } else if (!!req.acceptsEncoding("deflate")) {
+      } else if (!!req.acceptsEncodings("deflate")) {
         res.setHeader("Content-Encoding", "deflate");
         filePipe.pipe(zlib.createDeflate()).pipe(res);
-      } else if (!!req.acceptsEncoding("br")) {
+      } else if (!!req.acceptsEncodings("br")) {
         res.setHeader("Content-Encoding", "brotli");
         filePipe.pipe(zlib.createBrotliCompress()).pipe(res);
       } else {

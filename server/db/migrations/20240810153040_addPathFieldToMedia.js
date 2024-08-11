@@ -3,28 +3,33 @@ const Sequelize = require("sequelize");
 /**
  * Actions summary:
  *
- * renameColumn(mediumId) => "dictionaries"
+ * addColumn(path) => "media"
  *
  */
 
 const info = {
-  revision: 8,
-  name: "dictionaryAndMediaAssociation",
-  created: "2024-08-07T14:26:59.141Z",
+  revision: 2,
+  name: "addPathFieldToMedia",
+  created: "2024-08-10T15:30:40.361Z",
   comment: "",
 };
 
 const migrationCommands = (transaction) => [
   {
-    fn: "renameColumn",
-    params: ["dictionaries", "mediumId", "mediaId"],
+    fn: "addColumn",
+    params: [
+      "media",
+      "path",
+      { type: Sequelize.TEXT, field: "path" },
+      { transaction },
+    ],
   },
 ];
 
 const rollbackCommands = (transaction) => [
   {
-    fn: "renameColumn",
-    params: ["dictionaries", "mediaId", "mediumId"],
+    fn: "removeColumn",
+    params: ["media", "path", { transaction }],
   },
 ];
 

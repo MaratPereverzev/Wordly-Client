@@ -42,6 +42,7 @@ const Default = (props) => {
               }}
               onChange={(name) => (e) => {
                 dictionaryData.current[name] = e.target.value;
+                //dictionaryData.current.set(name, e.target.value);
               }}
             />
           </Box>
@@ -72,6 +73,7 @@ const Default = (props) => {
             fullWidth
             onChange={(name) => (e) => {
               dictionaryData.current[name] = e.target.value;
+              //dictionaryData.current.set(name, e.target.value);
             }}
           />
         </Box>

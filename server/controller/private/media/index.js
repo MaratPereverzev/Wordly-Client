@@ -1,8 +1,9 @@
 const models = require("@models");
 const { checkFields, createPath, createFile } = require("@utils");
 
-const post = async (req, res) => {
-  models.media.findOne({ where: { id: req.mediaId } }).defAnswer(res);
+const post = (req, res) => {
+  const { id } = req.body;
+  models.media.findOne({ where: { id: req.mediaId ?? id } }).defAnswer(res);
 };
 
 const del = (req, res) => {
