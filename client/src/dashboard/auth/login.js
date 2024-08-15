@@ -1,13 +1,17 @@
 import { Box, Button, Input, Text } from "@components";
 import { UserContextData } from "@context";
-import { dispatchEvent } from "@utils";
-import { useContext, useRef } from "react";
+import { dispatchEvent, setPageHash } from "@utils";
+import { useContext, useRef, useEffect } from "react";
 import axios from "axios";
 
 const Default = () => {
   let user = useContext(UserContextData);
   const login = useRef();
   const password = useRef();
+
+  useEffect(() => {
+    setPageHash("login");
+  }, []);
 
   return (
     <Box
