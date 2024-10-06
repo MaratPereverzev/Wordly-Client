@@ -1,43 +1,59 @@
 import { Box, Button, Input, Text } from "@components";
 import { UserContextData } from "@context";
+import { styled } from "@mui/material";
 import { dispatchEvent, setPageHash } from "@utils";
-import { useContext, useRef, useEffect } from "react";
 import axios from "axios";
+import { useContext, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 const Default = () => {
   let user = useContext(UserContextData);
-  const login = useRef();
-  const password = useRef();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: { login: undefined, password: undefined },
+    mode: "onChange",
+  });
 
   useEffect(() => {
     setPageHash("login");
   }, []);
 
+  const onSubmit = async ({ login, password }) => {
+    try {
+      const { data, statusText } = await axios.get(
+        `http://localhost:8080/api/auth/login?login=${login}&password=${password}`,
+        { responseType: "json" }
+      );
+
+      if (statusText === "OK") {
+        user.isAuth = data.isAuth;
+        user.accessToken = data?.accessToken;
+        dispatchEvent("onLogin");
+        dispatchEvent("snackbarTrigger", {
+          message: "Access granted",
+          status: "success",
+        });
+      } else {
+        throw new Error(statusText);
+      }
+    } catch (err) {
+      dispatchEvent("snackbarTrigger", {
+        message: err.response.data?.message,
+        status: "error",
+      });
+    }
+  };
+
   return (
-    <Box
-      flex
-      grow
-      center
-      sx={{
-        background: "url(/res/img/loginBackground.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <Box
-        flex
-        column
-        center
-        sx={{
-          backdropFilter: "blur(4px)",
-          width: "40%",
-          height: "40%",
-          border: ({ palette }) => `1px solid ${palette.divider}`,
-          borderRadius: 2,
-        }}
-      >
-        <Box flex center gap="10px" sx={{ p: 3 }}>
-          <Box flex center sx={{ width: "45%" }}>
+    <StyledLoginContainer flex grow center>
+      <StyledContentContainer flex column center>
+        <Box flex column gap="30px" sx={{ height: "50%" }}>
+          <Box flex center>
             <img
               src="/res/icons/WordlyDark.png"
               alt="icon"
@@ -45,102 +61,76 @@ const Default = () => {
             />
             <Text caption="ordly" sx={{ fontSize: "50px" }} />
           </Box>
-          <Box flex column gap ai>
-            <Input
-              label="login"
-              name="login"
-              sx={{
-                color: "white",
-                "& label.Mui-focused": {
-                  color: "white",
-                },
-                "& label": {
-                  color: "white",
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "white",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#D3D3D3",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "white",
-                  },
-                },
+          <Box flex grow gap="20px">
+            <StyledInput
+              {...register("login", { required: "Login is required" })}
+              errorMessage={errors.login ? errors.login.message : ""}
+              onChange={(event) => {
+                setValue("login", event.target.value);
               }}
-              onChange={() => (e) => {
-                login.current = e?.target?.value;
-              }}
+              placeholder="login"
             />
-            <Input
-              label="password"
+            <StyledInput
+              {...register("password", { required: "Password is required" })}
+              errorMessage={errors.password ? errors.password.message : ""}
+              onChange={(event) => {
+                setValue("password", event.target.value);
+              }}
+              placeholder="password"
               type="password"
-              name="password"
-              onChange={() => (e) => {
-                password.current = e?.target?.value;
-              }}
-              sx={{
-                color: "white",
-                "& label.Mui-focused": {
-                  color: "white",
-                },
-                "& label": {
-                  color: "white",
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "white",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#D3D3D3",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "white",
-                  },
-                },
-              }}
+            />
+          </Box>
+          <Box flex jc="flex-end">
+            <Button
+              type="submit"
+              caption="Enter"
+              color="inherit"
+              icon="arrowRight"
+              iconAtTheEnd
+              variant="text"
+              sx={{ paddingLeft: 1.5 }}
+              onClick={handleSubmit(onSubmit)}
             />
           </Box>
         </Box>
-        <Box flex jc="flex-end">
-          <Button
-            caption="Enter"
-            color="inherit"
-            icon="arrowRight"
-            iconAtTheEnd
-            variant="text"
-            sx={{ paddingLeft: 1.5 }}
-            onClick={async () => {
-              try {
-                const { data, statusText } = await axios.get(
-                  `http://localhost:8080/api/auth/login?login=${login.current}&password=${password.current}`,
-                  { responseType: "json" }
-                );
-
-                if (statusText === "OK") {
-                  user.isAuth = data.isAuth;
-                  user.accessToken = data?.accessToken;
-                  dispatchEvent("onLogin");
-                  dispatchEvent("snackbarTrigger", {
-                    message: "Access granted",
-                    status: "success",
-                  });
-                } else {
-                  throw new Error(statusText);
-                }
-              } catch (err) {
-                dispatchEvent("snackbarTrigger", {
-                  message: err.response.data?.message,
-                  status: "error",
-                });
-              }
-            }}
-          />
-        </Box>
-      </Box>
-    </Box>
+      </StyledContentContainer>
+    </StyledLoginContainer>
   );
 };
 
+const StyledLoginContainer = styled(Box)(() => ({
+  background: "url(/res/img/loginBackground.png)",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}));
+
+const StyledContentContainer = styled(Box)(() => ({
+  backdropFilter: "blur(4px)",
+  width: "40%",
+  height: "60%",
+  border: ({ palette }) => `1px solid ${palette.divider}`,
+  borderRadius: 2,
+}));
+
+const StyledInput = styled(Input)(() => ({
+  color: "white",
+  "& label.Mui-focused": {
+    color: "white",
+  },
+  "& label": {
+    color: "white",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "white",
+    },
+    "&:hover fieldset": {
+      borderColor: "#D3D3D3",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "white",
+    },
+  },
+  display: "block",
+}));
 export { Default as Login };

@@ -1,12 +1,12 @@
 const getPageHash = () => {
-  return window.location.hash.replace("#", "") !== ""
-    ? window.location.hash.replace("#", "")
+  return window.location.pathname.replace("/", "") !== ""
+    ? window.location.pathname.replace("/", "")
     : "home";
 };
 
-const setPageHash = (hash, toLocalStorage) => {
-  window.location.hash = hash;
-  if (toLocalStorage === true) localStorage.setItem("page", hash);
+const setPageHash = (pathname, toLocalStorage) => {
+  window.history.pushState(null, null, pathname);
+  if (toLocalStorage === true) localStorage.setItem("page", pathname);
 };
 
 export { getPageHash, setPageHash };

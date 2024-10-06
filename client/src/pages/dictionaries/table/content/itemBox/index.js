@@ -1,4 +1,4 @@
-import { Box, Text, ButtonIcon } from "@components";
+import { Box, Text, ButtonIcon, Button } from "@components";
 import { DeleteDictionaryDialog } from "@dialog";
 import { areEqual, dispatchEvent } from "@utils";
 import { memo } from "react";
@@ -79,12 +79,29 @@ const Default = memo((props) => {
               />
             </Box>
           </Box>
-          <Box sx={{ p: 1 }}>
-            <Text caption={data?.caption} sx={{ fontSize: "20px" }} />
-            <Text
-              caption={data?.description}
-              sx={{ fontSize: "12px", color: "grey", grow: 1 }}
-            />
+          <Box flex sx={{ p: 1 }} center>
+            <Box flex column grow>
+              <Text caption={data?.caption} sx={{ fontSize: "20px" }} />
+              <Text
+                caption={data?.description}
+                sx={{ fontSize: "12px", color: "grey", grow: 1 }}
+              />
+            </Box>
+            <Box>
+              <Button
+                caption="view"
+                sxText={{ fontSize: "0.85rem" }}
+                sx={{
+                  backgroundColor: "black",
+                  borderRadius: "20px",
+                  justifyContent: "center",
+                  width: "50px",
+                  "&:hover": {
+                    backgroundColor: "#333333",
+                  },
+                }}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

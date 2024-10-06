@@ -11,8 +11,9 @@ const Default = (props) => {
     sxBox,
     variant = "outlined",
     label,
-    onChange,
     name,
+    errorMessage,
+    helperText,
     ...other
   } = props;
 
@@ -22,6 +23,8 @@ const Default = (props) => {
       name={name}
       variant={variant}
       size="small"
+      error={errorMessage ?? ""}
+      helperText={errorMessage ?? helperText ?? ""}
       sx={{ ...sx }}
       InputProps={{
         startAdornment: icon && (
@@ -29,13 +32,6 @@ const Default = (props) => {
         ),
       }}
       {...other}
-      onChange={
-        typeof onChange === "function"
-          ? onChange(name)
-          : (e) => {
-              console.log(e);
-            }
-      }
     />
   );
 };

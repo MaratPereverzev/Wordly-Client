@@ -1,14 +1,14 @@
-import { UserContext } from "@context";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Dashboard } from "./dashboard";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <UserContext>
+    <Provider store={store}>
       <Dashboard />
-    </UserContext>
+    </Provider>
   </React.StrictMode>
 );

@@ -23,7 +23,7 @@ const MenuButton = (props) => {
       icon={icon}
       caption={open && caption}
       onClick={() => {
-        dispatchEvent("onChangePage/sidebar", { hash: route });
+        dispatchEvent("onChangePage/sidebar", { pathname: route });
         active = route === getLocalStorageValue("page");
       }}
       {...other}
@@ -54,7 +54,7 @@ const Default = (props) => {
   useEffect(
     () =>
       addEventListener("onChangePage/sidebar", ({ detail }) => {
-        setPageHash(detail.hash, true);
+        setPageHash(detail?.pathname, true);
         dispatchEvent("sidebar", { closed: true });
         setRender();
       }),

@@ -1,9 +1,5 @@
-import { Table } from "./table";
-
-const Default = (props) => {
-  const selectedItems = new Map();
-
-  return <Table selectedItems={selectedItems} itemsPerPage={6} />;
+const Default = () => {
+  return <></>;
 };
 
-export { Default as Dictionaries };
+export { Default as Dictionary };

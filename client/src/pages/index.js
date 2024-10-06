@@ -1,5 +1,6 @@
 import { Box } from "@components";
-import { Dictionaries } from "./dictionary";
+import { Dictionaries } from "./dictionaries";
+import { Dictionary } from "./dictionary";
 import { useEffect, useState } from "react";
 import {
   addEventListener,
@@ -41,6 +42,7 @@ const Default = (props) => {
       }}
     >
       {page === "dictionaries" && <Dictionaries />}
+      {/dictionary\/\w+/.test(page) && <Dictionary />}
     </Box>
   );
 };
