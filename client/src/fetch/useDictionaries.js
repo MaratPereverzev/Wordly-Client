@@ -1,26 +1,31 @@
-import { UserContextData } from "@context";
 import { useFetch } from "@hooks";
 import { dispatchEvent } from "@utils";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import Dictionary from "../services/dictionary";
 
 const useGetDictionary = () => {
-  const userData = useContext(UserContextData);
+  const { user } = useSelector((state) => state.user);
 
-  const { response, fetchData, loading, error } = useFetch({
-    method: "GET",
-    baseURL: "http://localhost:8080/api/private/dictionary",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: userData?.accessToken,
-    },
+  const { isLoading, data, isError } = useQuery({
+    queryKey: ["dictionaries"],
+    queryFn: () =>
+      Dictionary.getAll({
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: user.accessToken,
+        },
+      }),
+    select: ({ data }) => data,
+    enabled: !!user?.accessToken,
   });
 
-  return { ...response, loading, error, get: fetchData };
+  return { isLoading, data, isError };
 };
 
 const usePostDictionary = (dictionaryData) => {
-  const userData = useContext(UserContextData);
+  const { user } = useSelector((state) => state.login);
 
   const { response, loading, error, fetchData } = useFetch({
     method: "POST",
@@ -28,7 +33,7 @@ const usePostDictionary = (dictionaryData) => {
     headers: {
       Accept: "multipart/form-data",
       "Content-Type": "multipart/form-data",
-      Authorization: userData?.accessToken,
+      Authorization: user.accessToken,
     },
     data: dictionaryData,
   });
@@ -46,7 +51,7 @@ const usePostDictionary = (dictionaryData) => {
 
 const useDelDictionary = (dictionaryData) => {
   const { id } = dictionaryData;
-  const userData = useContext(UserContextData);
+  const { user } = useSelector((state) => state.login);
 
   const { response, loading, error, fetchData } = useFetch({
     method: "DELETE",
@@ -54,7 +59,7 @@ const useDelDictionary = (dictionaryData) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: userData?.accessToken,
+      Authorization: user?.accessToken,
     },
   });
 
@@ -70,7 +75,7 @@ const useDelDictionary = (dictionaryData) => {
 };
 
 const usePutDictionary = async (dictionaryData) => {
-  const userData = useContext(UserContextData);
+  const { user } = useSelector((state) => state.login);
 
   const { response, loading, error, fetchData } = useFetch({
     method: "POST",
@@ -78,7 +83,7 @@ const usePutDictionary = async (dictionaryData) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: userData?.accessToken,
+      Authorization: user?.accessToken,
     },
     data: dictionaryData,
   });

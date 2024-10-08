@@ -1,13 +1,14 @@
 import { Box, Button, Input, Text } from "@components";
-import { UserContextData } from "@context";
 import { styled } from "@mui/material";
 import { dispatchEvent, setPageHash } from "@utils";
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { loginAction } from "@store/user";
 
-const Default = () => {
-  let user = useContext(UserContextData);
+export const Login = () => {
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -31,19 +32,13 @@ const Default = () => {
       );
 
       if (statusText === "OK") {
-        user.isAuth = data.isAuth;
-        user.accessToken = data?.accessToken;
-        dispatchEvent("onLogin");
-        dispatchEvent("snackbarTrigger", {
-          message: "Access granted",
-          status: "success",
-        });
+        dispatch(loginAction(data));
       } else {
         throw new Error(statusText);
       }
     } catch (err) {
       dispatchEvent("snackbarTrigger", {
-        message: err.response.data?.message,
+        message: err.response?.data?.message,
         status: "error",
       });
     }
@@ -133,4 +128,3 @@ const StyledInput = styled(Input)(() => ({
   },
   display: "block",
 }));
-export { Default as Login };

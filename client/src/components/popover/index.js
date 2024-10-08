@@ -55,7 +55,7 @@ const Default = (props) => {
           <Box flex column sx={{ ...sxPopover }} {...boxProps}>
             {Array.isArray(children) ? (
               children.map((child, index) => {
-                if (typeof child === "boolean" && child === false) return null;
+                if (!child) return null;
                 return (
                   <child.type
                     key={index}
@@ -69,7 +69,7 @@ const Default = (props) => {
               })
             ) : (
               <children.type {...children.props}>
-                {typeof children === "boolean" && children === false ? null : (
+                {children === undefined ? null : (
                   <children.type
                     {...children.props}
                     onClick={() => {

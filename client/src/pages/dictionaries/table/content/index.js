@@ -1,91 +1,22 @@
-import { Box, Error, Loading, EmptyData } from "@components";
-import { addEventListener, dispatchEvent } from "@utils";
-import { useEffect } from "react";
+import { Box, EmptyData, Error, Loading } from "@components";
 import { ItemBox } from "./itemBox";
+import { styled } from "@mui/material";
 
-const Default = (props) => {
-  const {
-    selectedItems,
-    setSelectCount,
-    setSelectMode,
-    selectMode,
-    itemsPerPage,
-    response,
-    query,
-  } = props;
+export const TableContent = (props) => {
+  const { response } = props;
 
-  const { data, loading, error, get } = response;
-
-  useEffect(() => {
-    get({
-      url:
-        "?" +
-        Object.keys(query)
-          .map((key) => `${key}=${query[key]}`)
-          .join("&"),
-    });
-
-    return addEventListener("onReload", () => {
-      get({
-        url:
-          "?" +
-          Object.keys(query)
-            .map((key) => `${key}=${query[key]}`)
-            .join("&"),
-      });
-    });
-  }, [get, query]);
-
-  useEffect(() => {
-    dispatchEvent("onLoadData/dictionary", {
-      pageCount: Math.ceil(data?.count / itemsPerPage),
-    });
-  }, [data, itemsPerPage]);
-
-  useEffect(() =>
-    addEventListener("onSelectMode", () => {
-      if (!selectMode) {
-        setSelectCount(0);
-        selectedItems.clear();
-      }
-      setSelectMode((prev) => !prev);
-    })
-  );
-
-  useEffect(
-    () =>
-      addEventListener("onCheck/dictionary", ({ detail }) => {
-        if (detail.checked) selectedItems.set(detail.id, detail.checked);
-        else selectedItems.delete(detail.id);
-      }),
-    [selectedItems]
-  );
+  const { data, isLoading, isError } = response;
 
   return (
-    <Box flex grow column sx={{ height: "100%", overflowY: "auto" }}>
-      {(loading && <Loading />) ||
-        (error && <Error />) ||
-        (data && data?.rows.length && (
-          <Box
-            grid
-            templateColumns="1fr 1fr 1fr"
-            gap
-            sx={{ gap: 1, p: 1, py: 0 }}
-          >
-            {data?.rows?.map((dictionary) => {
-              return (
-                <ItemBox
-                  checked={selectedItems.get(dictionary.id) ?? false}
-                  itemId={dictionary.id}
-                  selectedItems={selectedItems}
-                  key={dictionary.id}
-                  data={dictionary}
-                  setSelectCount={setSelectCount}
-                  selectMode={selectMode}
-                />
-              );
-            })}
-          </Box>
+    <StyledTableContentContainer flex grow column>
+      {(isLoading && <Loading />) ||
+        (isError && <Error />) ||
+        (data && data?.rows?.length && (
+          <StyledDataContainer grid templateColumns="1fr 1fr 1fr" gap>
+            {data.rows.map((dictionary, index) => (
+              <ItemBox data={dictionary} key={index} />
+            ))}
+          </StyledDataContainer>
         )) ||
         (data?.rows?.length === 0 && (
           <EmptyData
@@ -93,8 +24,13 @@ const Default = (props) => {
             icon="empty"
           />
         ))}
-    </Box>
+    </StyledTableContentContainer>
   );
 };
 
-export { Default as TableContent };
+const StyledTableContentContainer = styled(Box)(() => ({
+  height: "100%",
+  overflowY: "auto",
+}));
+
+const StyledDataContainer = styled(Box)(() => ({ gap: 1, p: 1, py: 0 }));

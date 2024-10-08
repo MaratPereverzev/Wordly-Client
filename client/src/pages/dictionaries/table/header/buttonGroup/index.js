@@ -1,14 +1,18 @@
-import { ButtonGroup, Button, Popover } from "@components";
-import { useCallback } from "react";
-import { dispatchEvent } from "@utils";
+import { Button, ButtonGroup, Popover } from "@components";
 import { CreateDictionaryDialogContent } from "@pages/dialog";
+import { changeSelectMode } from "@store/dictionaries";
+import { dispatchEvent } from "@utils";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const Default = (props) => {
-  const { selectMode, selectedItemsCount } = props;
+const Default = () => {
+  const dictionaries = useSelector((store) => store.dictionaries);
+
+  const dispatch = useDispatch();
 
   const handleOnClick = useCallback(() => {
-    dispatchEvent("onSelectMode");
-  }, []);
+    dispatch(changeSelectMode());
+  }, [dispatch]);
 
   return (
     <ButtonGroup caption="new">
@@ -43,16 +47,16 @@ const Default = (props) => {
         }}
       >
         <Button
-          icon={!selectMode ? "select" : "selectOff"}
-          caption={!selectMode ? "select" : "undo"}
+          icon={dictionaries?.isSelectMode ? "select" : "selectOff"}
+          caption={dictionaries?.isSelectMode ? "select" : "undo"}
           sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
           variant="text"
           onClick={handleOnClick}
         />
-        {selectMode && (
+        {dictionaries?.isSelectMode && (
           <Button
             caption="delete"
-            disabled={selectedItemsCount === 0}
+            disabled={dictionaries?.selectedItems === 0}
             icon="delete"
             variant="text"
             sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}

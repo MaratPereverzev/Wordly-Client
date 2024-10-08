@@ -23,7 +23,7 @@ const Default = (props) => {
       name={name}
       variant={variant}
       size="small"
-      error={errorMessage ?? ""}
+      error={errorMessage && errorMessage !== "" ? true : false}
       helperText={errorMessage ?? helperText ?? ""}
       sx={{ ...sx }}
       InputProps={{

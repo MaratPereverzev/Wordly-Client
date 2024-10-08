@@ -1,12 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { dispatchEvent } from "@utils";
+
+const initialState = {
+  user: null,
+};
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    isAuth: false,
-    accessTocken: "",
+  initialState,
+  reducers: {
+    loginAction: (state, { payload }) => {
+      state.user = payload;
+
+      dispatchEvent("snackbarTrigger", {
+        message: "Access granted",
+        status: "success",
+      });
+      dispatchEvent("onLogin");
+    },
   },
-  reducers: {},
 });
 
-export default userSlice;
+export const { loginAction } = userSlice.actions;
+export default userSlice.reducer;

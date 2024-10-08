@@ -7,7 +7,6 @@ export * from "./text";
 export * from "./pagination";
 export * from "./popover";
 export * from "./loading";
-export * from "./checkbox";
 export * from "./dialog";
 export * from "./error";
 export * from "./snackbar";

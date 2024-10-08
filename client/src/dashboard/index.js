@@ -1,16 +1,16 @@
 import { Box, Dialog, Snackbar } from "@components";
-import { Sidebar } from "./sidebar";
-import { Page } from "../pages";
-import { useEffect, useContext } from "react";
+import { useRender } from "@hooks";
 import {
-  setPageHash,
+  addEventListener,
   getLocalStorageValue,
   setLocalStorageValue,
-  addEventListener,
+  setPageHash,
 } from "@utils";
-import { useRender } from "@hooks";
-import { UserContextData } from "@context";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Page } from "../pages";
 import { Login } from "./auth";
+import { Sidebar } from "./sidebar";
 
 const Default = (props) => {
   useEffect(() => {
@@ -37,7 +37,7 @@ const Default = (props) => {
 };
 
 const DefaultContext = (props) => {
-  const user = useContext(UserContextData);
+  const { user } = useSelector((state) => state.user);
 
   const setRender = useRender();
 
@@ -54,7 +54,7 @@ const DefaultContext = (props) => {
   return (
     <>
       <Snackbar />
-      {user?.isAuth === true ? <Default /> : <Login />}
+      {user?.accessToken ? <Default /> : <Login />}
     </>
   );
 };
