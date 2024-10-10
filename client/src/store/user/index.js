@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dispatchEvent } from "@utils";
+import {
+  dispatchEvent,
+  setLocalStorageValue,
+  getLocalStorageValue,
+} from "@utils";
 
 const initialState = {
-  user: null,
+  accessToken: getLocalStorageValue("accessToken"),
 };
 
 const userSlice = createSlice({
@@ -16,7 +20,8 @@ const userSlice = createSlice({
         message: "Access granted",
         status: "success",
       });
-      dispatchEvent("onLogin");
+
+      setLocalStorageValue("accessToken", payload.accessToken);
     },
   },
 });

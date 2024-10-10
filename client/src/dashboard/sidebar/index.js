@@ -44,19 +44,10 @@ const Default = (props) => {
 
   useEffect(
     () =>
-      addEventListener("sidebar", ({ detail }) => {
-        if (detail?.closed === true) setOpen(false);
-        else setOpen((prev) => !prev);
-      }),
-    []
-  );
-
-  useEffect(
-    () =>
       addEventListener("onChangePage/sidebar", ({ detail }) => {
         setPageHash(detail?.pathname, true);
         dispatchEvent("sidebar", { closed: true });
-        setRender();
+        setOpen(false);
       }),
     [setRender]
   );
@@ -108,7 +99,7 @@ const Default = (props) => {
           caption="close"
           open={open}
           onClick={() => {
-            dispatchEvent("sidebar");
+            setOpen((prev) => !prev);
           }}
         />
       </Box>

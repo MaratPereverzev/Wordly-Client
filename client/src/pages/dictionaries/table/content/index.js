@@ -33,4 +33,7 @@ const StyledTableContentContainer = styled(Box)(() => ({
   overflowY: "auto",
 }));
 
-const StyledDataContainer = styled(Box)(() => ({ gap: 1, p: 1, py: 0 }));
+const StyledDataContainer = styled(Box)(() => ({
+  gap: "8px",
+  padding: "0 8px",
+}));

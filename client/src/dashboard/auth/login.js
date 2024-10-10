@@ -32,7 +32,7 @@ export const Login = () => {
       );
 
       if (statusText === "OK") {
-        dispatch(loginAction(data));
+        dispatch(loginAction({ accessToken: data.accessToken }));
       } else {
         throw new Error(statusText);
       }

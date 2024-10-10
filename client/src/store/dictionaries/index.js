@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isSelectMode: false,
-  selectedItems: null,
-  selectedItemsCount: 0,
+  selectedItems: [],
   itemsPerPage: 9,
   page: 1,
   pageCount: 1,
@@ -19,8 +18,17 @@ const dictionarySlice = createSlice({
     changePage: (store, { payload }) => {
       store.page = payload.page;
     },
+    changeChecked: (store, { payload }) => {
+      const index = store.selectedItems.findIndex(
+        (dictionary) => dictionary.id === payload.id
+      );
+
+      if (index === -1) store.selectedItems.push(payload);
+      else store.selectedItems.splice(index, 1);
+    },
   },
 });
 
-export const { changeSelectMode, changePage } = dictionarySlice.actions;
+export const { changeSelectMode, changePage, changeChecked } =
+  dictionarySlice.actions;
 export default dictionarySlice.reducer;

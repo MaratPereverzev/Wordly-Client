@@ -16,8 +16,10 @@ export const TableFooter = memo(() => {
       sx={{ p: 1 }}
     >
       <Box>
-        {dictionaries.isSelectMode && dictionaries.selectedItemsCount > 0 && (
-          <Text caption={`${dictionaries.selectedItemsCount} items selected`} />
+        {dictionaries.isSelectMode && dictionaries.selectedItems.length > 0 && (
+          <Text
+            caption={`${dictionaries.selectedItems.length} items selected`}
+          />
         )}
       </Box>
       {dictionaries.pageCount > 1 && (

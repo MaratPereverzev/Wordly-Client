@@ -1,18 +1,12 @@
 import { Box, Dialog, Snackbar } from "@components";
-import { useRender } from "@hooks";
-import {
-  addEventListener,
-  getLocalStorageValue,
-  setLocalStorageValue,
-  setPageHash,
-} from "@utils";
+import { getLocalStorageValue, setPageHash } from "@utils";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Page } from "../pages";
 import { Login } from "./auth";
 import { Sidebar } from "./sidebar";
 
-const Default = (props) => {
+const Default = () => {
   useEffect(() => {
     setPageHash(getLocalStorageValue("page") ?? "home", true);
   }, []);
@@ -36,20 +30,8 @@ const Default = (props) => {
   );
 };
 
-const DefaultContext = (props) => {
-  const { user } = useSelector((state) => state.user);
-
-  const setRender = useRender();
-
-  useEffect(
-    () =>
-      addEventListener("onLogin", ({ detail }) => {
-        if (detail?.toLocalStorage === true)
-          setLocalStorageValue("isAuth", detail.isAuth);
-        setRender();
-      }),
-    [setRender]
-  );
+const DefaultContext = () => {
+  const user = useSelector((state) => state.user);
 
   return (
     <>

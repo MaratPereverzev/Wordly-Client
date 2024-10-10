@@ -1,9 +1,9 @@
-import { Box, Text, ButtonIcon, Button } from "@components";
-import { DeleteDictionaryDialog } from "@dialog";
-import { areEqual, dispatchEvent } from "@utils";
-import { memo } from "react";
-import { useSelector } from "react-redux";
+import { Box, Button, Text } from "@components";
 import { Checkbox, styled } from "@mui/material";
+import { changeChecked } from "@store/dictionaries";
+import { areEqual } from "@utils";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const styledItemImageContainer = {
   p: 1,
@@ -18,6 +18,7 @@ export const ItemBox = memo((props) => {
   const { sx, data, ...other } = props;
 
   const dictionaries = useSelector((store) => store.dictionaries);
+  const dispatch = useDispatch();
 
   return (
     <StyledItemContainer flex jc sx={sx} {...other}>
@@ -38,12 +39,13 @@ export const ItemBox = memo((props) => {
         <Box flex sx={{ p: 1 }} center>
           {dictionaries.isSelectMode && (
             <Checkbox
-              //checked={checked}
+              checked={
+                !!dictionaries.selectedItems.find(
+                  (dictionary) => dictionary.id === data.id
+                )
+              }
               onChange={(e) => {
-                dispatchEvent("onCheck/dictionary", {
-                  id: data.id,
-                  checked: e?.target?.checked,
-                });
+                dispatch(changeChecked(data));
               }}
             />
           )}

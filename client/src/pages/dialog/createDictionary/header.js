@@ -73,13 +73,6 @@ const Default = (props) => {
           sxText={{ fontSize: "13px" }}
           onChange={(data) => {
             dictionaryData.current.media = data;
-            /*
-            dictionaryData.current.set(
-              "media",
-              new Blob([data.preview]),
-              data.caption
-            );
-            */
             setSelectedImage(data);
           }}
         />
