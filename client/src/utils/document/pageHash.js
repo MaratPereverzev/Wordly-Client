@@ -1,7 +1,5 @@
 const getPageHash = () => {
-  return window.location.pathname.replace("/", "") !== ""
-    ? window.location.pathname.replace("/", "")
-    : "home";
+  return window.location.pathname !== "/" ? window.location.pathname : "/home";
 };
 
 const setPageHash = (pathname, toLocalStorage) => {

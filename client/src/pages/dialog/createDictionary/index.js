@@ -19,7 +19,7 @@ const Default = (props) => {
     >
       <Header dictionaryData={dictionaryData} />
       <Content dictionaryData={dictionaryData} />
-      <Action />
+      <Action dictionaryData={dictionaryData} />
     </Box>
   );
 };

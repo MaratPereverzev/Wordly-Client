@@ -3,11 +3,15 @@ import {
   Button as ButtonMui,
   IconButton,
 } from "@mui/material";
-import { areEqual } from "@utils";
+import { areEqual, getPageHash } from "@utils";
 import { memo } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
 import { Tooltip } from "../Tooltip";
+import { useDispatch } from "react-redux";
+import { changePage, changeOpenState } from "@store/sidebar";
 
 export const Button = memo((props) => {
   const {
@@ -76,16 +80,62 @@ export const Button = memo((props) => {
   }
 }, areEqual);
 
-export const MenuButtonTemplate = (props) => {
-  const { sx, name, variant, ...other } = props;
+export const RouteButton = (props) => {
+  const { route, onClick, ...other } = props;
+
+  const navigate = useNavigate();
 
   return (
     <Button
-      variant={variant}
-      sx={{
-        ...sx,
+      onClick={() => {
+        if (typeof onClick === "function") onClick();
+        navigate(route);
       }}
-      tooltipPosition="right"
+      {...other}
+    />
+  );
+};
+
+export const MenuButton = (props) => {
+  const { sx, icon, route, caption, ...other } = props;
+
+  return (
+    <RouteButton
+      route={route}
+      color="inherit"
+      variant={
+        !!route
+          ? getPageHash() === route.split("/")[1]
+            ? "contained"
+            : "text"
+          : "text"
+      }
+      sx={{ gap: "5px", ...sx }}
+      icon={icon}
+      caption={caption}
+      {...other}
+    />
+  );
+};
+
+export const SidebarMenuButton = (props) => {
+  const { sx, icon, route, open, caption, ...other } = props;
+
+  const sidebar = useSelector((store) => store.sidebar);
+  const dispatch = useDispatch();
+
+  return (
+    <RouteButton
+      route={route}
+      color="inherit"
+      variant={sidebar.page === route ? "contained" : "text"}
+      sx={{ gap: "5px", ...sx }}
+      icon={icon}
+      caption={sidebar.open && caption}
+      onClick={() => {
+        dispatch(changeOpenState({ open: false }));
+        dispatch(changePage({ route }));
+      }}
       {...other}
     />
   );

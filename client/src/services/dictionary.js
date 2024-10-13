@@ -6,6 +6,12 @@ class Dictionary {
   async getAll(params) {
     return await axios.get(this.#URL, params);
   }
+
+  async post({ data, headers }) {
+    return await axios.post(this.#URL, data, { headers });
+  }
 }
 
-export default new Dictionary();
+const Instance = new Dictionary();
+
+export default Instance;

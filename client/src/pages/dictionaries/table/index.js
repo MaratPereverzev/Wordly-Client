@@ -5,7 +5,7 @@ import { TableContent } from "./content";
 import { TableFooter } from "./footer";
 import { TableHeader } from "./header";
 
-const Default = memo((props) => {
+export const Table = memo((props) => {
   const response = useGetDictionary();
 
   return (
@@ -16,5 +16,3 @@ const Default = memo((props) => {
     </>
   );
 }, areEqual);
-
-export { Default as Table };

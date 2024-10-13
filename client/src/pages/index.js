@@ -1,36 +1,7 @@
 import { Box } from "@components";
-import { Dictionaries } from "./dictionaries";
-import { Dictionary } from "./dictionary";
-import { useEffect, useState } from "react";
-import {
-  addEventListener,
-  getPageHash,
-  dispatchEvent,
-  getLocalStorageValue,
-  setPageHash,
-} from "@utils";
+import { Outlet } from "react-router-dom";
 
-const Default = (props) => {
-  const [page, setPage] = useState(
-    () => getLocalStorageValue("page") ?? "home"
-  );
-
-  useEffect(() => {
-    setPageHash(page, true);
-  }, [page]);
-
-  useEffect(
-    () =>
-      addEventListener("onChangePage/sidebar", () => {
-        setPage((prev) => {
-          prev = getPageHash();
-          return prev;
-        });
-        dispatchEvent("closeSideBar");
-      }),
-    []
-  );
-
+export const Page = () => {
   return (
     <Box
       flex
@@ -41,10 +12,7 @@ const Default = (props) => {
         borderRadius: 2,
       }}
     >
-      {page === "dictionaries" && <Dictionaries />}
-      {/dictionary\/\w+/.test(page) && <Dictionary />}
+      <Outlet />
     </Box>
   );
 };
-
-export { Default as Page };

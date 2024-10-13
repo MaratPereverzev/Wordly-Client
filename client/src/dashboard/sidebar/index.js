@@ -1,110 +1,62 @@
-import { Box, MenuButtonTemplate, Divider } from "@components";
-import {
-  addEventListener,
-  dispatchEvent,
-  setPageHash,
-  getLocalStorageValue,
-  setLocalStorageValue,
-} from "@utils";
-import { UserContextData } from "@context";
-import { useRender } from "@hooks";
-import { useEffect, useState, useContext } from "react";
+import { Box, Button, Divider, SidebarMenuButton } from "@components";
+import { loginAction } from "@store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { changeOpenState } from "@store/sidebar";
 
-const MenuButton = (props) => {
-  const { sx, icon, route, open, caption, ...other } = props;
-
-  let active = route === (getLocalStorageValue("page") ?? "home");
-
-  return (
-    <MenuButtonTemplate
-      color="inherit"
-      variant={active ? "contained" : "text"}
-      sx={{ gap: "5px", ...sx }}
-      icon={icon}
-      caption={open && caption}
-      onClick={() => {
-        dispatchEvent("onChangePage/sidebar", { pathname: route });
-        active = route === getLocalStorageValue("page");
-      }}
-      {...other}
-    />
-  );
-};
-
-const Default = (props) => {
+export const Sidebar = (props) => {
   const { sx } = props;
-
-  const user = useContext(UserContextData);
-
-  const [open, setOpen] = useState(
-    () => getLocalStorageValue("sidebarOpen") ?? false
-  );
-
-  const setRender = useRender();
-
-  useEffect(
-    () =>
-      addEventListener("onChangePage/sidebar", ({ detail }) => {
-        setPageHash(detail?.pathname, true);
-        dispatchEvent("sidebar", { closed: true });
-        setOpen(false);
-      }),
-    [setRender]
-  );
-
-  useEffect(() => {
-    setLocalStorageValue("sidebarOpen", open);
-  }, [open]);
+  const sidebar = useSelector((store) => store.sidebar);
+  const dispatch = useDispatch();
 
   return (
     <Box
       flex
       column
       sx={{
-        width: open ? "180px" : "48px",
+        width: sidebar.open ? "180px" : "48px",
         transition: "width 100ms ease-in-out",
         ...sx,
       }}
     >
       <Box flex grow gap column sx={{ p: 1 }}>
-        <MenuButton route="home" caption="home" icon="home" open={open} />
-        <MenuButton
-          route="dictionaries"
+        <SidebarMenuButton route="/home" caption="home" icon="home" />
+        <SidebarMenuButton
+          route="/dictionaries"
           caption="dictionaries"
           icon="dictionary"
-          open={open}
         />
-        <MenuButton route="words" caption="words" icon="word" open={open} />
-        <MenuButton route="saved" caption="saved" icon="saved" open={open} />
+        <SidebarMenuButton route="/words" caption="words" icon="word" />
+        <SidebarMenuButton route="/saved" caption="saved" icon="saved" />
       </Box>
       <Box flex column sx={{ p: 1 }}>
-        <MenuButton
+        <SidebarMenuButton
+          route="/login"
           icon="logout"
-          open={open}
           caption="logout"
           onClick={() => {
-            user.isAuth = false;
-            dispatchEvent("onLogin");
+            dispatch(loginAction({ accessToken: "" }));
+
+            return true;
           }}
         />
       </Box>
       <Box flex gap="5px" column sx={{ p: 1 }}>
         <Divider />
-        <MenuButton
+        <Button
+          variant="text"
+          color="inherit"
           sxIcon={{
-            transform: open ? "rotate(180deg)" : "rotate(0)",
+            transform: sidebar.open ? "rotate(180deg)" : "rotate(0)",
             transition: "transform 200ms ease-in-out",
           }}
           icon="open"
-          caption="close"
-          open={open}
+          open={sidebar.open}
           onClick={() => {
-            setOpen((prev) => !prev);
+            dispatch(changeOpenState({ open: !sidebar.open }));
           }}
+          caption={sidebar.open && "close"}
         />
       </Box>
     </Box>
   );
 };
-
-export { Default as Sidebar };

@@ -1,20 +1,7 @@
 import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@components";
-import { usePostDictionary } from "@fetch";
-import { addEventListener } from "@utils";
-import { useEffect } from "react";
 
 const Default = (props) => {
   const { dictionaryData } = props;
-
-  const { post } = usePostDictionary(dictionaryData.current);
-
-  useEffect(
-    () =>
-      addEventListener("onCreateDicitonary", () => {
-        post(dictionaryData.current);
-      }),
-    [post, dictionaryData]
-  );
 
   return (
     <>
@@ -23,7 +10,6 @@ const Default = (props) => {
           <Box flex gap="20px" ai>
             <Icon icon="word" sx={{ ".span": { fontSize: "30px" } }} />
             <Input
-              name="caption"
               autoComplete="off"
               placeholder="Dictionary name"
               variant="standard"
@@ -40,9 +26,8 @@ const Default = (props) => {
                   fontSize: "30px",
                 },
               }}
-              onChange={(name) => (e) => {
-                dictionaryData.current[name] = e.target.value;
-                //dictionaryData.current.set(name, e.target.value);
+              onChange={(e) => {
+                dictionaryData.current["caption"] = e.target.value;
               }}
             />
           </Box>
@@ -67,13 +52,11 @@ const Default = (props) => {
         <Box flex gap="20px" ai sx={{ width: "100%" }}>
           <Text caption="Description" />
           <Input
-            name="description"
             multiline
             placeholder="Your description is in here!"
             fullWidth
-            onChange={(name) => (e) => {
-              dictionaryData.current[name] = e.target.value;
-              //dictionaryData.current.set(name, e.target.value);
+            onChange={(e) => {
+              dictionaryData.current["description"] = e.target.value;
             }}
           />
         </Box>

@@ -1,11 +1,12 @@
-import { Box, Button, Input, Text } from "@components";
+import { Box, Input, Text, Button } from "@components";
 import { styled } from "@mui/material";
+import { loginAction } from "@store/user";
 import { dispatchEvent, setPageHash } from "@utils";
 import axios from "axios";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { loginAction } from "@store/user";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ export const Login = () => {
     mode: "onChange",
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setPageHash("login");
   }, []);
@@ -33,6 +36,7 @@ export const Login = () => {
 
       if (statusText === "OK") {
         dispatch(loginAction({ accessToken: data.accessToken }));
+        navigate("/dictionaries");
       } else {
         throw new Error(statusText);
       }

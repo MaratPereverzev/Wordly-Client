@@ -1,16 +1,12 @@
 import { Box, Dialog, Snackbar } from "@components";
-import { getLocalStorageValue, setPageHash } from "@utils";
-import { useEffect } from "react";
+import { Dictionaries } from "@pages/dictionaries";
 import { useSelector } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Page } from "../pages";
 import { Login } from "./auth";
 import { Sidebar } from "./sidebar";
 
 const Default = () => {
-  useEffect(() => {
-    setPageHash(getLocalStorageValue("page") ?? "home", true);
-  }, []);
-
   return (
     <Box
       flex
@@ -30,15 +26,30 @@ const Default = () => {
   );
 };
 
-const DefaultContext = () => {
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/",
+    element: <Default />,
+    children: [
+      { path: "dictionaries", element: <Dictionaries /> },
+      { path: "home", element: <div>home</div> },
+    ],
+  },
+]);
+
+export const Dashboard = () => {
   const user = useSelector((state) => state.user);
 
   return (
     <>
       <Snackbar />
-      {user?.accessToken ? <Default /> : <Login />}
+      <RouterProvider router={router}>
+        {user?.accessToken !== "" ? <Default /> : <Login />}
+      </RouterProvider>
     </>
   );
 };
-
-export { DefaultContext as Dashboard };

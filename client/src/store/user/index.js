@@ -6,7 +6,7 @@ import {
 } from "@utils";
 
 const initialState = {
-  accessToken: getLocalStorageValue("accessToken"),
+  accessToken: getLocalStorageValue("accessToken") ?? "",
 };
 
 const userSlice = createSlice({
@@ -14,12 +14,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginAction: (state, { payload }) => {
-      state.user = payload;
+      state.accessToken = payload.accessToken;
 
-      dispatchEvent("snackbarTrigger", {
-        message: "Access granted",
-        status: "success",
-      });
+      if (payload.accessToken) {
+        dispatchEvent("snackbarTrigger", {
+          message: "Access granted",
+          status: "success",
+        });
+      }
 
       setLocalStorageValue("accessToken", payload.accessToken);
     },

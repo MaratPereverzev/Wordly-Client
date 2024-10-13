@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isSelectMode: false,
   selectedItems: [],
-  itemsPerPage: 9,
+  itemsPerPage: 6,
   page: 1,
   pageCount: 1,
 };

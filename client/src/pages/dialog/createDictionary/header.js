@@ -13,7 +13,7 @@ const Default = (props) => {
         border: ({ palette }) => `1px solid ${palette.divider}`,
         position: "relative",
         overflow: "hidden",
-        height: "35%",
+        height: "40%",
         "> div": {
           opacity: 0,
           transition: "opacity 150ms ease-in-out",
@@ -29,6 +29,7 @@ const Default = (props) => {
           width: "100%",
           display: !selectedImage && "none",
           position: "absolute",
+          backgroundSize: "cover",
         }}
         alt="ok"
       />
@@ -47,7 +48,7 @@ const Default = (props) => {
               fontSize: "13px",
             }}
             onChange={(data) => {
-              dictionaryData.current.append("media", data);
+              dictionaryData.current["media"] = data;
               setSelectedImage(data);
             }}
           />
