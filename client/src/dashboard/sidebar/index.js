@@ -25,7 +25,7 @@ export const Sidebar = (props) => {
           caption="dictionaries"
           icon="dictionary"
         />
-        <SidebarMenuButton route="/words" caption="words" icon="word" />
+        <SidebarMenuButton route="/words" caption="words" icon="translation" />
         <SidebarMenuButton route="/saved" caption="saved" icon="saved" />
       </Box>
       <Box flex column sx={{ p: 1 }}>
@@ -49,7 +49,7 @@ export const Sidebar = (props) => {
             transform: sidebar.open ? "rotate(180deg)" : "rotate(0)",
             transition: "transform 200ms ease-in-out",
           }}
-          icon="open"
+          icon="expand"
           open={sidebar.open}
           onClick={() => {
             dispatch(changeOpenState({ open: !sidebar.open }));

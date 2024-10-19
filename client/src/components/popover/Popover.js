@@ -31,15 +31,11 @@ export const Popover = (props) => {
         <button.type
           {...button.props}
           onClick={handleClick}
-          sx={{ ...sxButton }}
+          sx={sxButton}
           className={className}
         />
       ) : (
-        <Button
-          onClick={handleClick}
-          sx={{ ...sxButton }}
-          className={className}
-        />
+        <Button onClick={handleClick} sx={sxButton} className={className} />
       )}
       <PopoverMui
         open={open}
@@ -52,7 +48,7 @@ export const Popover = (props) => {
         {...other}
       >
         {children && (
-          <Box flex column sx={{ ...sxPopover }} {...boxProps}>
+          <Box flex column sx={sxPopover} {...boxProps}>
             {Array.isArray(children) ? (
               children.map((child, index) => {
                 if (!child) return null;

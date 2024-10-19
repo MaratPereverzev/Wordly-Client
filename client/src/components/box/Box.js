@@ -50,5 +50,5 @@ export const Box = (props) => {
     if (gap) sx.gap = typeof gap === "boolean" ? "10px" : gap;
   }
 
-  return <BoxMui sx={{ ...sx }} {...other} />;
+  return <BoxMui sx={sx} {...other} />;
 };

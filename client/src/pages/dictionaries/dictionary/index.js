@@ -7,7 +7,6 @@ export const Dictionary = () => {
   const { id } = useParams();
   const { data } = useGetByIdDictionary({ id });
 
-  console.log(data);
   return (
     <Box sx={{ p: 1 }}>
       <Box
@@ -29,7 +28,7 @@ export const Dictionary = () => {
         <Box flex gap>
           <StyledActionButton icon="add" caption="Add Translation" />
           <StyledActionButton
-            icon="moreOptions"
+            icon="more"
             sx={{
               backgroundColor: "#D8E4FF",
               color: "#1565C0",

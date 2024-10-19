@@ -31,7 +31,7 @@ const Default = () => {
         closeOnClick
         button={
           <Button
-            icon="more"
+            icon="dropdown"
             sx={{
               p: 0,
             }}
@@ -47,7 +47,7 @@ const Default = () => {
         }}
       >
         <Button
-          icon={mode?.isSelectMode ? "select" : "selectOff"}
+          icon={mode?.isSelectMode ? "checkboxFilled" : "checkboxEmpty"}
           caption={mode?.isSelectMode ? "select" : "undo"}
           sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
           variant="text"

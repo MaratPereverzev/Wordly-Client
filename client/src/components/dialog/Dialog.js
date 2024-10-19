@@ -2,7 +2,7 @@ import { Dialog as DialogMui, useMediaQuery, useTheme } from "@mui/material";
 import { addEventListener } from "@utils";
 import { useEffect, useRef, useState } from "react";
 
-export const Dialog = (props) => {
+export const Dialog = () => {
   const [open, setOpen] = useState(false);
   const dialogContent = useRef(null);
   const theme = useTheme();

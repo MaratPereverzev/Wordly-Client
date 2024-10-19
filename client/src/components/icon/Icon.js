@@ -4,38 +4,36 @@ import { Box } from "../Box";
 
 const iconList = {
   delete: "delete",
-  menu: "menu",
   default: "do_not_disturb_on",
-  profile: "person",
+  person: "person",
   search: "search",
   dictionary: "book",
-  open: "chevron_right",
-  word: "translate",
+  expand: "chevron_right",
+  translation: "translate",
   saved: "bookmark",
   home: "home",
   filter: "filter_alt",
   sort: "swap_vert",
-  more: "keyboard_arrow_down",
-  merge: "arrow_and_edge",
-  select: "check_box",
-  selectOff: "check_box_outline_blank",
+  dropdown: "keyboard_arrow_down",
+  checkboxFilled: "check_box",
+  checkboxEmpty: "check_box_outline_blank",
   settings: "settings",
-  moreOptions: "more_horiz",
+  more: "more_horiz",
   arrowRight: "keyboard_arrow_right",
   logout: "logout",
   edit: "edit",
   addIcon: "add_reaction",
-  photo: "image",
+  image: "image",
   empty: "package_2",
-  exclamation: "error",
+  error: "error",
   add: "add",
 };
 
 export const Icon = memo((props) => {
-  const { icon, sx, sxIcon, ...other } = props;
+  const { icon, sxIcon, ...other } = props;
 
   return (
-    <Box flex ai sx={{ ...sx }} {...other}>
+    <Box flex ai {...other}>
       <span className="material-symbols-rounded span" style={sxIcon}>
         {iconList[icon ?? "default"]}
       </span>

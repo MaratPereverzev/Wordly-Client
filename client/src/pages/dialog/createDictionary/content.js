@@ -8,7 +8,7 @@ const Default = (props) => {
       <Box className="createDictionary content" column flex>
         <Box flex ai jc="space-between" sx={{ py: 2 }}>
           <Box flex gap="20px" ai>
-            <Icon icon="word" sx={{ ".span": { fontSize: "30px" } }} />
+            <Icon icon="translation" sx={{ ".span": { fontSize: "30px" } }} />
             <Input
               autoComplete="off"
               placeholder="Dictionary name"
@@ -32,7 +32,7 @@ const Default = (props) => {
             />
           </Box>
           <Popover
-            button={<ButtonIcon icon="moreOptions" />}
+            button={<ButtonIcon icon="more" />}
             sxPopover={{ p: 1 }}
             sxButton={{ gap: 1 }}
             anchorOrigin={{

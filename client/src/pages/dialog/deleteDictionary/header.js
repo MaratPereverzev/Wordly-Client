@@ -6,7 +6,7 @@ const Default = () => {
       <Icon
         center
         grow
-        icon="exclamation"
+        icon="error"
         sx={{ color: "red" }}
         sxIcon={{ fontSize: "70px" }}
       />
