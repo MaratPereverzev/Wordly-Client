@@ -1,22 +1,21 @@
 import { Box } from "@components";
-import { Header } from "./header";
-import { Content } from "./content";
-import { Actions } from "./actions";
-import { useEffect, useRef } from "react";
 import { useDelDictionary } from "@fetch";
 import { addEventListener } from "@utils";
+import { useEffect } from "react";
+import { Actions } from "./actions";
+import { Content } from "./content";
+import { Header } from "./header";
 
-const Default = (props) => {
+export const DeleteDictionaryDialog = (props) => {
   const { id } = props;
-  const dictionaryData = useRef({ id });
-  const { del } = useDelDictionary(dictionaryData.current);
+  const { mutate } = useDelDictionary({ id });
 
   useEffect(
     () =>
       addEventListener("onDeleteDicitonary", () => {
-        del();
+        mutate();
       }),
-    [del]
+    [mutate]
   );
 
   return (
@@ -33,5 +32,3 @@ const Default = (props) => {
     </Box>
   );
 };
-
-export { Default as DeleteDictionaryDialog };

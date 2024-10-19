@@ -1,16 +1,25 @@
 import { useFetch } from "@hooks";
+import { setPagination } from "@store/dictionaries";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { dispatchEvent } from "@utils";
-import { useSelector } from "react-redux";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
 import Dictionary from "../services/dictionary";
 
-const useGetDictionary = () => {
+export const useGetDictionary = () => {
   const user = useSelector((state) => state.user);
+  const query = useSelector((store) => store.dictionaries.query);
+
+  const dispatch = useDispatch();
 
   const { isLoading, data, isError } = useQuery({
-    queryKey: ["dictionaries"],
+    queryKey: ["dictionaries", query],
     queryFn: () =>
       Dictionary.getAll({
+        params: {
+          limit: query.limit,
+          offset: query.offset,
+          caption: query?.caption,
+        },
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -21,10 +30,35 @@ const useGetDictionary = () => {
     enabled: !!user?.accessToken,
   });
 
+  dispatch(setPagination({ count: data?.count }));
+
   return { isLoading, data, isError };
 };
 
-const usePostDictionary = (dictionaryData) => {
+export const useGetByIdDictionary = ({ id }) => {
+  const user = useSelector((store) => store.user);
+
+  const { isLoading, isError, data } = useQuery({
+    queryKey: [`dictionaries/${id}`],
+    queryFn: () =>
+      Dictionary.getById({
+        query: {
+          id,
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: user.accessToken,
+        },
+      }),
+    select: ({ data }) => data,
+    enabled: !!user?.accessToken,
+  });
+
+  return { isLoading, isError, data };
+};
+
+export const usePostDictionary = (dictionaryData) => {
   const user = useSelector((state) => state.user);
   const queryClient = useQueryClient();
 
@@ -50,38 +84,43 @@ const usePostDictionary = (dictionaryData) => {
       status: "success",
       message: "created successfully",
     });
-    dispatchEvent("onReload");
   }
 
   return { ...data, error, mutate };
 };
 
-const useDelDictionary = (dictionaryData) => {
-  const { id } = dictionaryData;
-  const { user } = useSelector((state) => state.login);
+export const useDelDictionary = (dictionaryData) => {
+  const user = useSelector((state) => state.user);
+  const queryClient = useQueryClient();
 
-  const { response, loading, error, fetchData } = useFetch({
-    method: "DELETE",
-    url: `http://localhost:8080/api/private/dictionary?id=${id}`,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: user?.accessToken,
+  const { data, isError, mutate } = useMutation({
+    mutationKey: ["dictionaries/delete", dictionaryData],
+    mutationFn: () =>
+      Dictionary.delete({
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: user.accessToken,
+        },
+        data: dictionaryData,
+      }),
+    enabled: !!user?.accessToken,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["dictionaries"]);
     },
   });
 
-  if (response?.status === 200) {
+  if (data?.status === 200) {
     dispatchEvent("snackbarTrigger", {
       status: "success",
       message: "deleted successfully",
     });
-    dispatchEvent("onReload");
   }
 
-  return { ...response, loading, error, del: fetchData };
+  return { data, isError, mutate };
 };
 
-const usePutDictionary = async (dictionaryData) => {
+export const usePutDictionary = async (dictionaryData) => {
   const { user } = useSelector((state) => state.login);
 
   const { response, loading, error, fetchData } = useFetch({
@@ -104,11 +143,4 @@ const usePutDictionary = async (dictionaryData) => {
   }
 
   return { ...response, loading, error, put: fetchData };
-};
-
-export {
-  useDelDictionary,
-  useGetDictionary,
-  usePostDictionary,
-  usePutDictionary,
 };

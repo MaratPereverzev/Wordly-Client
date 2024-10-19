@@ -1,31 +1,29 @@
 import { Box, Pagination, Text } from "@components";
 import { changePage } from "@store/dictionaries";
-import { areEqual } from "@utils";
-import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export const TableFooter = memo(() => {
-  const dictionaries = useSelector((store) => store.dictionaries);
+export const TableFooter = () => {
+  const pagination = useSelector((store) => store.dictionaries.pagination);
+  const mode = useSelector((store) => store.dictionaries.mode);
+
   const dispatch = useDispatch();
 
   return (
     <Box
       flex
-      jc={dictionaries.isSelectMode ? "space-between" : "flex-end"}
+      jc={mode.isSelectMode ? "space-between" : "flex-end"}
       ai
       sx={{ p: 1 }}
     >
       <Box>
-        {dictionaries.isSelectMode && dictionaries.selectedItems.length > 0 && (
-          <Text
-            caption={`${dictionaries.selectedItems.length} items selected`}
-          />
+        {mode.isSelectMode && mode.selectedItems.length > 0 && (
+          <Text caption={`${mode.selectedItems.length} items selected`} />
         )}
       </Box>
-      {dictionaries.pageCount > 1 && (
+      {pagination.pageCount > 1 && (
         <Pagination
-          count={isNaN(dictionaries.pageCount) ? 1 : dictionaries.pageCount}
-          page={dictionaries.page}
+          count={pagination.pageCount}
+          page={pagination.page}
           onChange={(_, value) => {
             dispatch(changePage({ page: value }));
           }}
@@ -33,4 +31,4 @@ export const TableFooter = memo(() => {
       )}
     </Box>
   );
-}, areEqual);
+};

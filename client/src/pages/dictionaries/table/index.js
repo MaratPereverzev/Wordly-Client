@@ -5,7 +5,7 @@ import { TableContent } from "./content";
 import { TableFooter } from "./footer";
 import { TableHeader } from "./header";
 
-export const Table = memo((props) => {
+export const Table = memo(() => {
   const response = useGetDictionary();
 
   return (

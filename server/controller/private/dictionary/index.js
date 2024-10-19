@@ -34,7 +34,16 @@ const getById = (req, res) => {
   const { id } = req.params;
 
   models.dictionary
-    .findOne({ where: { id }, attributes: defInclude() })
+    .findOne({
+      where: { id },
+      attributes: defInclude(),
+      include: [
+        {
+          model: models.media,
+          attributes: defInclude(["path"]),
+        },
+      ],
+    })
     .defAnswer(res);
 };
 

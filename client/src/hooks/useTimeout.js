@@ -1,8 +1,8 @@
 import { useEffect, useRef, useCallback } from "react";
 
-const Default = (callback, delay) => {
+export const useTimeout = (callback, delay) => {
   const callbackRef = useRef(callback);
-  const callbackTimeoutRef = useRef(callbackRef);
+  const callbackTimeoutRef = useRef(null);
 
   useEffect(() => {
     callbackRef.current = callback;
@@ -31,5 +31,3 @@ const Default = (callback, delay) => {
 
   return { timeoutDispatch, timeoutClear, timeoutReset };
 };
-
-export { Default as useTimeout };

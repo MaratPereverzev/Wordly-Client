@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Default = () => {
-  const dictionaries = useSelector((store) => store.dictionaries);
+  const mode = useSelector((store) => store.dictionaries.mode);
 
   const dispatch = useDispatch();
 
@@ -47,16 +47,16 @@ const Default = () => {
         }}
       >
         <Button
-          icon={dictionaries?.isSelectMode ? "select" : "selectOff"}
-          caption={dictionaries?.isSelectMode ? "select" : "undo"}
+          icon={mode?.isSelectMode ? "select" : "selectOff"}
+          caption={mode?.isSelectMode ? "select" : "undo"}
           sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}
           variant="text"
           onClick={handleOnClick}
         />
-        {dictionaries?.isSelectMode && (
+        {mode?.isSelectMode && (
           <Button
             caption="delete"
-            disabled={dictionaries?.selectedItems === 0}
+            disabled={mode?.selectedItems === 0}
             icon="delete"
             variant="text"
             sx={{ px: 1, gap: 1, justifyContent: "flex-start" }}

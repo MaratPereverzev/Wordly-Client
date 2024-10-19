@@ -7,8 +7,16 @@ class Dictionary {
     return await axios.get(this.#URL, params);
   }
 
+  async getById({ query, headers }) {
+    return await axios.get(`${this.#URL}/${query.id}`, { headers });
+  }
+
   async post({ data, headers }) {
     return await axios.post(this.#URL, data, { headers });
+  }
+
+  async delete({ data, headers }) {
+    return await axios.delete(`${this.#URL}?id=${data.id}`, { headers });
   }
 }
 

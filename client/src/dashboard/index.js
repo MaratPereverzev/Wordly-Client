@@ -1,5 +1,6 @@
 import { Box, Dialog, Snackbar } from "@components";
 import { Dictionaries } from "@pages/dictionaries";
+import { Dictionary } from "@pages/dictionaries/dictionary";
 import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Page } from "../pages";
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
     element: <Default />,
     children: [
       { path: "dictionaries", element: <Dictionaries /> },
+      { path: "dictionaries/:id", element: <Dictionary /> },
       { path: "home", element: <div>home</div> },
     ],
   },

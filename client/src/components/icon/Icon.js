@@ -28,6 +28,7 @@ const iconList = {
   photo: "image",
   empty: "package_2",
   exclamation: "error",
+  add: "add",
 };
 
 export const Icon = memo((props) => {

@@ -1,9 +1,11 @@
-import { Box, Button, Text } from "@components";
+import { Box, Button, Text, ButtonIcon } from "@components";
 import { Checkbox, styled } from "@mui/material";
 import { changeChecked } from "@store/dictionaries";
-import { areEqual } from "@utils";
+import { areEqual, dispatchEvent } from "@utils";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DeleteDictionaryDialog } from "@dialog/deleteDictionary";
+import { useNavigate } from "react-router-dom";
 
 const styledItemImageContainer = {
   p: 1,
@@ -17,7 +19,8 @@ const styledItemImageContainer = {
 export const ItemBox = memo((props) => {
   const { sx, data, ...other } = props;
 
-  const dictionaries = useSelector((store) => store.dictionaries);
+  const navigate = useNavigate();
+  const mode = useSelector((store) => store.dictionaries.mode);
   const dispatch = useDispatch();
 
   return (
@@ -33,14 +36,12 @@ export const ItemBox = memo((props) => {
               : "#f9f6fe",
             ...styledItemImageContainer,
           }}
-        >
-          <Box flex gap="5px" jc="flex-end"></Box>
-        </Box>
+        />
         <Box flex sx={{ p: 1 }} center>
-          {dictionaries.isSelectMode && (
+          {mode.isSelectMode && (
             <Checkbox
               checked={
-                !!dictionaries.selectedItems.find(
+                !!mode.selectedItems.find(
                   (dictionary) => dictionary.id === data.id
                 )
               }
@@ -53,8 +54,21 @@ export const ItemBox = memo((props) => {
             <StyledCaptionText caption={data?.caption} />
             <StyledDescriptionText caption={data?.description} />
           </Box>
-          <Box flex gap="5px">
-            <StyledActionButton caption="view" sxText={{ fontSize: "12px" }} />
+          <Box flex gap="10px">
+            <StyledActionButton
+              caption="view"
+              sxText={{ fontSize: "12px" }}
+              onClick={() => {
+                navigate(`${data.id}`);
+              }}
+            />
+            <StyledDeleteButton
+              onClick={() => {
+                dispatchEvent("onOpenDialog", {
+                  dialogContent: <DeleteDictionaryDialog id={data.id} />,
+                });
+              }}
+            />
           </Box>
         </Box>
       </Box>
@@ -67,12 +81,12 @@ const StyledItemContainer = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "8px",
 }));
-/*
+
 const StyledDeleteButton = styled(ButtonIcon)(() => ({
   "&:hover": { color: "#E41F1F" },
   transition: "color 200ms ease-in-out",
+  padding: 0,
 }));
-*/
 
 const StyledActionButton = styled(Button)(() => ({
   backgroundColor: "black",
