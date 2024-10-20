@@ -1,25 +1,23 @@
 import { Box as BoxMui } from "@mui/material";
 
-export const Box = (props) => {
-  const {
-    sx = {},
-    flex,
-    column,
-    wrap,
-    jc,
-    ai,
-    gap,
-    grow,
-    center,
-    grid,
-    columnWidth,
-    rowWidth,
-    gridFlow,
-    gridTemplate,
-    templateColumns,
-    ...other
-  } = props;
-
+export const Box = ({
+  sx = {},
+  flex,
+  column,
+  wrap,
+  jc,
+  ai,
+  gap,
+  grow,
+  center,
+  grid,
+  columnWidth,
+  rowWidth,
+  gridFlow,
+  gridTemplate,
+  templateColumns,
+  ...other
+}) => {
   if (flex && grid) throw new Error("flex && grid display at the same time");
 
   if (flex) {

@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { addEventListener } from "@utils";
 import { Snackbar as SnackbarMui, Alert } from "@mui/material";
 
-export const Snackbar = (props) => {
-  const { vertical = "top", horizontal = "center" } = props;
+export const Snackbar = ({ vertical = "top", horizontal = "center" }) => {
   const data = useRef(null);
 
   const [state, setState] = useState({

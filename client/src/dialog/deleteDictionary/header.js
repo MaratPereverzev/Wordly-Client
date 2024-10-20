@@ -1,6 +1,6 @@
 import { Icon, Box } from "@components";
 
-const Default = () => {
+export const Header = () => {
   return (
     <Box flex column sx={{ height: "120px" }}>
       <Icon
@@ -13,5 +13,3 @@ const Default = () => {
     </Box>
   );
 };
-
-export { Default as Header };

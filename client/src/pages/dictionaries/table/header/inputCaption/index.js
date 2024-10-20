@@ -4,7 +4,7 @@ import { changeQuerySearch } from "@store/dictionaries";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
-const Default = () => {
+export const InputCaption = () => {
   const data = useRef(undefined);
 
   const dispatch = useDispatch();
@@ -30,5 +30,3 @@ const Default = () => {
     />
   );
 };
-
-export { Default as InputCaption };

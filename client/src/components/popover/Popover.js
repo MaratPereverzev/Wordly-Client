@@ -2,17 +2,16 @@ import { Box, Button } from "@components";
 import { Popover as PopoverMui } from "@mui/material";
 import { useState } from "react";
 
-export const Popover = (props) => {
-  const {
-    button,
-    children,
-    closeOnClick,
-    sxPopover,
-    sxButton,
-    boxProps,
-    className,
-    ...other
-  } = props;
+export const Popover = ({
+  button,
+  children,
+  closeOnClick,
+  sxPopover,
+  sxButton,
+  boxProps,
+  className,
+  ...other
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {

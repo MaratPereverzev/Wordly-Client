@@ -44,7 +44,7 @@ export const Dictionary = () => {
 };
 
 const StyledActionButton = styled(Button)(() => ({
-  height: "25px",
+  height: "27px",
   paddingX: "16px",
   "& p": { fontSize: "16px" },
   "& span": {

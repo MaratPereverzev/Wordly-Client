@@ -1,7 +1,7 @@
 import { Button, Box } from "@components";
 import { dispatchEvent } from "@utils";
 
-const Default = () => {
+export const Actions = () => {
   return (
     <Box flex jc="flex-end" gap sx={{ paddingTop: 4 }}>
       <Button
@@ -24,5 +24,3 @@ const Default = () => {
     </Box>
   );
 };
-
-export { Default as Actions };

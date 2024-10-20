@@ -29,9 +29,7 @@ const iconList = {
   add: "add",
 };
 
-export const Icon = memo((props) => {
-  const { icon, sxIcon, ...other } = props;
-
+export const Icon = memo(({ icon, sxIcon, ...other }) => {
   return (
     <Box flex ai {...other}>
       <span className="material-symbols-rounded span" style={sxIcon}>

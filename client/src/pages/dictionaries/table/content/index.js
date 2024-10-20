@@ -3,9 +3,7 @@ import { styled } from "@mui/material";
 import { ItemBox } from "./itemBox";
 import { Suspense } from "react";
 
-export const TableContent = (props) => {
-  const { response } = props;
-
+export const TableContent = ({ response }) => {
   const { data, isLoading, isError } = response;
 
   return (

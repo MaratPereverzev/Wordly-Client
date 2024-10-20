@@ -1,17 +1,11 @@
 import axios from "axios";
 import { useCallback, useState, useRef } from "react";
 
-const Default = (defOptions = {}) => {
+export const useFetch = (defOptions = {}) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(false);
   const options = useRef(defOptions);
-
-  /*
-  useEffect(() => {
-    options.current = defOptions;
-  }, [defOptions]);
-  */
 
   const fetchData = useCallback(async (additionalOptions) => {
     setLoading(true);
@@ -31,5 +25,3 @@ const Default = (defOptions = {}) => {
 
   return { response, loading, error, fetchData };
 };
-
-export { Default as useFetch };

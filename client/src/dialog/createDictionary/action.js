@@ -2,8 +2,15 @@ import { Button, Box } from "@components";
 import { dispatchEvent } from "@utils";
 import { usePostDictionary } from "@fetch/useDictionaries";
 
-const Default = ({ dictionaryData }) => {
+export const Action = ({ dictionaryData, form }) => {
   const { mutate } = usePostDictionary(dictionaryData.current);
+
+  const { handleSubmit } = form;
+
+  const onSubmit = ({ name, description }) => {
+    dispatchEvent("dialogTrigger", { opened: false });
+    mutate();
+  };
 
   return (
     <Box flex jc="flex-end" gap>
@@ -11,10 +18,7 @@ const Default = ({ dictionaryData }) => {
         color="success"
         caption="Create"
         sxText={{ px: 1 }}
-        onClick={() => {
-          dispatchEvent("dialogTrigger", { opened: false });
-          mutate();
-        }}
+        onClick={handleSubmit(onSubmit)}
       />
       <Button
         variant="text"
@@ -27,5 +31,3 @@ const Default = ({ dictionaryData }) => {
     </Box>
   );
 };
-
-export { Default as Action };

@@ -16,9 +16,7 @@ const styledItemImageContainer = {
   borderTopLeftRadius: "8px",
 };
 
-export const ItemBox = memo((props) => {
-  const { sx, data, ...other } = props;
-
+export const ItemBox = memo(({ sx, data, ...other }) => {
   const navigate = useNavigate();
   const mode = useSelector((store) => store.dictionaries.mode);
   const dispatch = useDispatch();

@@ -13,8 +13,8 @@ import { Icon } from "../Icon";
 import { Text } from "../Text";
 import { Tooltip } from "../Tooltip";
 
-export const Button = memo((props) => {
-  const {
+export const Button = memo(
+  ({
     sxIcon = {},
     sxText = {},
     icon,
@@ -23,35 +23,34 @@ export const Button = memo((props) => {
     iconAtTheEnd,
     tooltipPosition,
     ...other
-  } = props;
+  }) => {
+    const captionIsString = typeof caption === "string";
 
-  const captionIsString = typeof caption === "string";
+    if (!!tooltipPosition && !caption) {
+      return (
+        <Tooltip disableInteractive title={icon} placement={tooltipPosition}>
+          <StyledDefaultButton size="small" variant={variant} {...other}>
+            {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+            {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
 
-  if (!!tooltipPosition && !caption) {
-    return (
-      <Tooltip disableInteractive title={icon} placement={tooltipPosition}>
+            {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+          </StyledDefaultButton>
+        </Tooltip>
+      );
+    } else {
+      return (
         <StyledDefaultButton size="small" variant={variant} {...other}>
           {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
           {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
-
           {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
         </StyledDefaultButton>
-      </Tooltip>
-    );
-  } else {
-    return (
-      <StyledDefaultButton size="small" variant={variant} {...other}>
-        {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
-        {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
-        {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
-      </StyledDefaultButton>
-    );
-  }
-}, areEqual);
+      );
+    }
+  },
+  areEqual
+);
 
-export const RouteButton = (props) => {
-  const { route, onClick, ...other } = props;
-
+export const RouteButton = ({ route, onClick, ...other }) => {
   const navigate = useNavigate();
 
   return (
@@ -65,9 +64,7 @@ export const RouteButton = (props) => {
   );
 };
 
-export const MenuButton = (props) => {
-  const { icon, route, caption, ...other } = props;
-
+export const MenuButton = ({ icon, route, caption, ...other }) => {
   return (
     <StyledRouteButton
       route={route}
@@ -86,9 +83,7 @@ export const MenuButton = (props) => {
   );
 };
 
-export const SidebarMenuButton = (props) => {
-  const { icon, route, open, caption, ...other } = props;
-
+export const SidebarMenuButton = ({ icon, route, open, caption, ...other }) => {
   const sidebar = useSelector((store) => store.sidebar);
   const dispatch = useDispatch();
 
@@ -108,9 +103,7 @@ export const SidebarMenuButton = (props) => {
   );
 };
 
-export const ButtonIcon = (props) => {
-  const { sxIcon, icon, ...other } = props;
-
+export const ButtonIcon = ({ sxIcon, icon, ...other }) => {
   return (
     <StyledIconButton variant="text" {...other}>
       <Icon icon={icon} sx={sxIcon} />

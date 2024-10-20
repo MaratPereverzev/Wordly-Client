@@ -2,7 +2,7 @@ import "./style.css";
 import { Box } from "@components/Box";
 import { styled } from "@mui/material";
 
-export const Loading = (props) => {
+export const Loading = () => {
   return (
     <StyledContainer flex center>
       <Box className="spinner" />

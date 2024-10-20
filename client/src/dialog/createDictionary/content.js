@@ -1,7 +1,12 @@
 import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@components";
+import { styled } from "@mui/material";
 
-const Default = (props) => {
-  const { dictionaryData } = props;
+export const Content = ({ dictionaryData, form }) => {
+  const {
+    register,
+    formState: { errors },
+    setValue,
+  } = form;
 
   return (
     <>
@@ -9,24 +14,16 @@ const Default = (props) => {
         <Box flex ai jc="space-between" sx={{ py: 2 }}>
           <Box flex gap="20px" ai>
             <Icon icon="translation" sx={{ ".span": { fontSize: "30px" } }} />
-            <Input
+            <StyledInput
+              {...register("name", {
+                required: "Dictionary name is required",
+              })}
+              errorMessage={errors.name ? errors.name.message : ""}
               autoComplete="off"
               placeholder="Dictionary name"
               variant="standard"
-              sx={{
-                background: "transparent",
-                border: "none",
-                ".css-1eed5fa-MuiInputBase-root-MuiInput-root::before": {
-                  content: "none",
-                },
-                ".css-1eed5fa-MuiInputBase-root-MuiInput-root::after": {
-                  content: "none",
-                },
-                ".css-nz481w-MuiInputBase-input-MuiInput-input": {
-                  fontSize: "30px",
-                },
-              }}
               onChange={(e) => {
+                setValue("name", e.target.value);
                 dictionaryData.current["caption"] = e.target.value;
               }}
             />
@@ -52,10 +49,15 @@ const Default = (props) => {
         <Box flex gap="20px" ai sx={{ width: "100%" }}>
           <Text caption="Description" />
           <Input
+            {...register("description", {
+              required: "Description is required",
+            })}
+            errorMessage={errors.description ? errors.description.message : ""}
             multiline
             placeholder="Your description is in here!"
             fullWidth
             onChange={(e) => {
+              setValue("description", e.target.value);
               dictionaryData.current["description"] = e.target.value;
             }}
           />
@@ -65,4 +67,16 @@ const Default = (props) => {
   );
 };
 
-export { Default as Content };
+const StyledInput = styled(Input)(() => ({
+  background: "transparent",
+  border: "none",
+  ".css-1eed5fa-MuiInputBase-root-MuiInput-root::before": {
+    content: "none",
+  },
+  ".css-1eed5fa-MuiInputBase-root-MuiInput-root::after": {
+    content: "none",
+  },
+  ".css-nz481w-MuiInputBase-input-MuiInput-input": {
+    fontSize: "30px",
+  },
+}));

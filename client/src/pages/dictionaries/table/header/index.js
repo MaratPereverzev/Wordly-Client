@@ -2,7 +2,7 @@ import { Box, Button } from "@components";
 import { ActionGroup } from "./buttonGroup";
 import { InputCaption } from "./inputCaption";
 
-const Default = () => {
+export const TableHeader = () => {
   return (
     <Box flex jc="space-between" sx={{ p: 1 }} ai>
       <Box flex gap="5px">
@@ -14,5 +14,3 @@ const Default = () => {
     </Box>
   );
 };
-
-export { Default as TableHeader };

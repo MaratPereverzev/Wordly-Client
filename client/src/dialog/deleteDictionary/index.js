@@ -6,8 +6,7 @@ import { Actions } from "./actions";
 import { Content } from "./content";
 import { Header } from "./header";
 
-export const DeleteDictionaryDialog = (props) => {
-  const { id } = props;
+export const DeleteDictionaryDialog = ({ id }) => {
   const { mutate } = useDelDictionary({ id });
 
   useEffect(

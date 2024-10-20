@@ -1,28 +1,12 @@
 import { Box, InputFile, ButtonGroup, Button } from "@components";
+import { styled } from "@mui/material";
 import { useState } from "react";
 
-const Default = (props) => {
-  const { dictionaryData } = props;
+export const Header = ({ dictionaryData }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <Box
-      className="createDictionary header"
-      sx={{
-        display: "inline-block",
-        border: ({ palette }) => `1px solid ${palette.divider}`,
-        position: "relative",
-        overflow: "hidden",
-        height: "40%",
-        "> div": {
-          opacity: 0,
-          transition: "opacity 150ms ease-in-out",
-        },
-        "&:hover > div": {
-          opacity: 1,
-        },
-      }}
-    >
+    <StyledContainer className="createDictionary header">
       <img
         id="dictionaryBackground"
         style={{
@@ -78,8 +62,21 @@ const Default = (props) => {
           }}
         />
       )}
-    </Box>
+    </StyledContainer>
   );
 };
 
-export { Default as Header };
+const StyledContainer = styled(Box)(({ theme }) => ({
+  display: "inline-block",
+  border: `1px solid ${theme.palette.divider}`,
+  position: "relative",
+  overflow: "hidden",
+  height: "40%",
+  "> div": {
+    opacity: 0,
+    transition: "opacity 150ms ease-in-out",
+  },
+  "&:hover > div": {
+    opacity: 1,
+  },
+}));

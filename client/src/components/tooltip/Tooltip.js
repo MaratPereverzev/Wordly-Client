@@ -1,6 +1,5 @@
 import { Tooltip as TooltipMui } from "@mui/material";
 
-export const Tooltip = (props) => {
-  const { title, ...other } = props;
+export const Tooltip = ({ title, ...other }) => {
   return <TooltipMui title={title} {...other} />;
 };

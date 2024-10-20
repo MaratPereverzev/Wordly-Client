@@ -6,24 +6,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Page } from "../pages";
 import { Login } from "./auth";
 import { Sidebar } from "./sidebar";
+import { styled } from "@mui/material";
 
-const Default = () => {
+const DashboardSkeleton = () => {
   return (
-    <Box
-      flex
-      gap
-      grow
-      sx={{ backgroundColor: "#ededed", p: 1, overflow: "hidden" }}
-    >
+    <StyledDashboardSkeletonContainer flex gap grow>
       <Dialog />
-      <Sidebar
-        sx={{
-          backgroundColor: "white",
-          borderRadius: 2,
-        }}
-      />
+      <Sidebar />
       <Page />
-    </Box>
+    </StyledDashboardSkeletonContainer>
   );
 };
 
@@ -34,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Default />,
+    element: <DashboardSkeleton />,
     children: [
       { path: "dictionaries", element: <Dictionaries /> },
       { path: "dictionaries/:id", element: <Dictionary /> },
@@ -50,8 +41,14 @@ export const Dashboard = () => {
     <>
       <Snackbar />
       <RouterProvider router={router}>
-        {user?.accessToken !== "" ? <Default /> : <Login />}
+        {user?.accessToken !== "" ? <DashboardSkeleton /> : <Login />}
       </RouterProvider>
     </>
   );
 };
+
+const StyledDashboardSkeletonContainer = styled(Box)(() => ({
+  backgroundColor: "#ededed",
+  padding: "8px",
+  overflow: "hidden",
+}));

@@ -3,9 +3,14 @@ import { Content } from "./content";
 import { Header } from "./header";
 import { Action } from "./action";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 
-const Default = (props) => {
+export const CreateDictionaryDialogContent = (props) => {
   const dictionaryData = useRef({});
+  const form = useForm({
+    defaultValues: { name: undefined, description: undefined },
+    mode: "onChange",
+  });
 
   return (
     <Box
@@ -18,10 +23,8 @@ const Default = (props) => {
       }}
     >
       <Header dictionaryData={dictionaryData} />
-      <Content dictionaryData={dictionaryData} />
-      <Action dictionaryData={dictionaryData} />
+      <Content dictionaryData={dictionaryData} form={form} />
+      <Action dictionaryData={dictionaryData} form={form} />
     </Box>
   );
 };
-
-export { Default as CreateDictionaryDialogContent };

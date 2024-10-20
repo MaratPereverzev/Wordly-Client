@@ -2,23 +2,19 @@ import { Box, Button, Divider, SidebarMenuButton } from "@components";
 import { loginAction } from "@store/user";
 import { useDispatch, useSelector } from "react-redux";
 import { changeOpenState } from "@store/sidebar";
+import { styled } from "@mui/material";
 
-export const Sidebar = (props) => {
-  const { sx } = props;
+export const Sidebar = () => {
   const sidebar = useSelector((store) => store.sidebar);
   const dispatch = useDispatch();
 
   return (
-    <Box
+    <StyledSidebarMainContainer
       flex
       column
-      sx={{
-        width: sidebar.open ? "180px" : "48px",
-        transition: "width 100ms ease-in-out",
-        ...sx,
-      }}
+      sx={{ width: sidebar.open ? "180px" : "48px" }}
     >
-      <Box flex grow gap column sx={{ p: 1 }}>
+      <StyledSidebarButtonContainer flex grow gap column>
         <SidebarMenuButton route="/home" caption="home" icon="home" />
         <SidebarMenuButton
           route="/dictionaries"
@@ -27,8 +23,8 @@ export const Sidebar = (props) => {
         />
         <SidebarMenuButton route="/words" caption="words" icon="translation" />
         <SidebarMenuButton route="/saved" caption="saved" icon="saved" />
-      </Box>
-      <Box flex column sx={{ p: 1 }}>
+      </StyledSidebarButtonContainer>
+      <StyledSidebarButtonContainer flex column>
         <SidebarMenuButton
           route="/login"
           icon="logout"
@@ -39,8 +35,8 @@ export const Sidebar = (props) => {
             return true;
           }}
         />
-      </Box>
-      <Box flex gap="5px" column sx={{ p: 1 }}>
+      </StyledSidebarButtonContainer>
+      <StyledSidebarButtonContainer flex gap="5px" column>
         <Divider />
         <Button
           variant="text"
@@ -56,7 +52,14 @@ export const Sidebar = (props) => {
           }}
           caption={sidebar.open && "close"}
         />
-      </Box>
-    </Box>
+      </StyledSidebarButtonContainer>
+    </StyledSidebarMainContainer>
   );
 };
+
+const StyledSidebarButtonContainer = styled(Box)(() => ({ padding: "8px" }));
+const StyledSidebarMainContainer = styled(Box)(() => ({
+  backgroundColor: "white",
+  borderRadius: "8px",
+  transition: "width 100ms ease-in-out",
+}));

@@ -3,17 +3,15 @@ import { Icon } from "../Icon";
 import { Box } from "../Box";
 import { Button } from "../Button";
 
-export const Input = (props) => {
-  const {
-    icon,
-    sxIcon,
-    sxBox,
-    variant = "outlined",
-    errorMessage,
-    helperText,
-    ...other
-  } = props;
-
+export const Input = ({
+  icon,
+  sxIcon,
+  sxBox,
+  variant = "outlined",
+  errorMessage,
+  helperText,
+  ...other
+}) => {
   return (
     <TextField
       variant={variant}
@@ -30,9 +28,7 @@ export const Input = (props) => {
   );
 };
 
-export const InputFile = (props) => {
-  const { sxBox, sxButton, onChange, ...other } = props;
-
+export const InputFile = ({ sxBox, sxButton, onChange, ...other }) => {
   return (
     <Box className="button-container" sx={sxBox}>
       <Button
