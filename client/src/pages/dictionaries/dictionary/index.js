@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom";
-import { Box, Text, Button } from "@components";
+import { BasicTable, Box, Button, Text } from "@components";
+import { CreateWordDialog } from "@dialog";
 import { useGetByIdDictionary } from "@fetch/useDictionaries";
 import { styled } from "@mui/material";
+import { dispatchEvent } from "@utils";
+import { useParams } from "react-router-dom";
 
-export const Dictionary = () => {
+const Dictionary = () => {
   const { id } = useParams();
   const { data } = useGetByIdDictionary({ id });
 
   return (
-    <Box sx={{ p: 1 }}>
+    <Box sx={{ p: 1, overflowY: "scroll" }}>
       <Box
         sx={{
           borderRadius: 1,
@@ -26,7 +28,15 @@ export const Dictionary = () => {
           <Text caption={data?.description} />
         </Box>
         <Box flex gap>
-          <StyledActionButton icon="add" caption="Add Translation" />
+          <StyledActionButton
+            icon="add"
+            caption="Add Translation"
+            onClick={() => {
+              dispatchEvent("onOpenDialog", {
+                dialogContent: <CreateWordDialog />,
+              });
+            }}
+          />
           <StyledActionButton
             icon="more"
             sx={{
@@ -39,6 +49,14 @@ export const Dictionary = () => {
           />
         </Box>
       </StyledContainer>
+      {data?.words?.rows.length > 0 && (
+        <Box sx={{ p: 2 }}>
+          <BasicTable
+            bodyRows={data.words.rows}
+            headRows={Object.keys(data.words.rows[0])}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
@@ -54,6 +72,7 @@ const StyledActionButton = styled(Button)(() => ({
 
 const StyledCaption = styled(Text)(() => ({
   fontSize: "60px",
+  fontWeight: 700,
 }));
 
 const StyledContainer = styled(Box)(() => ({
@@ -62,3 +81,5 @@ const StyledContainer = styled(Box)(() => ({
   alignItems: "center",
   justifyCOntent: "space-between",
 }));
+
+export default Dictionary;

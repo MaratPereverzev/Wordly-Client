@@ -7,36 +7,14 @@ const {
 } = require("@utils");
 
 const get = (req, res) => {
-  const { userId, limit, offset, ...queryParams } = req.query;
+  const { limit, offset, ...queryParams } = req.query;
 
   const where = Object.keys(queryParams).length
     ? getLikeTemplate({ ...queryParams }, ["caption"])
     : {};
-
-  if (userId) {
-    models.dictionary
-      .findAll({ where: { userId }, attributes: defInclude() })
-      .then((dictionaries) =>
-        models.word.findAndCountAll({
-          where: {
-            dictionaryId: dictionaries.map((dict) => dict.id),
-            ...where,
-          },
-          include: [
-            {
-              model: models.dictionary,
-              attributes: excludeFields(defInclude(), ["id"]),
-            },
-          ],
-          attributes: defInclude(),
-        })
-      )
-      .defAnswer(res);
-  } else {
-    models.word
-      .findAndCountAll({ where, attributes: defInclude() })
-      .defAnswer(res);
-  }
+  models.word
+    .findAndCountAll({ where, attributes: defInclude() })
+    .defAnswer(res);
 };
 
 const getById = (req, res) => {

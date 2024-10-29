@@ -3,13 +3,13 @@ import { dispatchEvent } from "@utils";
 import { usePostDictionary } from "@fetch/useDictionaries";
 
 export const Action = ({ dictionaryData, form }) => {
-  const { mutate } = usePostDictionary(dictionaryData.current);
+  const { mutate } = usePostDictionary();
 
   const { handleSubmit } = form;
 
-  const onSubmit = ({ name, description }) => {
+  const onSubmit = () => {
     dispatchEvent("dialogTrigger", { opened: false });
-    mutate();
+    mutate(dictionaryData.current);
   };
 
   return (

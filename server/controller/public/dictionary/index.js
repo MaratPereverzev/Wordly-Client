@@ -20,12 +20,13 @@ const get = (req, res) => {
           model: models.media,
           attributes: defInclude(["path"]),
         },
+        { model: models.word, as: "words" },
       ],
     })
     .defAnswer(res);
 };
 
-const getById = (req, res) => {
+const getById = async (req, res) => {
   const { id } = req.params;
 
   models.dictionary
@@ -37,6 +38,7 @@ const getById = (req, res) => {
           model: models.media,
           attributes: defInclude(["path"]),
         },
+        models.word,
       ],
     })
     .defAnswer(res);

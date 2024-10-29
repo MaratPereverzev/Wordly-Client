@@ -1,12 +1,14 @@
+import { lazy } from "react";
 import { Box, Dialog, Snackbar } from "@components";
-import { Dictionaries } from "@pages/dictionaries";
-import { Dictionary } from "@pages/dictionaries/dictionary";
 import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Page } from "../pages";
 import { Login } from "./auth";
 import { Sidebar } from "./sidebar";
 import { styled } from "@mui/material";
+
+const LazyDictionaries = lazy(() => import("@pages/dictionaries"));
+const LazyDictionary = lazy(() => import("@pages/dictionaries/dictionary"));
 
 const DashboardSkeleton = () => {
   return (
@@ -27,8 +29,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <DashboardSkeleton />,
     children: [
-      { path: "dictionaries", element: <Dictionaries /> },
-      { path: "dictionaries/:id", element: <Dictionary /> },
+      { path: "dictionaries", element: <LazyDictionaries /> },
+      { path: "dictionaries/:id", element: <LazyDictionary /> },
       { path: "home", element: <div>home</div> },
     ],
   },

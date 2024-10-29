@@ -12,3 +12,4 @@ export * from "./Pages/Error";
 export * from "./Snackbar";
 export * from "./Pages/EmptyData";
 export * from "./Tooltip";
+export * from "./Table";

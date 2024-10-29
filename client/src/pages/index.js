@@ -1,4 +1,5 @@
-import { Box } from "@components";
+import { Box, Loading } from "@components";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 export const Page = () => {
@@ -12,7 +13,9 @@ export const Page = () => {
         borderRadius: 2,
       }}
     >
-      <Outlet />
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </Box>
   );
 };

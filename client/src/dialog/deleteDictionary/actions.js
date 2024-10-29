@@ -1,7 +1,14 @@
 import { Button, Box } from "@components";
 import { dispatchEvent } from "@utils";
+import { useDelDictionary } from "@fetch/useDictionaries";
 
-export const Actions = () => {
+export const Actions = ({ id }) => {
+  const { mutate } = useDelDictionary();
+
+  const onClick = () => {
+    mutate({ id });
+  };
+
   return (
     <Box flex jc="flex-end" gap sx={{ paddingTop: 4 }}>
       <Button
@@ -10,7 +17,7 @@ export const Actions = () => {
         sxText={{ px: 1 }}
         onClick={() => {
           dispatchEvent("dialogTrigger", { opened: false });
-          dispatchEvent("onDeleteDicitonary");
+          onClick();
         }}
       />
       <Button

@@ -12,6 +12,7 @@ module.exports = (db, modelName, options) => {
 
   model.associate = (models) => {
     model.hasMany(models.word, {
+      as: "posts",
       onDelete: "CASCADE",
       onUpdate: "NO ACTION",
     });

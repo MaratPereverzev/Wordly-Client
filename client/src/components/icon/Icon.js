@@ -1,5 +1,3 @@
-import { areEqual } from "@utils";
-import { memo } from "react";
 import { Box } from "../Box";
 
 const iconList = {
@@ -29,7 +27,7 @@ const iconList = {
   add: "add",
 };
 
-export const Icon = memo(({ icon, sxIcon, ...other }) => {
+export const Icon = ({ icon, sxIcon, ...other }) => {
   return (
     <Box flex ai {...other}>
       <span className="material-symbols-rounded span" style={sxIcon}>
@@ -37,4 +35,4 @@ export const Icon = memo(({ icon, sxIcon, ...other }) => {
       </span>
     </Box>
   );
-}, areEqual);
+};

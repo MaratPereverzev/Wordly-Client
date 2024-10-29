@@ -1,22 +1,9 @@
 import { Box } from "@components";
-import { useDelDictionary } from "@fetch";
-import { addEventListener } from "@utils";
-import { useEffect } from "react";
 import { Actions } from "./actions";
 import { Content } from "./content";
 import { Header } from "./header";
 
 export const DeleteDictionaryDialog = ({ id }) => {
-  const { mutate } = useDelDictionary({ id });
-
-  useEffect(
-    () =>
-      addEventListener("onDeleteDicitonary", () => {
-        mutate();
-      }),
-    [mutate]
-  );
-
   return (
     <Box
       flex
@@ -27,7 +14,7 @@ export const DeleteDictionaryDialog = ({ id }) => {
     >
       <Header />
       <Content />
-      <Actions />
+      <Actions id={id} />
     </Box>
   );
 };

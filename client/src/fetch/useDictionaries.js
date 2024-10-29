@@ -1,9 +1,15 @@
 import { useFetch } from "@hooks";
 import { setPagination } from "@store/dictionaries";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useSuspenseQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { dispatchEvent } from "@utils";
 import { useDispatch, useSelector } from "react-redux";
 import Dictionary from "../services/dictionary";
+import Word from "../services/word";
 
 export const useGetDictionary = () => {
   const user = useSelector((state) => state.user);
@@ -11,7 +17,7 @@ export const useGetDictionary = () => {
 
   const dispatch = useDispatch();
 
-  const { isLoading, data, isError } = useQuery({
+  const { isLoading, data, isError } = useSuspenseQuery({
     queryKey: ["dictionaries", query],
     queryFn: () =>
       Dictionary.getAll({
@@ -38,7 +44,7 @@ export const useGetDictionary = () => {
 export const useGetByIdDictionary = ({ id }) => {
   const user = useSelector((store) => store.user);
 
-  const { isLoading, isError, data } = useQuery({
+  const { isLoading, isError, data } = useSuspenseQuery({
     queryKey: [`dictionaries/${id}`],
     queryFn: () =>
       Dictionary.getById({
@@ -55,69 +61,82 @@ export const useGetByIdDictionary = ({ id }) => {
     enabled: !!user?.accessToken,
   });
 
+  const { data: dataWords } = useQuery({
+    queryKey: [`words/${id}`],
+    queryFn: () =>
+      Word.getAll({
+        query: {
+          dictionaryId: id,
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: user.accessToken,
+        },
+      }),
+    select: ({ data }) => data,
+    enabled: !!user?.accessToken,
+  });
+
+  data.words = dataWords;
+
   return { isLoading, isError, data };
 };
 
-export const usePostDictionary = (dictionaryData) => {
+export const usePostDictionary = () => {
   const user = useSelector((state) => state.user);
   const queryClient = useQueryClient();
 
-  const { error, data, mutate } = useMutation({
-    mutationKey: ["dictionaries/post", dictionaryData],
-    mutationFn: () =>
+  const hook = useMutation({
+    mutationKey: ["dictionaries/post"],
+    mutationFn: (data) =>
       Dictionary.post({
         headers: {
           Accept: "multipart/form-data",
           "Content-Type": "multipart/form-data",
           Authorization: user.accessToken,
         },
-        data: dictionaryData,
+        data,
       }),
     enabled: !!user?.accessToken,
     onSuccess: () => {
       queryClient.invalidateQueries(["dictionaries"]);
+      dispatchEvent("snackbarTrigger", {
+        status: "success",
+        message: "created successfully",
+      });
     },
   });
 
-  if (data?.status === 200) {
-    dispatchEvent("snackbarTrigger", {
-      status: "success",
-      message: "created successfully",
-    });
-  }
-
-  return { ...data, error, mutate };
+  return hook;
 };
 
-export const useDelDictionary = (dictionaryData) => {
+export const useDelDictionary = () => {
   const user = useSelector((state) => state.user);
   const queryClient = useQueryClient();
 
-  const { data, isError, mutate } = useMutation({
-    mutationKey: ["dictionaries/delete", dictionaryData],
-    mutationFn: () =>
+  const hook = useMutation({
+    mutationKey: ["dictionaries/delete"],
+    mutationFn: (data) =>
       Dictionary.delete({
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: user.accessToken,
         },
-        data: dictionaryData,
+        data,
       }),
     enabled: !!user?.accessToken,
     onSuccess: () => {
       queryClient.invalidateQueries(["dictionaries"]);
+      dispatchEvent("snackbarTrigger", {
+        status: "success",
+        message: "deleted successfully",
+      });
     },
   });
 
-  if (data?.status === 200) {
-    dispatchEvent("snackbarTrigger", {
-      status: "success",
-      message: "deleted successfully",
-    });
-  }
-
-  return { data, isError, mutate };
+  return hook;
 };
 
 export const usePutDictionary = async (dictionaryData) => {
@@ -139,7 +158,6 @@ export const usePutDictionary = async (dictionaryData) => {
       status: "success",
       message: "created successfully",
     });
-    dispatchEvent("onReload");
   }
 
   return { ...response, loading, error, put: fetchData };
