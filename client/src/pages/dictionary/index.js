@@ -1,13 +1,34 @@
-import { BasicTable, Box, Button, Text } from "@components";
+import { BasicTable, Box, Button, ButtonIcon, Text } from "@components";
 import { CreateWordDialog } from "@dialog";
 import { useGetByIdDictionary } from "@fetch/useDictionaries";
 import { styled } from "@mui/material";
-import { dispatchEvent } from "@utils";
+import { addFields, dispatchEvent } from "@utils";
 import { useParams } from "react-router-dom";
 
 const Dictionary = () => {
   const { id } = useParams();
   const { data } = useGetByIdDictionary({ id });
+
+  const headRows = ["id", "caption", "description", "actions"];
+
+  addFields(data?.words?.rows, [
+    {
+      field: "actions",
+      value: (
+        <Box>
+          <ButtonIcon
+            icon="delete"
+            color="red"
+            sx={{
+              "&:hover": { color: "#E41F1F" },
+              transition: "color 200ms ease-in-out",
+              padding: 0.5,
+            }}
+          />
+        </Box>
+      ),
+    },
+  ]);
 
   return (
     <Box sx={{ p: 1, overflowY: "scroll" }}>
@@ -53,7 +74,9 @@ const Dictionary = () => {
         <Box sx={{ p: 2 }}>
           <BasicTable
             bodyRows={data.words.rows}
-            headRows={Object.keys(data.words.rows[0])}
+            headRows={headRows}
+            alignHeadCell="center"
+            alignBodyCell="center"
           />
         </Box>
       )}

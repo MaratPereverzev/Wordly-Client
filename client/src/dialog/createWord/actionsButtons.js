@@ -1,14 +1,12 @@
 import { Box, Button } from "@components";
-import { dispatchEvent } from "@utils";
 import { usePostWords } from "@fetch/useWords";
+import { dispatchEvent } from "@utils";
 
-export const Actions = ({ form }) => {
-  const { handleSubmit } = form;
-
+export const ActionsButtons = ({ form: { handleSubmit, getValues } }) => {
   const { mutate } = usePostWords();
 
   const onSubmit = () => {
-    mutate(form.getValues());
+    mutate(getValues());
   };
 
   return (

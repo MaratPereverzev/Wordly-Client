@@ -1,25 +1,23 @@
 import { Button, ButtonGroup, Popover } from "@components";
-import { styled } from "@mui/material";
 import { CreateDictionaryDialogContent } from "@dialog";
-import { changeSelectMode } from "@store/dictionaries";
+import { styled } from "@mui/material";
 import { dispatchEvent } from "@utils";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const ActionGroup = () => {
   const mode = useSelector((store) => store.dictionaries.mode);
-
-  const dispatch = useDispatch();
-
-  const handleOnClick = useCallback(() => {
-    dispatch(changeSelectMode());
-  }, [dispatch]);
 
   return (
     <ButtonGroup caption="new">
       <Button
         caption="new"
-        sx={{ px: 1 }}
+        sx={{
+          px: 1,
+          backgroundColor: ({ palette }) => palette.primary.main,
+        }}
+        sxText={{
+          color: ({ palette }) => palette.primary.contrastText,
+        }}
         onClick={() => {
           dispatchEvent("onOpenDialog", {
             dialogContent: <CreateDictionaryDialogContent />,
@@ -36,6 +34,9 @@ export const ActionGroup = () => {
             sx={{
               p: 0,
             }}
+            sxIcon={{
+              color: ({ palette }) => palette.primary.contrastText,
+            }}
           />
         }
         anchorOrigin={{
@@ -47,12 +48,6 @@ export const ActionGroup = () => {
           horizontal: "center",
         }}
       >
-        <StyledActionButton
-          icon={mode?.isSelectMode ? "checkboxFilled" : "checkboxEmpty"}
-          caption={mode?.isSelectMode ? "select" : "undo"}
-          variant="text"
-          onClick={handleOnClick}
-        />
         {mode?.isSelectMode && (
           <StyledActionButton
             caption="delete"

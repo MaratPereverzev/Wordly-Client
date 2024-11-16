@@ -22,13 +22,14 @@ export const Button = memo(
     variant = "contained",
     iconAtTheEnd,
     tooltipPosition,
+    title,
     ...other
   }) => {
     const captionIsString = typeof caption === "string";
 
     if (!!tooltipPosition && !caption) {
       return (
-        <Tooltip disableInteractive title={icon} placement={tooltipPosition}>
+        <Tooltip disableInteractive title={title} placement={tooltipPosition}>
           <StyledDefaultButton size="small" variant={variant} {...other}>
             {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
             {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
@@ -115,7 +116,8 @@ export const ButtonGroup = (props) => {
   return <StyledGroupButton {...props} />;
 };
 
-const StyledDefaultButton = styled(ButtonMui)(() => ({
+const StyledDefaultButton = styled(ButtonMui)(({ theme }) => ({
+  //color: theme.palette.primary.contrastText,
   padding: "4px",
   justifyContent: "flex-start",
   minWidth: "min-content",

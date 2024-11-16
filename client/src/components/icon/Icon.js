@@ -25,6 +25,8 @@ const iconList = {
   empty: "package_2",
   error: "error",
   add: "add",
+  light_mode: "light_mode",
+  dark_mode: "dark_mode",
 };
 
 export const Icon = ({ icon, sxIcon, ...other }) => {

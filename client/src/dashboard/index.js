@@ -8,7 +8,7 @@ import { Sidebar } from "./sidebar";
 import { styled } from "@mui/material";
 
 const LazyDictionaries = lazy(() => import("@pages/dictionaries"));
-const LazyDictionary = lazy(() => import("@pages/dictionaries/dictionary"));
+const LazyDictionary = lazy(() => import("@pages/dictionary"));
 
 const DashboardSkeleton = () => {
   return (
@@ -49,8 +49,8 @@ export const Dashboard = () => {
   );
 };
 
-const StyledDashboardSkeletonContainer = styled(Box)(() => ({
-  backgroundColor: "#ededed",
+const StyledDashboardSkeletonContainer = styled(Box)(({ theme }) => ({
+  background: theme.palette.background.default,
   padding: "8px",
   overflow: "hidden",
 }));

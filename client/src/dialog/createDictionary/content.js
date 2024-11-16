@@ -19,7 +19,6 @@ export const Content = ({ dictionaryData, form }) => {
                 required: "Dictionary name is required",
               })}
               errorMessage={errors.name ? errors.name.message : ""}
-              autoComplete="off"
               placeholder="Dictionary name"
               variant="standard"
               onChange={(e) => {

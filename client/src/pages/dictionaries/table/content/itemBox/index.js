@@ -55,7 +55,13 @@ export const ItemBox = memo(({ sx, data, ...other }) => {
           <Box flex gap="10px">
             <StyledActionButton
               caption="view"
-              sxText={{ fontSize: "12px" }}
+              sx={{
+                backgroundColor: ({ palette }) => palette.primary.main,
+              }}
+              sxText={{
+                color: ({ palette }) => palette.primary.contrastText,
+                fontSize: "12px",
+              }}
               onClick={() => {
                 navigate(`${data.id}`);
               }}
@@ -80,20 +86,18 @@ const StyledItemContainer = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
 }));
 
-const StyledDeleteButton = styled(ButtonIcon)(() => ({
+const StyledDeleteButton = styled(ButtonIcon)(({ theme }) => ({
+  color: theme.palette.text.primary,
   "&:hover": { color: "#E41F1F" },
   transition: "color 200ms ease-in-out",
   padding: 0,
 }));
 
 const StyledActionButton = styled(Button)(() => ({
-  backgroundColor: "black",
+  background: "black",
   borderRadius: "20px",
   justifyContent: "center",
   width: "50px",
-  "&:hover": {
-    backgroundColor: "#333333",
-  },
 }));
 
 const StyledDescriptionText = styled(Text)(() => ({

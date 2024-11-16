@@ -4,6 +4,7 @@ import { Dashboard } from "./dashboard";
 import { store } from "@store";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ThemeProvider from "./ThemeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,10 +18,12 @@ const queryClient = new QueryClient({
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Dashboard />
-      </QueryClientProvider>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Dashboard />
+        </QueryClientProvider>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );

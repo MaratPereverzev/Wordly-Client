@@ -1,5 +1,6 @@
-import { Box, Input, Text } from "@components";
-export const Content = ({ form }) => {
+import { Box, Input } from "@components";
+
+export const WordInput = ({ form }) => {
   const {
     register,
     setValue,
@@ -12,8 +13,8 @@ export const Content = ({ form }) => {
         {...register("caption", {
           required: "caption is required",
         })}
-        errorMessage={errors?.caption ? errors.caption.message : ""}
         label="word"
+        errorMessage={errors?.caption ? errors.caption.message : ""}
         onChange={(e) => {
           setValue("caption", e.target.value);
         }}

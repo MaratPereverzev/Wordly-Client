@@ -9,7 +9,7 @@ export const Page = () => {
       column
       grow
       sx={{
-        backgroundColor: "white",
+        background: (theme) => theme.palette.background.paper,
         borderRadius: 2,
       }}
     >

@@ -2,9 +2,11 @@ import { Box, Button, Divider, SidebarMenuButton } from "@components";
 import { loginAction } from "@store/user";
 import { useDispatch, useSelector } from "react-redux";
 import { changeOpenState } from "@store/sidebar";
-import { styled } from "@mui/material";
+import { styled, useTheme } from "@mui/material";
+import { dispatchEvent } from "@utils";
 
 export const Sidebar = () => {
+  const theme = useTheme();
   const sidebar = useSelector((store) => store.sidebar);
   const dispatch = useDispatch();
 
@@ -21,17 +23,21 @@ export const Sidebar = () => {
           caption="dictionaries"
           icon="dictionary"
         />
-        <SidebarMenuButton route="/words" caption="words" icon="translation" />
-        <SidebarMenuButton route="/saved" caption="saved" icon="saved" />
       </StyledSidebarButtonContainer>
-      <StyledSidebarButtonContainer flex column>
+      <StyledSidebarButtonContainer flex column gap>
+        <Button
+          onClick={() => dispatchEvent("changeTheme")}
+          sx={{ gap: "5px" }}
+          variant="text"
+          caption={sidebar.open && "Switch"}
+          icon={theme.palette.mode === "light" ? "dark_mode" : "light_mode"}
+        />
         <SidebarMenuButton
           route="/login"
           icon="logout"
           caption="logout"
           onClick={() => {
             dispatch(loginAction({ accessToken: "" }));
-
             return true;
           }}
         />
@@ -41,12 +47,12 @@ export const Sidebar = () => {
         <Button
           variant="text"
           color="inherit"
+          sx={{ gap: "5px" }}
           sxIcon={{
             transform: sidebar.open ? "rotate(180deg)" : "rotate(0)",
             transition: "transform 200ms ease-in-out",
           }}
           icon="expand"
-          open={sidebar.open}
           onClick={() => {
             dispatch(changeOpenState({ open: !sidebar.open }));
           }}
@@ -57,9 +63,12 @@ export const Sidebar = () => {
   );
 };
 
-const StyledSidebarButtonContainer = styled(Box)(() => ({ padding: "8px" }));
-const StyledSidebarMainContainer = styled(Box)(() => ({
-  backgroundColor: "white",
+const StyledSidebarButtonContainer = styled(Box)(({ theme }) => ({
+  padding: "8px",
+  color: theme.palette.text.primary,
+}));
+const StyledSidebarMainContainer = styled(Box)(({ theme }) => ({
+  background: theme.palette.background.paper,
   borderRadius: "8px",
   transition: "width 100ms ease-in-out",
 }));

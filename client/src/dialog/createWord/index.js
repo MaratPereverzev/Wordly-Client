@@ -1,9 +1,10 @@
-import { Box } from "@components";
-import { Content } from "./content";
-import { Actions } from "./actions";
-
+import { styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+
+import { Box } from "@components";
+import { ActionsButtons } from "./actionsButtons";
+import { WordInput } from "./wordInput";
 
 export const CreateWordDialog = () => {
   const { id } = useParams();
@@ -14,21 +15,17 @@ export const CreateWordDialog = () => {
       description: undefined,
       dictionaryId: id,
     },
-    mode: "onChange",
   });
 
   return (
-    <Box
-      flex
-      column
-      sx={{
-        width: "300px",
-        p: 2,
-      }}
-      gap="20px"
-    >
-      <Content form={form} />
-      <Actions form={form} />
-    </Box>
+    <StyledContainer flex column gap="20px">
+      <WordInput form={form} />
+      <ActionsButtons form={form} />
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled(Box)(() => ({
+  width: "300px",
+  padding: "8px",
+}));

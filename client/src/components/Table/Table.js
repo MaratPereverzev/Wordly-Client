@@ -5,20 +5,25 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-export const BasicTable = ({ bodyRows = [], headRows = [], sx = {} }) => {
+export const BasicTable = ({
+  bodyRows = [],
+  headRows = [],
+  sx = {},
+  alignHeadCell = "left",
+  alignBodyCell = "left",
+}) => {
   return (
     <TableContainer
       sx={{
         borderRadius: 1,
-        boxShadow:
-          "0px 0px 6px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12)",
+        boxShadow: "none",
       }}
     >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             {headRows.map((row) => (
-              <TableCell align="right" key={row}>
+              <TableCell key={row} align={alignHeadCell}>
                 {row}
               </TableCell>
             ))}
@@ -32,10 +37,10 @@ export const BasicTable = ({ bodyRows = [], headRows = [], sx = {} }) => {
             >
               {Object.keys(row).map((key) => (
                 <TableCell
-                  align="right"
                   component="th"
                   scope="row"
                   key={`${row.name}/${row[key]}`}
+                  align={alignBodyCell}
                 >
                   {row[key]}
                 </TableCell>

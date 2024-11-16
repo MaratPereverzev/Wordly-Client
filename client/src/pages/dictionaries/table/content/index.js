@@ -26,7 +26,8 @@ export const TableContent = () => {
   );
 };
 
-const StyledTableContentContainer = styled(Box)(() => ({
+const StyledTableContentContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background,
   height: "100%",
   overflowY: "auto",
 }));

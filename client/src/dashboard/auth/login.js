@@ -97,8 +97,8 @@ export const Login = () => {
   );
 };
 
-const StyledLoginContainer = styled(Box)(() => ({
-  background: "url(/res/img/loginBackground.png)",
+const StyledLoginContainer = styled(Box)(({ theme }) => ({
+  background: theme.palette.background.default,
   backgroundSize: "cover",
   backgroundPosition: "center",
 }));
