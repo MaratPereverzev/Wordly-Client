@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material/styles";
 
-// Light Theme
 const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -12,14 +11,6 @@ const lightTheme = createTheme({
       primary: "#000000",
       secondary: "#393E46",
     },
-    /*
-    primary: {
-      main: "#000000",
-      light: "#686D76",
-      dark: "#323232",
-      contrastText: "#FFFFFF",
-    },
-    */
     secondary: {
       main: "#9c27b0",
       light: "#ba68c8",
@@ -52,7 +43,6 @@ const lightTheme = createTheme({
   },
 });
 
-// Dark Theme
 const darkTheme = createTheme({
   palette: {
     mode: "dark",

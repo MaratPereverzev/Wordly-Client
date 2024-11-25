@@ -1,15 +1,18 @@
 import { useEffect, useRef, useCallback } from "react";
 
-export const useTimeout = (callback, delay) => {
+export const useTimeout = (
+  callback: (data?: { [index: string]: any }) => void,
+  delay: number
+) => {
   const callbackRef = useRef(callback);
-  const callbackTimeoutRef = useRef(null);
+  const callbackTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
   const timeoutDispatch = useCallback(
-    (data) => {
+    (data: any) => {
       callbackTimeoutRef.current = setTimeout(() => {
         callbackRef.current(data);
       }, delay);
@@ -22,7 +25,7 @@ export const useTimeout = (callback, delay) => {
   }, []);
 
   const timeoutReset = useCallback(
-    (data) => {
+    (data: any) => {
       timeoutClear();
       timeoutDispatch(data);
     },

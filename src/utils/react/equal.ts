@@ -1,8 +1,11 @@
 const areAlwaysEqual = () => true;
 
-const isObject = (obj) => typeof obj === "object" && obj !== null;
+const isObject = (obj: any) => obj instanceof Object && obj !== null;
 
-const areEqual = (prev, next) => {
+const areEqual = (
+  prev: { [index: string]: any },
+  next: { [index: string]: any }
+): boolean => {
   const keys1 = Object.keys(prev);
   const keys2 = Object.keys(next);
 

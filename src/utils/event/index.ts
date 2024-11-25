@@ -1,4 +1,8 @@
-const addEventListener = (eventName, callback, target = document) => {
+const addEventListener = (
+  eventName: string,
+  callback: (params: any) => void,
+  target = document
+): (() => void) => {
   if (typeof eventName !== "string")
     throw new Error("event props are inappropriate");
 
@@ -7,7 +11,11 @@ const addEventListener = (eventName, callback, target = document) => {
   return () => target.removeEventListener(eventName, callback);
 };
 
-const dispatchEvent = (eventName, data, target = document) => {
+const dispatchEvent = (
+  eventName: string,
+  data: { [index: string]: any },
+  target = document
+): void => {
   if (typeof eventName !== "string")
     throw new Error("event props are inappropriate");
 

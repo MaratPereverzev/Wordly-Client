@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import { dispatchEvent } from "@utils";
+import { dispatchEvent } from "utils";
 import Word from "../services/word";
 import { useParams } from "react-router-dom";
 
@@ -34,13 +34,12 @@ export const usePostWords = () => {
         },
         data: wordData,
       }),
-    enabled: !!user?.accessToken,
     onSuccess: () => {
       dispatchEvent("snackbarTrigger", {
         status: "success",
         message: "A new word added successfully",
       });
-      queryClient.invalidateQueries([`words.${id}`]);
+      queryClient.invalidateQueries({ queryKey: [`words.${id}`] });
       dispatchEvent("dialogTrigger", { opened: false });
     },
   });

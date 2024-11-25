@@ -3,10 +3,13 @@ import {
   dispatchEvent,
   setLocalStorageValue,
   getLocalStorageValue,
-} from "@utils";
+} from "utils";
 
-const initialState = {
-  accessToken: getLocalStorageValue("accessToken") ?? "",
+type userReducerProps = {
+  accessToken: string | null;
+};
+const initialState: userReducerProps = {
+  accessToken: getLocalStorageValue("accessToken"),
 };
 
 const userSlice = createSlice({

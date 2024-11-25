@@ -1,13 +1,13 @@
-import { BasicTable, Box, Button, ButtonIcon, Text } from "@components";
-import { CreateWordDialog } from "@dialog";
-import { useGetByIdDictionary } from "@fetch/useDictionaries";
+import { BasicTable, Box, Button, ButtonIcon, Text } from "components";
+import { CreateWordDialog } from "dialog";
+import { useGetByIdDictionary } from "fetch/useDictionaries";
 import { styled } from "@mui/material";
-import { addFields, dispatchEvent } from "@utils";
+import { addFields, dispatchEvent } from "utils";
 import { useParams } from "react-router-dom";
 
 const Dictionary = () => {
   const { id } = useParams();
-  const { data } = useGetByIdDictionary({ id });
+  const { data } = useGetByIdDictionary(id!);
 
   const headRows = ["id", "caption", "description", "actions"];
 

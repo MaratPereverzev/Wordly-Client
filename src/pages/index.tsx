@@ -1,4 +1,4 @@
-import { Box, Loading } from "@components";
+import { Box, Loading } from "components";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 

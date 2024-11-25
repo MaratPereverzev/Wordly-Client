@@ -1,12 +1,12 @@
-import React from "react";
+import {StrictMode} from "react";
 import ReactDOM from "react-dom/client";
-import { Dashboard } from "./dashboard";
-import { store } from "@store";
+import { Dashboard } from "dashboard";
+import { store } from "store";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ThemeProvider from "./ThemeProvider";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 });
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
@@ -25,5 +25,5 @@ root.render(
         </QueryClientProvider>
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

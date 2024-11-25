@@ -3,15 +3,28 @@ import {
   Button as ButtonMui,
   IconButton,
   styled,
+  ButtonProps,
+  ButtonGroupProps
 } from "@mui/material";
-import { changeOpenState, changePage } from "@store/sidebar";
-import { areEqual, getPageHash } from "@utils";
+import { changeOpenState, changePage } from "store/sidebar";
+import { areEqual, getPageHash } from "utils";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
 import { Tooltip } from "../Tooltip";
+
+type CustomButtonProps = ButtonProps & {
+  sxIcon?: React.CSSProperties,
+  sxText?: React.CSSProperties,
+  icon?: string,
+  caption?: string,
+  variant?: string,
+  iconAtTheEnd?: boolean,
+  tooltipPosition?: string,
+  title?: string
+}
 
 export const Button = memo(
   ({
@@ -24,7 +37,7 @@ export const Button = memo(
     tooltipPosition,
     title,
     ...other
-  }) => {
+  }: CustomButtonProps) => {
     const captionIsString = typeof caption === "string";
 
     if (!!tooltipPosition && !caption) {
@@ -51,7 +64,11 @@ export const Button = memo(
   areEqual
 );
 
-export const RouteButton = ({ route, onClick, ...other }) => {
+type CustomRouteButtonProps = CustomButtonProps & {
+  route: string
+}
+
+export const RouteButton = ({ route, onClick, ...other }: CustomRouteButtonProps) => {
   const navigate = useNavigate();
 
   return (
@@ -65,7 +82,7 @@ export const RouteButton = ({ route, onClick, ...other }) => {
   );
 };
 
-export const MenuButton = ({ icon, route, caption, ...other }) => {
+export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButtonProps) => {
   return (
     <StyledRouteButton
       route={route}
@@ -84,7 +101,11 @@ export const MenuButton = ({ icon, route, caption, ...other }) => {
   );
 };
 
-export const SidebarMenuButton = ({ icon, route, open, caption, ...other }) => {
+type CustomSidebarMenuButtonProps = CustomRouteButtonProps & {
+  open: boolean
+}
+
+export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: CustomSidebarMenuButtonProps) => {
   const sidebar = useSelector((store) => store.sidebar);
   const dispatch = useDispatch();
 
@@ -104,7 +125,12 @@ export const SidebarMenuButton = ({ icon, route, open, caption, ...other }) => {
   );
 };
 
-export const ButtonIcon = ({ sxIcon, icon, ...other }) => {
+type ButtonIconProps = ButtonProps & {
+  sxIcon?: React.CSSProperties,
+  icon?:string
+}
+
+export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
   return (
     <StyledIconButton variant="text" {...other}>
       <Icon icon={icon} sx={sxIcon} />
@@ -112,7 +138,7 @@ export const ButtonIcon = ({ sxIcon, icon, ...other }) => {
   );
 };
 
-export const ButtonGroup = (props) => {
+export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
 

@@ -1,9 +1,9 @@
-import { Box, Button, Divider, SidebarMenuButton } from "@components";
-import { loginAction } from "@store/user";
+import { Box, Button, Divider, SidebarMenuButton } from "components";
+import { loginAction } from "store/user";
 import { useDispatch, useSelector } from "react-redux";
-import { changeOpenState } from "@store/sidebar";
+import { changeOpenState } from "store/sidebar";
 import { styled, useTheme } from "@mui/material";
-import { dispatchEvent } from "@utils";
+import { dispatchEvent } from "utils";
 
 export const Sidebar = () => {
   const theme = useTheme();
@@ -54,7 +54,7 @@ export const Sidebar = () => {
           }}
           icon="expand"
           onClick={() => {
-            dispatch(changeOpenState({ open: !sidebar.open }));
+            dispatch(changeOpenState({open: !sidebar.open}));
           }}
           caption={sidebar.open && "close"}
         />

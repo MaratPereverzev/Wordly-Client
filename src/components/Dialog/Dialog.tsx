@@ -1,5 +1,5 @@
 import { Dialog as DialogMui, useMediaQuery, useTheme } from "@mui/material";
-import { addEventListener } from "@utils";
+import { addEventListener } from "utils";
 import { useEffect, useRef, useState } from "react";
 
 export const Dialog = () => {

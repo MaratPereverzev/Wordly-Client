@@ -1,12 +1,12 @@
-import { useFetch } from "@hooks";
-import { setPagination } from "@store/dictionaries";
+import { useFetch } from "hooks";
+import { setPagination } from "store/dictionaries";
 import {
   useMutation,
   useQuery,
   useSuspenseQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { dispatchEvent } from "@utils";
+import { dispatchEvent } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import Dictionary from "../services/dictionary";
 import Word from "../services/word";
@@ -33,23 +33,24 @@ export const useGetDictionary = () => {
         },
       }),
     select: ({ data }) => data,
-    enabled: !!user?.accessToken,
   });
 
-  dispatch(setPagination({ count: data?.count }));
+  dispatch(setPagination({ pagination: { recordsCount: data.count } }));
 
   return { isLoading, data, isError };
 };
 
-export const useGetByIdDictionary = ({ id }) => {
+export const useGetByIdDictionary = (id: string) => {
   const user = useSelector((store) => store.user);
 
   const { isLoading, isError, data } = useSuspenseQuery({
     queryKey: [`dictionaries/${id}`],
     queryFn: () =>
       Dictionary.getById({
-        query: {
-          id,
+        data: {
+          query: {
+            id,
+          },
         },
         headers: {
           Accept: "application/json",
@@ -58,15 +59,16 @@ export const useGetByIdDictionary = ({ id }) => {
         },
       }),
     select: ({ data }) => data,
-    enabled: !!user?.accessToken,
   });
 
   const { data: dataWords } = useQuery({
     queryKey: [`words/${id}`],
     queryFn: () =>
       Word.getAll({
-        query: {
-          dictionaryId: id,
+        data: {
+          query: {
+            dictionaryId: id,
+          },
         },
         headers: {
           Accept: "application/json",
@@ -98,9 +100,8 @@ export const usePostDictionary = () => {
         },
         data,
       }),
-    enabled: !!user?.accessToken,
     onSuccess: () => {
-      queryClient.invalidateQueries(["dictionaries"]);
+      queryClient.invalidateQueries({ queryKey: ["dictionaries"] });
       dispatchEvent("snackbarTrigger", {
         status: "success",
         message: "created successfully",
@@ -126,9 +127,8 @@ export const useDelDictionary = () => {
         },
         data,
       }),
-    enabled: !!user?.accessToken,
     onSuccess: () => {
-      queryClient.invalidateQueries(["dictionaries"]);
+      queryClient.invalidateQueries({ queryKey: ["dictionaries"] });
       dispatchEvent("snackbarTrigger", {
         status: "success",
         message: "deleted successfully",
@@ -139,7 +139,9 @@ export const useDelDictionary = () => {
   return hook;
 };
 
-export const usePutDictionary = async (dictionaryData) => {
+export const usePutDictionary = async (dictionaryData: {
+  [index: string]: string;
+}) => {
   const { user } = useSelector((state) => state.login);
 
   const { response, loading, error, fetchData } = useFetch({

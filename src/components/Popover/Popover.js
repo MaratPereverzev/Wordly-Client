@@ -24,7 +24,6 @@ export const Popover = ({
 
   const open = !!anchorEl;
 
-  console.log(children);
   return (
     <Box flex>
       {button ? (
