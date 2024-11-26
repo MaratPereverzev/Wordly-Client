@@ -4,25 +4,25 @@ import {
   IconButton,
   styled,
   ButtonProps,
-  ButtonGroupProps
+  ButtonGroupProps,
+  Tooltip
 } from "@mui/material";
 import { changeOpenState, changePage } from "store/sidebar";
 import { areEqual, getPageHash } from "utils";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Icon } from "../Icon";
+import { Icon, iconListKeys } from "../Icon";
 import { Text } from "../Text";
-import { Tooltip } from "../Tooltip";
+import { useAppSelector } from "hooks/useSelector";
 
-type CustomButtonProps = ButtonProps & {
+export type CustomButtonProps = ButtonProps & {
   sxIcon?: React.CSSProperties,
   sxText?: React.CSSProperties,
-  icon?: string,
-  caption?: string,
-  variant?: string,
+  icon?: iconListKeys,
+  caption?: string | boolean,
   iconAtTheEnd?: boolean,
-  tooltipPosition?: string,
+  placement?: "bottom" | "left" | "right" | "top" | "bottom-end" | "bottom-start" | "left-end" | "left-start" | "right-end" | "right-start" | "top-end" | "top-start"
   title?: string
 }
 
@@ -34,15 +34,15 @@ export const Button = memo(
     caption,
     variant = "contained",
     iconAtTheEnd,
-    tooltipPosition,
+    placement,
     title,
     ...other
   }: CustomButtonProps) => {
     const captionIsString = typeof caption === "string";
 
-    if (!!tooltipPosition && !caption) {
+    if (placement && !caption) {
       return (
-        <Tooltip disableInteractive title={title} placement={tooltipPosition}>
+        <Tooltip disableInteractive title={title} placement={placement}>
           <StyledDefaultButton size="small" variant={variant} {...other}>
             {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
             {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
@@ -74,7 +74,7 @@ export const RouteButton = ({ route, onClick, ...other }: CustomRouteButtonProps
   return (
     <Button
       onClick={() => {
-        if (typeof onClick === "function") onClick();
+        if (typeof onClick === "function") //onClick();
         navigate(route);
       }}
       {...other}
@@ -102,18 +102,18 @@ export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButton
 };
 
 type CustomSidebarMenuButtonProps = CustomRouteButtonProps & {
-  open: boolean
+  open?: boolean
 }
 
 export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: CustomSidebarMenuButtonProps) => {
-  const sidebar = useSelector((store) => store.sidebar);
+  const sidebar = useAppSelector(store => store.sidebarReducer);
   const dispatch = useDispatch();
 
   return (
     <StyledRouteButton
       route={route}
       color="inherit"
-      variant={sidebar.page === route ? "contained" : "text"}
+      variant={sidebar.route === route ? "contained" : "text"}
       icon={icon}
       caption={sidebar.open && caption}
       onClick={() => {
@@ -127,7 +127,7 @@ export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: Cust
 
 type ButtonIconProps = ButtonProps & {
   sxIcon?: React.CSSProperties,
-  icon?:string
+  icon?: iconListKeys
 }
 
 export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
@@ -138,7 +138,10 @@ export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
   );
 };
 
-export const ButtonGroup = (props: ButtonGroupProps) => {
+type CustomButtonGroupProps = ButtonGroupProps & {
+  caption: string
+}
+export const ButtonGroup = (props: CustomButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
 

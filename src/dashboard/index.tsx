@@ -7,6 +7,7 @@ import { Page } from "../pages";
 import { Login } from "./auth";
 import { Sidebar } from "./sidebar";
 import { styled } from "@mui/material";
+import { useAppSelector } from "hooks/useSelector";
 
 const LazyDictionaries = lazy(() => import("pages/dictionaries"));
 const LazyDictionary = lazy(() => import("pages/dictionary"));
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
 ]);
 
 export const Dashboard = (): JSX.Element => {
-  const user = useSelector((state) => state.user);
+  const user = useAppSelector((state) => state.userReducer);
 
   return (
     <>

@@ -1,12 +1,13 @@
-import { changeSelectMode } from "@store/dictionaries";
-import { Box, Button } from "@components";
+import { changeSelectMode } from "store/dictionaries";
+import { Box, Button } from "components";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActionGroup } from "./buttonGroup";
 import { InputCaption } from "./inputCaption";
+import { useAppSelector } from "hooks/useSelector";
 
 export const TableHeader = () => {
-  const mode = useSelector((store) => store.dictionaries.mode);
+  const mode = useAppSelector((store) => store.dicitonariesReducer.mode);
 
   const dispatch = useDispatch();
 
@@ -18,7 +19,7 @@ export const TableHeader = () => {
     <Box
       flex
       jc="space-between"
-      sx={{ p: 1, backgroundColor: (theme) => theme.palette.background }}
+      sx={{ p: 1, backgroundColor: ({palette}) => palette.background.default }}
       ai
     >
       <Box flex gap="5px">
@@ -26,7 +27,7 @@ export const TableHeader = () => {
         <Button icon="filter" variant="text" />
         <Button icon="sort" variant="text" />
         <Button
-          tooltipPosition="bottom"
+          placement="bottom"
           icon={mode?.isSelectMode ? "checkboxFilled" : "checkboxEmpty"}
           title={!mode?.isSelectMode ? "select" : "undo"}
           variant="text"

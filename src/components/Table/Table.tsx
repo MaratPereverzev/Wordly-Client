@@ -1,9 +1,12 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import type {TableProps, TableBodyProps, TableCellProps, TableContainerProps, TableHeadProps, TableRowProps} from "@mui/material"
+
+type BasicTableProps = TableProps & {
+  alignHeadCell ?: "center" | "left" | "right" | "inherit" | "justify",
+  alignBodyCell ?: "center" | "left" | "right" | "inherit" | "justify",
+  bodyRows?: JSX.Element[],
+  headRows?: JSX.Element[]
+}
 
 export const BasicTable = ({
   bodyRows = [],
@@ -11,7 +14,7 @@ export const BasicTable = ({
   sx = {},
   alignHeadCell = "left",
   alignBodyCell = "left",
-}) => {
+}: BasicTableProps) => {
   return (
     <TableContainer
       sx={{
@@ -23,16 +26,16 @@ export const BasicTable = ({
         <TableHead>
           <TableRow>
             {headRows.map((row) => (
-              <TableCell key={row} align={alignHeadCell}>
+              <TableCell key={row.key} align={alignHeadCell}>
                 {row}
               </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {bodyRows.map((row) => (
+          {bodyRows.map((row: any) => (
             <TableRow
-              key={row.name}
+              key={row.key}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {Object.keys(row).map((key) => (

@@ -1,13 +1,14 @@
 import { Box, Button, Divider, SidebarMenuButton } from "components";
 import { loginAction } from "store/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeOpenState } from "store/sidebar";
 import { styled, useTheme } from "@mui/material";
 import { dispatchEvent } from "utils";
+import { useAppSelector } from "hooks/useSelector";
 
 export const Sidebar = () => {
   const theme = useTheme();
-  const sidebar = useSelector((store) => store.sidebar);
+  const sidebar = useAppSelector(store => store.sidebarReducer);
   const dispatch = useDispatch();
 
   return (

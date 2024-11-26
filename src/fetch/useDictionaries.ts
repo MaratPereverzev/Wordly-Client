@@ -10,10 +10,11 @@ import { dispatchEvent } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import Dictionary from "../services/dictionary";
 import Word from "../services/word";
+import { useAppSelector } from "hooks/useSelector";
 
 export const useGetDictionary = () => {
-  const user = useSelector((state) => state.user);
-  const query = useSelector((store) => store.dictionaries.query);
+  const user = useAppSelector((state) => state.userReducer);
+  const query = useAppSelector((store) => store.dicitonariesReducer.query);
 
   const dispatch = useDispatch();
 
@@ -22,8 +23,8 @@ export const useGetDictionary = () => {
     queryFn: () =>
       Dictionary.getAll({
         params: {
-          limit: query.limit,
-          offset: query.offset,
+          limit: query?.limit,
+          offset: query?.offset,
           caption: query?.caption,
         },
         headers: {
@@ -41,7 +42,7 @@ export const useGetDictionary = () => {
 };
 
 export const useGetByIdDictionary = (id: string) => {
-  const user = useSelector((store) => store.user);
+  const user = useAppSelector((store) => store.userReducer);
 
   const { isLoading, isError, data } = useSuspenseQuery({
     queryKey: [`dictionaries/${id}`],
@@ -86,7 +87,7 @@ export const useGetByIdDictionary = (id: string) => {
 };
 
 export const usePostDictionary = () => {
-  const user = useSelector((state) => state.user);
+  const user = useAppSelector((state) => state.userReducer);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -113,7 +114,7 @@ export const usePostDictionary = () => {
 };
 
 export const useDelDictionary = () => {
-  const user = useSelector((state) => state.user);
+  const user = useAppSelector((state) => state.userReducer);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -142,7 +143,7 @@ export const useDelDictionary = () => {
 export const usePutDictionary = async (dictionaryData: {
   [index: string]: string;
 }) => {
-  const { user } = useSelector((state) => state.login);
+  const user = useAppSelector((state) => state.userReducer);
 
   const { response, loading, error, fetchData } = useFetch({
     method: "POST",

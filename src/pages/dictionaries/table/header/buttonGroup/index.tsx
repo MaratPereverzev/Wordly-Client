@@ -1,11 +1,12 @@
-import { Button, ButtonGroup, Popover } from "@components";
-import { CreateDictionaryDialogContent } from "@dialog";
+import { Button, ButtonGroup, Popover } from "components";
+import { CreateDictionaryDialogContent } from "dialog";
 import { styled } from "@mui/material";
-import { dispatchEvent } from "@utils";
+import { dispatchEvent } from "utils";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks/useSelector";
 
 export const ActionGroup = () => {
-  const mode = useSelector((store) => store.dictionaries.mode);
+  const mode = useAppSelector((state) => state.dicitonariesReducer.mode);
 
   return (
     <ButtonGroup caption="new">
@@ -51,7 +52,7 @@ export const ActionGroup = () => {
         {mode?.isSelectMode && (
           <StyledActionButton
             caption="delete"
-            disabled={mode?.selectedItems === 0}
+            disabled={mode?.selectedItems.length === 0}
             icon="delete"
             variant="text"
             onClick={() => {
