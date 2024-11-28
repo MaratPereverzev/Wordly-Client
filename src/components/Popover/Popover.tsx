@@ -1,6 +1,14 @@
-import { Box, Button } from "@components";
-import { Popover as PopoverMui } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, CustomButtonProps, CustomBoxProps } from "components";
+import { Popover as PopoverMui, PopoverProps, SxProps } from "@mui/material";
+import React, { useState } from "react";
+
+type CustomPopoverProps = PopoverProps & {
+  button?: React.JSX.Element,
+  closeOnClick?: boolean,
+  sxPopover?: SxProps,
+  sxButton?: CustomButtonProps,
+  boxProps?: CustomBoxProps,
+}
 
 export const Popover = ({
   button,
@@ -11,10 +19,10 @@ export const Popover = ({
   boxProps,
   className,
   ...other
-}) => {
+}: CustomPopoverProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.EventHandler<>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -22,7 +30,7 @@ export const Popover = ({
     setAnchorEl(null);
   };
 
-  const open = !!anchorEl;
+  const open: boolean = !!anchorEl;
 
   return (
     <Box flex>

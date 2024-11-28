@@ -5,7 +5,9 @@ import {
   styled,
   ButtonProps,
   ButtonGroupProps,
-  Tooltip
+  Tooltip,
+  SxProps,
+  Theme
 } from "@mui/material";
 import { changeOpenState, changePage } from "store/sidebar";
 import { areEqual, getPageHash } from "utils";
@@ -17,8 +19,8 @@ import { Text } from "../Text";
 import { useAppSelector } from "hooks/useSelector";
 
 export type CustomButtonProps = ButtonProps & {
-  sxIcon?: React.CSSProperties,
-  sxText?: React.CSSProperties,
+  sxIcon?: SxProps<Theme>,
+  sxText?: SxProps<Theme>,
   icon?: iconListKeys,
   caption?: string | boolean,
   iconAtTheEnd?: boolean,

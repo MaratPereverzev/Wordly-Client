@@ -1,6 +1,6 @@
 import { Box as BoxMui, BoxProps, SxProps, Theme } from "@mui/material";
 
-type CustomBoxProps = Omit<BoxProps, "flex" | "gap"> & {
+export type CustomBoxProps = Omit<BoxProps, "flex" | "gap"> & {
   flex?: boolean; 
   column?: boolean;
   wrap?: boolean;
