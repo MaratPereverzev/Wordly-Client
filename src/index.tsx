@@ -1,10 +1,10 @@
 import {StrictMode} from "react";
-import ReactDOM from "react-dom/client";
+import { ReactDOM } from "react";
 import { Dashboard } from "dashboard";
 import { store } from "store";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ThemeProvider from "./ThemeProvider";
+import ThemeProvider from "./app/theme/ThemeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
