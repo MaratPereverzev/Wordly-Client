@@ -40,7 +40,7 @@ export const DictionaryCard = ({ data }: DictionaryCardProps): JSX.Element => {
                   (dictionary) => dictionary.id === data.id
                 )
               }
-              onChange={(e) => {
+              onChange={(event) => {
                 dispatch(changeChecked(data));
               }}
             />

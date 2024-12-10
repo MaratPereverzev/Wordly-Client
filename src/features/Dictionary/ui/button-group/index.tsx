@@ -1,16 +1,13 @@
 import { styled } from "@mui/material";
-import { CreateDictionaryDialogContent } from "features/Dictionary/ui/createDictionary";
+import { CreateDictionaryDialogContent } from "features/Dictionary/ui/modal-content";
 import { JSX } from "react";
 import { useAppSelector } from "shared/hooks/useSelector";
-import { Button, ButtonGroup, Popover } from "shared/ui";
+import { Button, ButtonGroup, Popover, Text } from "shared/ui";
 import { dispatchEvent } from "shared/utils";
 
 export const ActionGroup = (): JSX.Element => {
-  const mode = useAppSelector((state) => state.dicitonaryReducer.mode);
-
-
   return (
-    <ButtonGroup caption="new">
+    <ButtonGroup>
       <Button
         caption="new"
         sx={{
@@ -50,24 +47,8 @@ export const ActionGroup = (): JSX.Element => {
           horizontal: "center",
         }}
       >
-        {mode?.isSelectMode ? (
-          <StyledActionButton
-            caption="delete"
-            disabled={mode?.selectedItems.length === 0}
-            icon="delete"
-            variant="text"
-            onClick={() => {
-              dispatchEvent("onOpenDialog");
-            }}
-          />
-        ): undefined}
+        <Text caption="coming soon" />
       </Popover>
     </ButtonGroup>
   );
 };
-
-const StyledActionButton = styled(Button)(() => ({
-  px: "4px",
-  gap: "4px",
-  justifyContent: "flex-start",
-}));

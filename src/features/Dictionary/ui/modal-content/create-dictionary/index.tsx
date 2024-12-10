@@ -4,11 +4,14 @@ import { Header } from "./header";
 import { Action } from "./action";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
+
+const defaultValues: Partial<DictionaryPostParams> = { caption: undefined, description: undefined }
 
 export const CreateDictionaryDialogContent = () => {
-  const dictionaryData = useRef({});
+  const dictionaryData = useRef<typeof defaultValues>(defaultValues);
   const form = useForm({
-    defaultValues: { name: undefined, description: undefined },
+    defaultValues,
     mode: "onChange",
   });
 

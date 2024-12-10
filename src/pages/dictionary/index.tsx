@@ -1,13 +1,13 @@
 import { styled } from "@mui/material";
-import { BasicTable, Box, Button, Text } from "components";
-import { CreateWordDialog } from "dialog";
-import { useGetByIdDictionary } from "fetch/useDictionaries";
+import { BasicTable, Box, Button, Text } from "shared/ui";
+import { CreateWordDialog } from "features/Word/ui/createWord";
+import { useGetDictionaryById } from "entities/Dictionary/hooks";
 import { useParams } from "react-router-dom";
-import { dispatchEvent } from "utils";
+import { dispatchEvent } from "shared/utils";
 
 const Dictionary = () => {
   const { id } = useParams();
-  const { data } = useGetByIdDictionary(id!);
+  const { data } = useGetDictionaryById(id!);
 
   const headRows = ["id", "caption", "description", "actions"];
 
@@ -18,8 +18,8 @@ const Dictionary = () => {
           borderRadius: 1,
           width: "100%",
           height: "350px",
-          background: data?.medium?.id
-            ? `url(http://localhost:8080/api/media?id=${data?.medium.id})`
+          background: data?.media
+            ? `url(http://localhost:8080/api/media?id=${data?.media})`
             : "#f9f6fe",
           backgroundSize: "cover",
         }}

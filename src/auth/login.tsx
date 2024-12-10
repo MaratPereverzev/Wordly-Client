@@ -1,12 +1,12 @@
 import { styled } from "@mui/material";
 import axios from "axios";
-import { Box, Button, Input, Text } from "components";
+import { Box, Button, Input, Text } from "shared/ui";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginAction } from "store/user";
-import { dispatchEvent, setPageHash } from "utils";
+import { loginAction } from "app/store/user";
+import { dispatchEvent, setPageHash } from "shared/utils";
 
 export const Login = () => {
   const dispatch = useDispatch();

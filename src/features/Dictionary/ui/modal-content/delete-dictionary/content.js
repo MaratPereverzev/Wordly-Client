@@ -1,4 +1,4 @@
-import { Box, Text } from "@components";
+import { Box, Text } from "shared/ui";
 import { styled } from "@mui/material";
 
 export const Content = () => {

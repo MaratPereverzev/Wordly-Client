@@ -1,4 +1,4 @@
-import { Icon, Box } from "@components";
+import { Icon, Box } from "shared/ui";
 
 export const Header = () => {
   return (

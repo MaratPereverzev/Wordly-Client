@@ -34,15 +34,14 @@ export type IconListKeys = keyof typeof iconList
 
 
 type IconProps = {
-  [index: string]: string | CSSProperties | undefined
   icon?: IconListKeys,
-  sxIcon?: CSSProperties
+  sx?: CSSProperties
 }
 
-export const Icon = ({ icon, sxIcon, ...other }: IconProps) => {
+export const Icon = ({ icon, sx, ...other }: IconProps) => {
   return (
     <Box flex ai {...other}>
-      <span className="material-symbols-rounded span" style={sxIcon}>
+      <span className="material-symbols-rounded span" style={sx}>
         {iconList[icon ?? "default"]}
       </span>
     </Box>

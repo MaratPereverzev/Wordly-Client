@@ -9,13 +9,13 @@ type DictionaryReducerProps = {
   query: DictionaryGetParams;
   loading: boolean;
   error: string | null;
-  pagination?: {
+  pagination: {
     currentPage: number;
     totalPages: number;
     recordsCount: number;
   };
   selectedDictionary: DictionaryInstance | null;
-  mode?: { isSelectMode?: boolean; selectedItems: { id: string }[] };
+  mode: { isSelectMode?: boolean; selectedItems: { id: string }[] };
 };
 
 const initialState: DictionaryReducerProps = {
@@ -32,6 +32,7 @@ const initialState: DictionaryReducerProps = {
     recordsCount: 0,
   },
   selectedDictionary: null,
+  mode: { isSelectMode: false, selectedItems: [] },
 };
 
 const dictionarySlice = createSlice({
@@ -39,25 +40,24 @@ const dictionarySlice = createSlice({
   initialState,
   reducers: {
     setPagination: (store, { payload }: PayloadAction<{ count: number }>) => {
-      store.pagination!.totalPages = Math.ceil(
-        (payload.count ?? 1) / store.query!.limit!
+      store.pagination.totalPages = Math.ceil(
+        (payload.count ?? 1) / store.query.limit!
       );
     },
     changeSelectMode: (state) => {
-      state.mode!.isSelectMode = !state.mode!.isSelectMode;
+      state.mode.isSelectMode = !state.mode.isSelectMode;
     },
-    changePage: (store, { payload }: PayloadAction<DictionaryReducerProps>) => {
-      store.pagination!.currentPage = payload.pagination!.currentPage;
-      store.query!.offset =
-        (payload.pagination!.currentPage - 1) * store.query!.limit!;
+    changePage: (store, { payload }: PayloadAction<{ pageToShow: number }>) => {
+      store.pagination.currentPage = payload.pageToShow;
+      store.query.offset = (payload.pageToShow - 1) * store.query.limit!;
     },
     changeChecked: (store, { payload }) => {
-      const index = store.mode!.selectedItems!.findIndex(
+      const index = store.mode.selectedItems.findIndex(
         (dictionary) => dictionary.id === payload.id
       );
 
-      if (index === -1) store.mode!.selectedItems!.push(payload);
-      else store.mode!.selectedItems!.splice(index, 1);
+      if (index === -1) store.mode!.selectedItems.push(payload);
+      else store.mode.selectedItems.splice(index, 1);
     },
     changeQuerySearch: (store, { payload }) => {
       store.query!.caption = payload.caption;

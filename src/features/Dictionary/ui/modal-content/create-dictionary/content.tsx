@@ -1,7 +1,14 @@
-import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@components";
+import { Box, ButtonIcon, Icon, Input, Popover, Text } from "shared/ui";
 import { styled } from "@mui/material";
+import { ChangeEvent, MutableRefObject } from "react";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
+import { UseFormReturn } from "react-hook-form";
 
-export const Content = ({ dictionaryData, form }) => {
+type ContentProps = {
+  dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>
+  form: UseFormReturn<Partial<DictionaryPostParams>, any, undefined>
+}
+export const Content = ({ dictionaryData, form }: ContentProps) => {
   const {
     register,
     formState: { errors },
@@ -13,24 +20,24 @@ export const Content = ({ dictionaryData, form }) => {
       <Box className="createDictionary content" column flex>
         <Box flex ai jc="space-between" sx={{ py: 2 }}>
           <Box flex gap="20px" ai>
-            <Icon icon="translation" sx={{ ".span": { fontSize: "30px" } }} />
+            <Icon icon="translation" sx={{ fontSize: "30px" }} />
             <StyledInput
-              {...register("name", {
+              {...register("caption", {
                 required: "Dictionary name is required",
               })}
-              errorMessage={errors.name ? errors.name.message : ""}
+              errorMessage={errors.caption ? errors.caption.message : ""}
               placeholder="Dictionary name"
               variant="standard"
-              onChange={(e) => {
-                setValue("name", e.target.value);
-                dictionaryData.current["caption"] = e.target.value;
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setValue("caption", event.target.value);
+                dictionaryData.current["caption"] = event.target.value;
               }}
             />
           </Box>
           <Popover
             button={<ButtonIcon icon="more" />}
             sxPopover={{ p: 1 }}
-            sxButton={{ gap: 1 }}
+            sxButton={{gap: 1}}
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "right",
@@ -55,9 +62,9 @@ export const Content = ({ dictionaryData, form }) => {
             multiline
             placeholder="Your description is in here!"
             fullWidth
-            onChange={(e) => {
-              setValue("description", e.target.value);
-              dictionaryData.current["description"] = e.target.value;
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              setValue("description", event.target.value);
+              dictionaryData.current["description"] = event.target.value;
             }}
           />
         </Box>

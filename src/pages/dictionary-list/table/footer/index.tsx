@@ -1,11 +1,11 @@
-import { Box, Pagination, Text } from "components";
-import { changePage } from "store/dictionaries";
-import { useAppSelector } from "hooks/useSelector";
-import { useDispatch, useSelector } from "react-redux";
+import { changePage } from "entities/Dictionary/store";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { Box, Pagination, Text } from "shared/ui";
 
 export const TableFooter = () => {
   const {pagination, mode} = useAppSelector(
-    (state) => state.dicitonariesReducer
+    (state) => state.dicitonaryReducer
   );
 
   const dispatch = useDispatch();
@@ -22,12 +22,12 @@ export const TableFooter = () => {
           <Text caption={`${mode?.selectedItems.length} items selected`} />
         )}
       </Box>
-      {pagination?.pageCount! > 1 && (
+      {pagination?.totalPages! > 1 && (
         <Pagination
-          count={pagination?.pageCount}
-          page={pagination?.page}
+          count={pagination?.totalPages}
+          page={pagination?.totalPages}
           onChange={(_: any, value: number) => {
-            dispatch(changePage({ pagination: {page: value} }));
+            dispatch(changePage({pageToShow: value}));
           }}
         />
       )}

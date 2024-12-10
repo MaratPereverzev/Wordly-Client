@@ -1,4 +1,4 @@
-import { Box, Input } from "@components";
+import { Box, Input } from "shared/ui";
 
 export const WordInput = ({ form }) => {
   const {
@@ -15,8 +15,8 @@ export const WordInput = ({ form }) => {
         })}
         label="word"
         errorMessage={errors?.caption ? errors.caption.message : ""}
-        onChange={(e) => {
-          setValue("caption", e.target.value);
+        onChange={(event) => {
+          setValue("caption", event.target.value);
         }}
       />
       <Input
@@ -26,8 +26,8 @@ export const WordInput = ({ form }) => {
         label="translation"
         errorMessage={errors?.description ? errors.description.message : ""}
         multiline
-        onChange={(e) => {
-          setValue("description", e.target.value);
+        onChange={(event) => {
+          setValue("description", event.target.value);
         }}
       />
     </Box>

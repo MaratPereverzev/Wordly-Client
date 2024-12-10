@@ -1,17 +1,17 @@
 import { Dialog as DialogMui, useMediaQuery, useTheme } from "@mui/material";
-import { addEventListener } from "utils";
-import { useEffect, useRef, useState } from "react";
+import { addEventListener } from "shared/utils";
+import { useEffect, useRef, useState, JSX } from "react";
 
 export const Dialog = () => {
   const [open, setOpen] = useState(false);
-  const dialogContent = useRef(null);
+  const dialogContent = useRef<JSX.Element>(<></>);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(
     () =>
-      addEventListener("onOpenDialog", ({ detail }) => {
-        dialogContent.current = detail?.dialogContent;
+      addEventListener<{dialogContent: JSX.Element}>("onOpenDialog", (detail) => {
+        dialogContent.current = detail.dialogContent;
         setOpen(true);
       }),
     []
@@ -19,7 +19,7 @@ export const Dialog = () => {
 
   useEffect(
     () =>
-      addEventListener("dialogTrigger", ({ detail }) => {
+      addEventListener<{opened: boolean}>("dialogTrigger", (detail) => {
         if (detail?.opened !== null) setOpen((prev) => (prev = detail.opened));
       }),
     []

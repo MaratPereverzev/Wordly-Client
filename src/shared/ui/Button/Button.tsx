@@ -1,26 +1,26 @@
 import {
   ButtonGroup as ButtonGroupMui,
+  ButtonGroupProps,
   Button as ButtonMui,
+  ButtonProps,
   IconButton,
   styled,
-  ButtonProps,
-  ButtonGroupProps,
-  Tooltip,
   SxProps,
-  Theme
+  Theme,
+  Tooltip
 } from "@mui/material";
-import { changeOpenState, changePage } from "store/sidebar";
-import { areEqual, getPageHash } from "utils";
-import { useDispatch, useSelector } from "react-redux";
+import { changeOpenState, changePage } from "app/store/sidebar";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Icon, iconListKeys } from "../Icon";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { getPageHash } from "shared/utils";
+import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
-import { useAppSelector } from "hooks/useSelector";
 
 export type CustomButtonProps = ButtonProps & {
   sxIcon?: SxProps<Theme>,
   sxText?: SxProps<Theme>,
-  icon?: iconListKeys,
+  icon?: IconListKeys,
   caption?: string | boolean,
   iconAtTheEnd?: boolean,
   placement?: "bottom" | "left" | "right" | "top" | "bottom-end" | "bottom-start" | "left-end" | "left-start" | "right-end" | "right-start" | "top-end" | "top-start"
@@ -126,7 +126,7 @@ export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: Cust
 
 type ButtonIconProps = ButtonProps & {
   sxIcon?: React.CSSProperties,
-  icon?: iconListKeys
+  icon?: IconListKeys
 }
 
 export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
@@ -137,10 +137,12 @@ export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
   );
 };
 
+/*
 type CustomButtonGroupProps = ButtonGroupProps & {
   caption: string
 }
-export const ButtonGroup = (props: CustomButtonGroupProps) => {
+*/
+export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
 

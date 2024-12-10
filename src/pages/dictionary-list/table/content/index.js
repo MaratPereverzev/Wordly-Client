@@ -1,4 +1,4 @@
-import { Box, EmptyData, Error } from "@components";
+import { Box, EmptyData, Error } from "shared/ui";
 import { useGetDictionary } from "@fetch/useDictionaries";
 import { styled } from "@mui/material";
 import { DictionaryCard } from "entities/Dictionary/ui/dictionary-card";

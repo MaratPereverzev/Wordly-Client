@@ -3,7 +3,7 @@ import {
   dispatchEvent,
   setLocalStorageValue,
   getLocalStorageValue,
-} from "utils";
+} from "shared/utils";
 
 type userReducerProps = {
   accessToken: string | null;

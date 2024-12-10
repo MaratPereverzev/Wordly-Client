@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
-import { Box } from "@components";
+import { Box } from "shared/ui";
 import { ActionsButtons } from "./actionsButtons";
 import { WordInput } from "./wordInput";
 

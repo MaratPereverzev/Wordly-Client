@@ -1,2 +1,2 @@
-export * from "./createDictionary"
-export * from "./deleteDictionary"
+export * from "./modal-content"
+export * from "./button-group"

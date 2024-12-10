@@ -1,11 +1,11 @@
 import { styled, SxProps, TextField, TextFieldProps } from "@mui/material";
-import { Icon, iconListKeys } from "../Icon";
+import { Icon, IconListKeys } from "../Icon";
 import { Box } from "../Box";
 import { Button, CustomButtonProps } from "../Button";
 import { CSSProperties } from "react";
 
-type InputProps = TextFieldProps & CustomButtonProps & {
-  icon?: iconListKeys,
+type InputProps = TextFieldProps & Omit<CustomButtonProps, "onChange" | "variant"> & {
+  icon?: IconListKeys,
   sxIcon?: CSSProperties,
   sxBox?: SxProps,
   errorMessage?: string
@@ -36,7 +36,7 @@ export const Input = ({
   );
 };
 
-export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & {sxButton: SxProps}) => {
+export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & {sxButton?: SxProps}) => {
   return (
     <Box className="button-container" sx={sxBox}>
       <Button
@@ -55,7 +55,7 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & 
         type="file"
         accept="image/*"
         style={{ display: "none" }}
-        onChange={(e: any) => {
+        onChange={(event: any) => {
           const backgroundPhoto = document.getElementById(
             "dictionaryBackground"
           ) as HTMLImageElement;
@@ -63,16 +63,16 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & 
 
           reader.onloadend = () => {
             const data = {
-              caption: e.target?.files[0].name,
-              data: e.target?.files[0],
-              type: e.target?.files[0].type,
+              caption: event.target?.files[0].name,
+              data: event.target?.files[0],
+              type: event.target?.files[0].type,
               preview: reader.result,
             };
             backgroundPhoto.src = data.preview as string;
             //onChange(data);
           };
 
-          reader.readAsDataURL(e.target?.files[0]);
+          reader.readAsDataURL(event.target?.files[0]);
         }}
       />
     </Box>

@@ -1,9 +1,11 @@
-import { Box, Button } from "@components";
-import { usePostWords } from "@fetch/useWords";
-import { dispatchEvent } from "@utils";
+import { Box, Button } from "shared/ui";
+import {usePostWord} from "entities/Word/hooks"
+import { dispatchEvent } from "shared/utils";
+import { useParams } from "react-router-dom";
 
 export const ActionsButtons = ({ form: { handleSubmit, getValues } }) => {
-  const { mutate } = usePostWords();
+  const id = useParams();
+  const { mutate } = usePostWord(String(id));
 
   const onSubmit = () => {
     mutate(getValues());

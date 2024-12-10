@@ -1,9 +1,11 @@
-import { Button, Box } from "@components";
-import { dispatchEvent } from "@utils";
-import { usePostDictionary } from "@fetch/useDictionaries";
+import { Button, Box } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
+import { usePostDictionary } from "entities/Dictionary/hooks";
+import { useParams } from "react-router-dom";
 
 export const Action = ({ dictionaryData, form }) => {
-  const { mutate } = usePostDictionary();
+  const id = useParams()
+  const { mutate } = usePostDictionary(String(id));
 
   const { handleSubmit } = form;
 

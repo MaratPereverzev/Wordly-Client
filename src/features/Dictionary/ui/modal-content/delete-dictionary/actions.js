@@ -1,4 +1,4 @@
-import { Button, Box } from "@components";
+import { Button, Box } from "shared/ui";
 import { dispatchEvent } from "@utils";
 import { useDelDictionary } from "@fetch/useDictionaries";
 

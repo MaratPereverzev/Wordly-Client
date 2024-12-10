@@ -1,8 +1,13 @@
-import { Box, InputFile, ButtonGroup, Button } from "@components";
+import { Box, InputFile, ButtonGroup, Button } from "shared/ui";
 import { styled } from "@mui/material";
-import { useState } from "react";
+import { MutableRefObject, useState } from "react";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
 
-export const Header = ({ dictionaryData }) => {
+type HeaderProps = {
+  dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>
+}
+
+export const Header = ({ dictionaryData }: HeaderProps) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
@@ -31,16 +36,18 @@ export const Header = ({ dictionaryData }) => {
             sxText={{
               fontSize: "13px",
             }}
+            /*
             onChange={(data) => {
               dictionaryData.current["media"] = data;
               setSelectedImage(data);
             }}
+              */
           />
           <Button
             caption="Clear"
             sxText={{ fontSize: "13px" }}
             onClick={() => {
-              const img = document.getElementById("dictionaryBackground");
+              const img = document.getElementById("dictionaryBackground")! as HTMLImageElement;
               img.src = "";
               setSelectedImage(null);
             }}
@@ -56,10 +63,12 @@ export const Header = ({ dictionaryData }) => {
             display: "inline-block",
           }}
           sxText={{ fontSize: "13px" }}
+          /*
           onChange={(data) => {
             dictionaryData.current.media = data;
             setSelectedImage(data);
           }}
+            */
         />
       )}
     </StyledContainer>

@@ -25,7 +25,7 @@ export const useTimeout = (
   }, []);
 
   const timeoutReset = useCallback(
-    (data: any) => {
+    (data?: any) => {
       timeoutClear();
       timeoutDispatch(data);
     },
