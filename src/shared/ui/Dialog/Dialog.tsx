@@ -1,6 +1,7 @@
 import { Dialog as DialogMui, useMediaQuery, useTheme } from "@mui/material";
-import { addEventListener } from "shared/utils";
-import { useEffect, useRef, useState, JSX } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
+
+import { addEventListener } from "@/shared/utils";
 
 export const Dialog = () => {
   const [open, setOpen] = useState(false);

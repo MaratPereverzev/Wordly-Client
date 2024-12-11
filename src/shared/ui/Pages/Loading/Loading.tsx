@@ -1,6 +1,7 @@
-import "./style.css";
-import { Box } from "@components/Box";
 import { styled } from "@mui/material";
+
+import "./style.css";
+import { Box } from "@/shared/ui";
 
 export const Loading = () => {
   return (

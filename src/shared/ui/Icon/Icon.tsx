@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+
 import { Box } from "../Box";
 
 const iconList = {

@@ -1,6 +1,7 @@
 import "./style.css";
-import { Box } from "@components/Box";
-import { Text } from "@components/Text";
+
+import { Box } from "@/shared/ui/Box";
+import { Text } from "@/shared/ui/Text";
 
 export const Error = () => {
   return (

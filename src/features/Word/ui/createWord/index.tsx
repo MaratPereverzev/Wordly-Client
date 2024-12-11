@@ -1,20 +1,16 @@
 import { styled } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
 
-import { Box } from "shared/ui";
+import { WordPostParams } from "@/shared/api/word/model";
+import { Box } from "@/shared/ui";
 import { ActionsButtons } from "./actionsButtons";
 import { WordInput } from "./wordInput";
 
-export const CreateWordDialog = () => {
-  const { id } = useParams();
+const defaultValues: Partial<WordPostParams> = { caption: undefined, description: undefined, dictionaryId: undefined }
 
-  const form = useForm({
-    defaultValues: {
-      caption: undefined,
-      description: undefined,
-      dictionaryId: id,
-    },
+export const CreateWordDialog = () => {
+  const form = useForm<typeof defaultValues>({
+    defaultValues,
   });
 
   return (

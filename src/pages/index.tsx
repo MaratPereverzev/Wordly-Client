@@ -1,6 +1,7 @@
-import { Box, Loading } from "shared/ui";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+
+import { Box, Loading } from "@/shared/ui";
 
 export const Page = () => {
   return (

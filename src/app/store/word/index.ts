@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WordResponseParams, WordRequestParams } from "shared/api/word/model";
+import { WordGetParams, WordInstance } from "shared/api/word/model";
 
 type WordReducerProps = {
-  words: WordResponseParams[] | null;
-  query: WordRequestParams;
+  words: WordInstance[] | null;
+  query: WordGetParams;
   loading: boolean;
   error: string | null;
   pagination?: {

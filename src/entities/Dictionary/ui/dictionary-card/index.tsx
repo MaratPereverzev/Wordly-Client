@@ -1,13 +1,13 @@
 import { Checkbox, styled } from "@mui/material";
+import { changeChecked } from "entities/Dictionary/store";
+import { DeleteDictionaryDialog } from "features/Dictionary/ui/modal-content";
 import { JSX } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DictionaryInstance } from "shared/api/dictionary/model";
 import { useAppSelector } from "shared/hooks/useSelector";
-import { changeChecked } from "entities/Dictionary/store";
 import { Box, Button, ButtonIcon, Text } from "shared/ui";
 import { dispatchEvent } from "shared/utils";
-import { DeleteDictionaryDialog } from "widgets/ui/dialog/deleteDictionary";
 
 type DictionaryCardProps = {
   data:  DictionaryInstance

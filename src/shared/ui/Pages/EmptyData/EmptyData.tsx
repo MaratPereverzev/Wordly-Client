@@ -1,7 +1,8 @@
-import { Box } from "@components/Box";
-import { Icon } from "@components/Icon";
-import { Text } from "@components/Text";
 import { styled } from "@mui/material";
+
+import { Box } from "@/shared/ui/Box";
+import { Icon } from "@/shared/ui/Icon";
+import { Text } from "@/shared/ui/Text";
 
 export const EmptyData = () => {
   return (

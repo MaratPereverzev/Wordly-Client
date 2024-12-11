@@ -1,7 +1,8 @@
-import { changePage } from "entities/Dictionary/store";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { Box, Pagination, Text } from "shared/ui";
+
+import { changePage } from "@/entities/Dictionary/store";
+import { useAppSelector } from "@/shared/hooks/useSelector";
+import { Box, Pagination, Text } from "@/shared/ui";
 
 export const TableFooter = () => {
   const {pagination, mode} = useAppSelector(

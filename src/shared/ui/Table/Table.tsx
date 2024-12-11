@@ -11,7 +11,6 @@ type BasicTableProps = TableProps & {
 export const BasicTable = ({
   bodyRows = [],
   headRows = [],
-  sx = {},
   alignHeadCell = "left",
   alignBodyCell = "left",
 }: BasicTableProps) => {

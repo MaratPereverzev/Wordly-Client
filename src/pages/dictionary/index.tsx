@@ -1,10 +1,23 @@
 import { styled } from "@mui/material";
-import { BasicTable, Box, Button, Text } from "shared/ui";
-import { CreateWordDialog } from "features/Word/ui/createWord";
-import { useGetDictionaryById } from "entities/Dictionary/hooks";
 import { useParams } from "react-router-dom";
-import { dispatchEvent } from "shared/utils";
 
+import { useGetDictionaryById } from "@/entities/Dictionary/hooks";
+import { CreateWordDialog } from "@/features/Word/ui/createWord";
+import { Box, Button, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
+
+/*
+{data?.words?.rows.length > 0 && (
+        <Box sx={{ p: 2 }}>
+          <BasicTable
+            bodyRows={data.words.rows}
+            headRows={headRows}
+            alignHeadCell="center"
+            alignBodyCell="center"
+          />
+        </Box>
+      )}
+        */
 const Dictionary = () => {
   const { id } = useParams();
   const { data } = useGetDictionaryById(id!);
@@ -51,16 +64,7 @@ const Dictionary = () => {
           />
         </Box>
       </StyledContainer>
-      {data?.words?.rows.length > 0 && (
-        <Box sx={{ p: 2 }}>
-          <BasicTable
-            bodyRows={data.words.rows}
-            headRows={headRows}
-            alignHeadCell="center"
-            alignBodyCell="center"
-          />
-        </Box>
-      )}
+      <>Words</>
     </Box>
   );
 };

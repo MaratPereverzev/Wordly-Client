@@ -1,7 +1,8 @@
-import { changeQuerySearch } from "entities/Dictionary/store";
-import { InputQueryFilter } from "features/ui/input-query-filter";
 import { JSX } from "react";
-import { Box } from "shared/ui";
+
+import { changeQuerySearch } from "@/entities/Dictionary/store";
+import { InputQueryFilter } from "@/features/ui/input-query-filter";
+import { Box } from "@/shared/ui";
 import { ActionsButtons } from "./actions-buttons";
 
 export const TableHeader = (): JSX.Element => {

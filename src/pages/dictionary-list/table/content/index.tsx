@@ -1,7 +1,8 @@
-import { Box, EmptyData, Error } from "shared/ui";
-import { useGetDictionary } from "@fetch/useDictionaries";
 import { styled } from "@mui/material";
-import { DictionaryCard } from "entities/Dictionary/ui/dictionary-card";
+
+import { Box, EmptyData, Error } from "@/shared/ui";
+import { useGetDictionary } from "@/entities/Dictionary/hooks";
+import { DictionaryCard } from "@/entities/Dictionary/ui/dictionary-card";
 
 export const TableContent = () => {
   const { data, isError } = useGetDictionary();

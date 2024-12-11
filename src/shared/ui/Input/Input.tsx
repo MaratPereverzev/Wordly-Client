@@ -1,15 +1,26 @@
 import { styled, SxProps, TextField, TextFieldProps } from "@mui/material";
-import { Icon, IconListKeys } from "../Icon";
-import { Box } from "../Box";
-import { Button, CustomButtonProps } from "../Button";
 import { CSSProperties } from "react";
 
+import { Box } from "../Box";
+import { Button, CustomButtonProps } from "../Button";
+import { Icon, IconListKeys } from "../Icon";
+
+//temporary solution
 type InputProps = TextFieldProps & Omit<CustomButtonProps, "onChange" | "variant"> & {
   icon?: IconListKeys,
   sxIcon?: CSSProperties,
   sxBox?: SxProps,
   errorMessage?: string
 }
+
+type InputFileProps = Omit<TextFieldProps, "variant"> & Omit<CustomButtonProps, "onChange"> & {
+  icon?: IconListKeys,
+  sxIcon?: CSSProperties,
+  sxBox?: SxProps,
+  errorMessage?: string,
+  sxButton?: SxProps
+}
+
 
 export const Input = ({
   icon,
@@ -36,7 +47,7 @@ export const Input = ({
   );
 };
 
-export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & {sxButton?: SxProps}) => {
+export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputFileProps) => {
   return (
     <Box className="button-container" sx={sxBox}>
       <Button

@@ -1,8 +1,9 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { ChangeEvent, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useTimeout } from "shared/hooks";
-import { Input } from "shared/ui";
+
+import { useTimeout } from "@/shared/hooks";
+import { Input } from "@/shared/ui";
 
 type InputQueryFilterProps = {
   queryField: string

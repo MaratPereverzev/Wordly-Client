@@ -9,11 +9,13 @@ import {
   Theme,
   Tooltip
 } from "@mui/material";
-import { changeOpenState, changePage } from "app/store/sidebar";
+import { CSSProperties } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { getPageHash } from "shared/utils";
+
+import { changeOpenState, changePage } from "@/app/store/sidebar";
+import { useAppSelector } from "@/shared/hooks/useSelector";
+import { getPageHash } from "@/shared/utils";
 import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
 
@@ -45,19 +47,19 @@ export const Button =
       return (
         <Tooltip disableInteractive title={title} placement={placement}>
           <StyledDefaultButton size="small" variant={variant} {...other}>
-            {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+            {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon as CSSProperties} />}
             {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
 
-            {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+            {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon  as CSSProperties} />}
           </StyledDefaultButton>
         </Tooltip>
       );
     } else {
       return (
         <StyledDefaultButton size="small" variant={variant} {...other}>
-          {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+          {icon && !iconAtTheEnd && <Icon icon={icon} sx={sxIcon  as CSSProperties} />}
           {captionIsString ? <Text caption={caption} sx={sxText} /> : caption}
-          {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon} />}
+          {icon && iconAtTheEnd && <Icon icon={icon} sx={sxIcon  as CSSProperties} />}
         </StyledDefaultButton>
       );
     }

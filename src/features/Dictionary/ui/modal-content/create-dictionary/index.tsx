@@ -1,10 +1,11 @@
-import { Box } from "shared/ui";
-import { Content } from "./content";
-import { Header } from "./header";
-import { Action } from "./action";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { DictionaryPostParams } from "shared/api/dictionary/model";
+
+import { DictionaryPostParams } from "@/shared/api/dictionary/model";
+import { Box } from "@/shared/ui";
+import { Action } from "./action";
+import { Content } from "./content";
+import { Header } from "./header";
 
 const defaultValues: Partial<DictionaryPostParams> = { caption: undefined, description: undefined }
 

@@ -1,9 +1,18 @@
-import { Button, Box } from "shared/ui";
-import { dispatchEvent } from "shared/utils";
-import { usePostDictionary } from "entities/Dictionary/hooks";
 import { useParams } from "react-router-dom";
+import { MutableRefObject } from "react";
+import { UseFormReturn } from "react-hook-form";
 
-export const Action = ({ dictionaryData, form }) => {
+import { Button, Box } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
+import { usePostDictionary } from "@/entities/Dictionary/hooks";
+import { DictionaryPostParams } from "@/shared/api/dictionary/model";
+
+type ActionProps = {
+  dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>
+  form: UseFormReturn<Partial<DictionaryPostParams>, any, undefined>
+}
+
+export const Action = ({ dictionaryData, form }: ActionProps) => {
   const id = useParams()
   const { mutate } = usePostDictionary(String(id));
 
@@ -11,7 +20,7 @@ export const Action = ({ dictionaryData, form }) => {
 
   const onSubmit = () => {
     dispatchEvent("dialogTrigger", { opened: false });
-    mutate(dictionaryData.current);
+    mutate(dictionaryData.current as DictionaryPostParams);
   };
 
   return (

@@ -1,7 +1,8 @@
-import { Box, InputFile, ButtonGroup, Button } from "shared/ui";
 import { styled } from "@mui/material";
 import { MutableRefObject, useState } from "react";
-import { DictionaryPostParams } from "shared/api/dictionary/model";
+
+import { Box, InputFile, ButtonGroup, Button } from "@/shared/ui";
+import { DictionaryPostParams } from "@/shared/api/dictionary/model";
 
 type HeaderProps = {
   dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>

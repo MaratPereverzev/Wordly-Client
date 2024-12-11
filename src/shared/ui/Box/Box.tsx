@@ -1,4 +1,4 @@
-import { Box as BoxMui, BoxProps, SxProps, Theme } from "@mui/material";
+import { Box as BoxMui, BoxProps } from "@mui/material";
 
 export type CustomBoxProps = Omit<BoxProps, "flex" | "gap"> & {
   flex?: boolean; 
@@ -6,7 +6,7 @@ export type CustomBoxProps = Omit<BoxProps, "flex" | "gap"> & {
   wrap?: boolean;
   jc?: boolean | string;
   ai?: boolean | string;
-  gap?: boolean | string;
+  gap?: number | boolean | string;
   grow?: boolean | number;
   center?: boolean;
   grid?: boolean;

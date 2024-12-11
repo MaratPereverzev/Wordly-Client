@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { addEventListener } from "shared/utils";
 import { Snackbar as SnackbarMui, Alert, SnackbarProps } from "@mui/material";
+
+import { addEventListener } from "@/shared/utils";
 
 type SnackbarPayload = {message?: string, status?: "success" | "warning" | "error" | "info"}
 
