@@ -1,13 +1,14 @@
 import { Checkbox, styled } from "@mui/material";
-import { changeChecked } from "entities/Dictionary/store";
-import { DeleteDictionaryDialog } from "features/Dictionary/ui/modal-content";
 import { JSX } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { DictionaryInstance } from "shared/api/dictionary/model";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { Box, Button, ButtonIcon, Text } from "shared/ui";
-import { dispatchEvent } from "shared/utils";
+
+import { changeChecked } from "@/entities/Dictionary/store";
+import { DeleteDictionaryDialog } from "@/features/Dictionary/ui/modal-content";
+import { DictionaryInstance } from "@/shared/api/dictionary/model";
+import { useAppSelector } from "@/shared/hooks/useSelector";
+import { Box, Button, ButtonIcon, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
 
 type DictionaryCardProps = {
   data:  DictionaryInstance
@@ -37,7 +38,7 @@ export const DictionaryCard = ({ data }: DictionaryCardProps): JSX.Element => {
             <Checkbox
               checked={
                 !!mode.selectedItems.find(
-                  (dictionary) => dictionary.id === data.id
+                  (dictionary: any) => dictionary.id === data.id
                 )
               }
               onChange={(event) => {

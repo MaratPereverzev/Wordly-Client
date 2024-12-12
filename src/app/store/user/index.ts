@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import {
   dispatchEvent,
   setLocalStorageValue,
   getLocalStorageValue,
-} from "shared/utils";
+} from "@/shared/utils";
 
 type userReducerProps = {
   accessToken: string | null;

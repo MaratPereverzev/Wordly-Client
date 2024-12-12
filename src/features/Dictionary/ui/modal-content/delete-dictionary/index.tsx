@@ -1,9 +1,13 @@
-import { Box } from "shared/ui";
+import { Box } from "@/shared/ui";
 import { Actions } from "./actions";
 import { Content } from "./content";
 import { Header } from "./header";
 
-export const DeleteDictionaryDialog = ({ id }) => {
+type DeleteDictionaryDialogProps = {
+  id: string
+}
+
+export const DeleteDictionaryDialog = ({ id }: DeleteDictionaryDialogProps) => {
   return (
     <Box
       flex

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "target": "ESNext",
     "jsx": "react-jsx",
     "module": "ESNext",
@@ -14,7 +14,7 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

@@ -1,9 +1,8 @@
-import { styled } from "@mui/material";
-import { CreateDictionaryDialogContent } from "features/Dictionary/ui/modal-content";
 import { JSX } from "react";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { Button, ButtonGroup, Popover, Text } from "shared/ui";
-import { dispatchEvent } from "shared/utils";
+
+import { CreateDictionaryDialogContent } from "@/features/Dictionary/ui/modal-content";
+import { Button, ButtonGroup, Popover, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
 
 export const ActionGroup = (): JSX.Element => {
   return (

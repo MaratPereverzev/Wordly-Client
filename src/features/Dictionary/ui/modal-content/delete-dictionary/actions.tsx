@@ -1,12 +1,16 @@
-import { Button, Box } from "shared/ui";
-import { dispatchEvent } from "@utils";
-import { useDelDictionary } from "@fetch/useDictionaries";
+import { useDeleteDictionary } from "@/entities/Dictionary/hooks";
+import { dispatchEvent } from "@/shared/utils";
+import { Box, Button } from "@/shared/ui";
 
-export const Actions = ({ id }) => {
-  const { mutate } = useDelDictionary();
+type ActionsProps ={
+  id: string
+}
+
+export const Actions = ({id}: ActionsProps) => {
+  const { mutate } = useDeleteDictionary(id);
 
   const onClick = () => {
-    mutate({ id });
+    mutate({id});
   };
 
   return (

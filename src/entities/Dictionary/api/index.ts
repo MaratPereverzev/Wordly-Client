@@ -1,17 +1,18 @@
 import { AxiosRequestConfig } from "axios";
+
 import {
   deleteDictionary,
   getAllDictionaries,
   getDictionaryById,
   postDictionary,
   putDictionary,
-} from "shared/api/dictionary";
+} from "@/shared/api/dictionary";
 import {
   DicitonaryPutParams,
   DictionaryDeleteParams,
   DictionaryGetParams,
   DictionaryPostParams,
-} from "shared/api/dictionary/model";
+} from "@/shared/api/dictionary/model";
 
 class Dictionary {
   #URL = "http://localhost:8080/api/dictionary";
