@@ -13,9 +13,10 @@ const addEventListener = (
 
 const dispatchEvent = (
   eventName: string,
-  data: { [index: string]: any },
-  target = document
+  data?: { [index: string]: any },
+  target?: Document
 ): void => {
+  if (target === undefined) target = document;
   if (typeof eventName !== "string")
     throw new Error("event props are inappropriate");
 

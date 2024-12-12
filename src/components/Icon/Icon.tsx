@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { Box } from "../Box";
 
 const iconList = {
@@ -29,7 +30,16 @@ const iconList = {
   dark_mode: "dark_mode",
 };
 
-export const Icon = ({ icon, sxIcon, ...other }) => {
+export type iconListKeys = keyof typeof iconList
+
+
+type IconProps = {
+  [index: string]: string | CSSProperties | undefined
+  icon?: keyof typeof iconList,
+  sxIcon?: CSSProperties
+}
+
+export const Icon = ({ icon, sxIcon, ...other }: IconProps) => {
   return (
     <Box flex ai {...other}>
       <span className="material-symbols-rounded span" style={sxIcon}>

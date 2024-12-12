@@ -1,12 +1,12 @@
-import { Box, Button, Input, Text } from "@components";
 import { styled } from "@mui/material";
-import { loginAction } from "@store/user";
-import { dispatchEvent, setPageHash } from "@utils";
 import axios from "axios";
+import { Box, Button, Input, Text } from "components";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginAction } from "store/user";
+import { dispatchEvent, setPageHash } from "utils";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const Login = () => {
     setPageHash("login");
   }, []);
 
-  const onSubmit = async ({ login, password }) => {
+  const onSubmit = async ({ login, password }: {login: string, password: string}) => {
     try {
       const { data, statusText } = await axios.get(
         `http://localhost:8080/api/auth/login?login=${login}&password=${password}`,
@@ -40,7 +40,7 @@ export const Login = () => {
       } else {
         throw new Error(statusText);
       }
-    } catch (err) {
+    } catch (err: any) {
       dispatchEvent("snackbarTrigger", {
         message: err.response?.data?.message,
         status: "error",
@@ -64,7 +64,7 @@ export const Login = () => {
             <StyledInput
               {...register("login", { required: "Login is required" })}
               errorMessage={errors.login ? errors.login.message : ""}
-              onChange={(event) => {
+              onChange={(event: any) => {
                 setValue("login", event.target.value);
               }}
               placeholder="login"
@@ -72,11 +72,10 @@ export const Login = () => {
             <StyledInput
               {...register("password", { required: "Password is required" })}
               errorMessage={errors.password ? errors.password.message : ""}
-              onChange={(event) => {
+              onChange={(event: any) => {
                 setValue("password", event.target.value);
               }}
               placeholder="password"
-              type="password"
             />
           </Box>
           <Box flex jc="flex-end">
@@ -88,7 +87,7 @@ export const Login = () => {
               iconAtTheEnd
               variant="text"
               sx={{ paddingLeft: 1.5 }}
-              onClick={handleSubmit(onSubmit)}
+              //onClick={handleSubmit(onSubmit)}
             />
           </Box>
         </Box>
@@ -103,11 +102,11 @@ const StyledLoginContainer = styled(Box)(({ theme }) => ({
   backgroundPosition: "center",
 }));
 
-const StyledContentContainer = styled(Box)(() => ({
+const StyledContentContainer = styled(Box)(({theme}) => ({
   backdropFilter: "blur(4px)",
   width: "40%",
   height: "60%",
-  border: ({ palette }) => `1px solid ${palette.divider}`,
+  border:`1px solid ${theme.palette.divider}`,
   borderRadius: 2,
 }));
 

@@ -18,7 +18,7 @@ const Dictionary = () => {
         <Box>
           <ButtonIcon
             icon="delete"
-            color="red"
+            color="error"
             sx={{
               "&:hover": { color: "#E41F1F" },
               transition: "color 200ms ease-in-out",

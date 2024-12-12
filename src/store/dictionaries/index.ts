@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type dictionariesReducerProps = {
-  pagination?: {page?: number, pageCount?: number, recordsCount?:number},
-  query?: {limit?: number, offset?: number, caption?: string},
-  mode?: {isSelectMode?: boolean, selectedItems?: {id: number}[]}
+  pagination?: { page?: number; pageCount?: number; recordsCount?: number };
+  query?: { limit?: number; offset?: number; caption?: string };
+  mode?: { isSelectMode?: boolean; selectedItems: { id: number }[] };
 };
 
 const initialState: dictionariesReducerProps = {
@@ -26,7 +26,10 @@ const dictionarySlice = createSlice({
   name: "dictionaries",
   initialState,
   reducers: {
-    setPagination: (store, { payload }: PayloadAction<dictionariesReducerProps>) => {
+    setPagination: (
+      store,
+      { payload }: PayloadAction<dictionariesReducerProps>
+    ) => {
       store.pagination!.pageCount = Math.ceil(
         (payload.pagination!.pageCount ?? 1) / store.query!.limit!
       );
@@ -34,9 +37,13 @@ const dictionarySlice = createSlice({
     changeSelectMode: (store) => {
       store.mode!.isSelectMode = !store.mode!.isSelectMode;
     },
-    changePage: (store, { payload }: PayloadAction<dictionariesReducerProps>) => {
+    changePage: (
+      store,
+      { payload }: PayloadAction<dictionariesReducerProps>
+    ) => {
       store.pagination!.page = payload.pagination!.page;
-      store.query!.offset = (payload.pagination!.page! - 1) * store.query!.limit!;
+      store.query!.offset =
+        (payload.pagination!.page! - 1) * store.query!.limit!;
     },
     changeChecked: (store, { payload }) => {
       const index = store.mode!.selectedItems!.findIndex(

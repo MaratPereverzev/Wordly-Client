@@ -1,7 +1,15 @@
-import { styled, TextField } from "@mui/material";
-import { Icon } from "../Icon";
+import { styled, SxProps, TextField, TextFieldProps } from "@mui/material";
+import { Icon, iconListKeys } from "../Icon";
 import { Box } from "../Box";
-import { Button } from "../Button";
+import { Button, CustomButtonProps } from "../Button";
+import { CSSProperties } from "react";
+
+type InputProps = TextFieldProps & CustomButtonProps & {
+  icon?: iconListKeys,
+  sxIcon?: CSSProperties,
+  sxBox?: SxProps,
+  errorMessage?: string
+}
 
 export const Input = ({
   icon,
@@ -11,7 +19,7 @@ export const Input = ({
   errorMessage,
   helperText,
   ...other
-}) => {
+}: InputProps) => {
   return (
     <TextField
       variant={variant}
@@ -28,17 +36,18 @@ export const Input = ({
   );
 };
 
-export const InputFile = ({ sxBox, sxButton, onChange, ...other }) => {
+export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputProps & {sxButton: SxProps}) => {
   return (
     <Box className="button-container" sx={sxBox}>
       <Button
+        variant="contained"
         caption="Choose file"
         color="inherit"
         sx={sxButton}
-        onClick={() => {
+        /*onClick={() => {
           const input = document.getElementById("pasteFileButton");
           input?.click();
-        }}
+        }}*/
         {...other}
       />
       <input
@@ -46,10 +55,10 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }) => {
         type="file"
         accept="image/*"
         style={{ display: "none" }}
-        onChange={(e) => {
+        onChange={(e: any) => {
           const backgroundPhoto = document.getElementById(
             "dictionaryBackground"
-          );
+          ) as HTMLImageElement;
           const reader = new FileReader();
 
           reader.onloadend = () => {
@@ -59,8 +68,8 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }) => {
               type: e.target?.files[0].type,
               preview: reader.result,
             };
-            backgroundPhoto.src = data.preview;
-            onChange(data);
+            backgroundPhoto.src = data.preview as string;
+            //onChange(data);
           };
 
           reader.readAsDataURL(e.target?.files[0]);

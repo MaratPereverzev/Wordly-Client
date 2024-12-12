@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { dispatchEvent } from "utils";
 import Word from "../services/word";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "hooks/useSelector";
 
 export const useGetWords = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ export const useGetWords = () => {
 export const useGetWordsById = () => {};
 
 export const usePostWords = () => {
-  const user = useSelector((store) => store.user);
+  const user = useAppSelector((store) => store.userReducer);
   const { id } = useParams();
   const queryClient = useQueryClient();
 
