@@ -5,7 +5,7 @@ import { InputQueryFilter } from "@/features/ui/input-query-filter";
 import { Box } from "@/shared/ui";
 import { ActionsButtons } from "./actions-buttons";
 
-export const TableHeader = (): JSX.Element => {
+export const Toolbar = (): JSX.Element => {
   return (
     <Box
       flex

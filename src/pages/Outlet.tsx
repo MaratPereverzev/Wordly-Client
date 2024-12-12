@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet as OutletReact } from "react-router-dom";
 
 import { Box, Loading } from "@/shared/ui";
 
-export const Page = () => {
+export const Outlet = () => {
   return (
     <Box
       flex
@@ -15,7 +15,7 @@ export const Page = () => {
       }}
     >
       <Suspense fallback={<Loading />}>
-        <Outlet />
+        <OutletReact />
       </Suspense>
     </Box>
   );

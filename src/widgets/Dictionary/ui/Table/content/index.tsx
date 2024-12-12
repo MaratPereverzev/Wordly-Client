@@ -4,7 +4,7 @@ import { Box, EmptyData, Error } from "@/shared/ui";
 import { useGetDictionary } from "@/entities/Dictionary/hooks";
 import { DictionaryCard } from "@/entities/Dictionary/ui/dictionary-card";
 
-export const TableContent = () => {
+export const DataGridLayout = () => {
   const { data, isError } = useGetDictionary();
 
   return (

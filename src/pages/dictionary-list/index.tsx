@@ -1,7 +1,11 @@
-import { Table } from "./table";
+import { DataGridLayout, Footer, Toolbar } from "@/widgets/Dictionary/ui/Table";
 
-const Dictionaries = () => {
-  return <Table />;
+const DictionariesList = () => {
+  return <>
+      <Toolbar />
+      <DataGridLayout />
+      <Footer />
+  </>
 };
 
-export default Dictionaries;
+export default DictionariesList;
