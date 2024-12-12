@@ -1,34 +1,28 @@
-import { BasicTable, Box, Button, ButtonIcon, Text } from "components";
-import { CreateWordDialog } from "dialog";
-import { useGetByIdDictionary } from "fetch/useDictionaries";
 import { styled } from "@mui/material";
-import { addFields, dispatchEvent } from "utils";
 import { useParams } from "react-router-dom";
 
-const Dictionary = () => {
-  const { id } = useParams();
-  const { data } = useGetByIdDictionary(id!);
+import { useGetDictionaryById } from "@/entities/Dictionary/hooks";
+import { CreateWordDialog } from "@/features/Word/ui/createWord";
+import { Box, Button, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
 
-  const headRows = ["id", "caption", "description", "actions"];
-
-  addFields(data?.words?.rows, [
-    {
-      field: "actions",
-      value: (
-        <Box>
-          <ButtonIcon
-            icon="delete"
-            color="error"
-            sx={{
-              "&:hover": { color: "#E41F1F" },
-              transition: "color 200ms ease-in-out",
-              padding: 0.5,
-            }}
+/*
+{data?.words?.rows.length > 0 && (
+        <Box sx={{ p: 2 }}>
+          <BasicTable
+            bodyRows={data.words.rows}
+            headRows={headRows}
+            alignHeadCell="center"
+            alignBodyCell="center"
           />
         </Box>
-      ),
-    },
-  ]);
+      )}
+        */
+const Dictionary = () => {
+  const { id } = useParams();
+  const { data } = useGetDictionaryById(id!);
+
+  const headRows = ["id", "caption", "description", "actions"];
 
   return (
     <Box sx={{ p: 1, overflowY: "scroll" }}>
@@ -37,8 +31,8 @@ const Dictionary = () => {
           borderRadius: 1,
           width: "100%",
           height: "350px",
-          background: data?.medium?.id
-            ? `url(http://localhost:8080/api/media?id=${data?.medium.id})`
+          background: data?.media
+            ? `url(http://localhost:8080/api/media?id=${data?.media})`
             : "#f9f6fe",
           backgroundSize: "cover",
         }}
@@ -70,16 +64,7 @@ const Dictionary = () => {
           />
         </Box>
       </StyledContainer>
-      {data?.words?.rows.length > 0 && (
-        <Box sx={{ p: 2 }}>
-          <BasicTable
-            bodyRows={data.words.rows}
-            headRows={headRows}
-            alignHeadCell="center"
-            alignBodyCell="center"
-          />
-        </Box>
-      )}
+      <>Words</>
     </Box>
   );
 };
