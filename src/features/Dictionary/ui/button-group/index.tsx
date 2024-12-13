@@ -1,10 +1,8 @@
-import { JSX } from "react";
-
 import { CreateDictionaryDialogContent } from "@/features/Dictionary/ui/modal-content";
 import { Button, ButtonGroup, Popover, Text } from "@/shared/ui";
 import { dispatchEvent } from "@/shared/utils";
 
-export const ActionGroup = (): JSX.Element => {
+export const ActionGroup = () => {
   return (
     <ButtonGroup>
       <Button

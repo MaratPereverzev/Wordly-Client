@@ -1,11 +1,9 @@
-import { JSX } from "react";
-
 import { changeQuerySearch } from "@/entities/Dictionary/store";
 import { InputQueryFilter } from "@/features/ui/input-query-filter";
 import { Box } from "@/shared/ui";
 import { ActionsButtons } from "./actions-buttons";
 
-export const Toolbar = (): JSX.Element => {
+export const Toolbar = () => {
   return (
     <Box
       flex
