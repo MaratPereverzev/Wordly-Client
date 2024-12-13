@@ -21,7 +21,7 @@ export const Popover = ({
   boxProps,
   className,
   ...other
-}: CustomPopoverProps): JSX.Element => {
+}: CustomPopoverProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {

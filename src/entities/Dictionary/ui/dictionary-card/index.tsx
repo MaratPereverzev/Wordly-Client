@@ -1,5 +1,4 @@
 import { Checkbox, styled } from "@mui/material";
-import { JSX } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +13,7 @@ type DictionaryCardProps = {
   data:  DictionaryInstance
 }
 
-export const DictionaryCard = ({ data }: DictionaryCardProps): JSX.Element => {
+export const DictionaryCard = ({ data }: DictionaryCardProps) => {
   const navigate = useNavigate();
   const mode = useAppSelector((state) => state.dicitonaryReducer.mode);
   const dispatch = useDispatch();

@@ -18,7 +18,7 @@ import { dispatchEvent } from "@/shared/utils";
         </Box>
       )}
         */
-const Dictionary = () => {
+const DictionaryDetail = () => {
   const { id } = useParams();
   const { data } = useGetDictionaryById(id!);
 
@@ -90,4 +90,4 @@ const StyledContainer = styled(Box)(() => ({
   justifyCOntent: "space-between",
 }));
 
-export default Dictionary;
+export default DictionaryDetail;

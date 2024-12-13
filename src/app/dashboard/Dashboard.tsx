@@ -1,9 +1,8 @@
 import { styled } from "@mui/material";
+import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { JSX, lazy } from "react";
 
-import { Login } from "@/auth";
-import { Page } from "@/pages";
+import { Login, Outlet } from "@/pages";
 import { useAppSelector } from "@/shared/hooks/useSelector";
 import { Box, Dialog, Snackbar } from "@/shared/ui";
 import { Sidebar } from "./Sidebar";
@@ -16,7 +15,7 @@ const DashboardSkeleton = () => {
     <StyledDashboardSkeletonContainer flex gap grow>
       <Dialog />
       <Sidebar />
-      <Page />
+      <Outlet />
     </StyledDashboardSkeletonContainer>
   );
 };
@@ -37,7 +36,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const Dashboard = (): JSX.Element => {
+export const Dashboard = () => {
   const user = useAppSelector((state) => state.userReducer);
 
   return (
