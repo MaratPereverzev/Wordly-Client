@@ -9,10 +9,10 @@ import {
   DicitonaryPutParams,
   DictionaryDeleteParams,
   DictionaryPostParams,
-} from "@/shared/api/dictionary/model";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { setPagination } from "@/entities/Dictionary/store";
-import { dispatchEvent } from "@/shared/utils";
+} from "shared/api/dictionary/model";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { setPagination } from "entities/Dictionary/store";
+import { dispatchEvent } from "shared/utils";
 import Dictionary from "../api";
 
 export const useGetDictionary = () => {
@@ -33,7 +33,7 @@ export const useGetDictionary = () => {
     select: ({ data }) => data,
   });
 
-  dispatch(setPagination({ count: data.length }));
+  dispatch(setPagination({ count: data.count }));
 
   return { isLoading, data, isError };
 };

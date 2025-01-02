@@ -1,18 +1,21 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 import {
-  DictionaryGetParams,
-  DictionaryPostParams,
   DicitonaryPutParams,
   DictionaryDeleteParams,
+  DictionaryGetParams,
   DictionaryInstance,
+  DictionaryPostParams,
 } from "./model";
 
 export async function getAllDictionaries(
   params: AxiosRequestConfig<DictionaryGetParams>,
   url: string
 ) {
-  return await axios.get<DictionaryInstance[]>(url, params);
+  return await axios.get<{ count: number; rows: DictionaryInstance[] }>(
+    url,
+    params
+  );
 }
 
 export async function getDictionaryById(

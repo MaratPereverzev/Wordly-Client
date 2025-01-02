@@ -12,7 +12,7 @@ export async function getAllWords(
   params: AxiosRequestConfig<WordGetParams>,
   url: string
 ) {
-  return await axios.get<WordInstance[]>(url, params);
+  return await axios.get<{ count: number; rows: WordInstance[] }>(url, params);
 }
 
 export async function getWordById(

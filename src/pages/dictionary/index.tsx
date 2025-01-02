@@ -1,10 +1,10 @@
 import { styled } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import { useGetDictionaryById } from "@/entities/Dictionary/hooks";
-import { CreateWordDialog } from "@/features/Word/ui/createWord";
-import { Box, Button, Text } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
+import { useGetDictionaryById } from "entities/Dictionary/hooks";
+import { CreateWordDialog } from "features/Word/ui/createWord";
+import { Box, Button, Text } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
 
 /*
 {data?.words?.rows.length > 0 && (
@@ -22,8 +22,6 @@ const DictionaryDetail = () => {
   const { id } = useParams();
   const { data } = useGetDictionaryById(id!);
 
-  const headRows = ["id", "caption", "description", "actions"];
-
   return (
     <Box sx={{ p: 1, overflowY: "scroll" }}>
       <Box
@@ -31,8 +29,8 @@ const DictionaryDetail = () => {
           borderRadius: 1,
           width: "100%",
           height: "350px",
-          background: data?.media
-            ? `url(http://localhost:8080/api/media?id=${data?.media})`
+          background: data?.medium?.id
+            ? `url(http://localhost:8080/api/media?id=${data.medium.id})`
             : "#f9f6fe",
           backgroundSize: "cover",
         }}

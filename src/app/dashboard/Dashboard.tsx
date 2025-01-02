@@ -2,13 +2,12 @@ import { styled } from "@mui/material";
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Login, Outlet } from "@/pages";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { Box, Dialog, Snackbar } from "@/shared/ui";
+import { Login, Outlet } from "pages";
+import { Box, Dialog, Snackbar } from "shared/ui";
 import { Sidebar } from "./Sidebar";
 
-const LazyDictionaries = lazy(() => import("@/pages/dictionary-list"));
-const LazyDictionary = lazy(() => import("@/pages/dictionary"));
+const LazyDictionaries = lazy(() => import("pages/dictionary-list"));
+const LazyDictionary = lazy(() => import("pages/dictionary"));
 
 const DashboardSkeleton = () => {
   return (
@@ -19,6 +18,8 @@ const DashboardSkeleton = () => {
     </StyledDashboardSkeletonContainer>
   );
 };
+
+//лейзи и без листенера и 10 модалчк
 
 const router = createBrowserRouter([
   {
@@ -37,12 +38,9 @@ const router = createBrowserRouter([
 ]);
 
 export const Dashboard = () => {
-  const user = useAppSelector((state) => state.userReducer);
-
   return (
     <>
       <Snackbar />
-      {user?.accessToken !== "" ? <DashboardSkeleton /> : <Login />}
       <RouterProvider router={router}/>
     </>
   );

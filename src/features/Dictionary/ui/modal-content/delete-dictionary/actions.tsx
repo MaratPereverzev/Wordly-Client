@@ -1,6 +1,6 @@
-import { useDeleteDictionary } from "@/entities/Dictionary/hooks";
-import { dispatchEvent } from "@/shared/utils";
-import { Box, Button } from "@/shared/ui";
+import { useDeleteDictionary } from "entities/Dictionary/hooks";
+import { dispatchEvent } from "shared/utils";
+import { Box, Button } from "shared/ui";
 
 type ActionsProps ={
   id: string

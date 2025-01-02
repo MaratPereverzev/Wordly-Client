@@ -2,12 +2,12 @@ import { Checkbox, styled } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeChecked } from "@/entities/Dictionary/store";
-import { DeleteDictionaryDialog } from "@/features/Dictionary/ui/modal-content";
-import { DictionaryInstance } from "@/shared/api/dictionary/model";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { Box, Button, ButtonIcon, Text } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
+import { changeChecked } from "entities/Dictionary/store";
+import { DeleteDictionaryDialog } from "features/Dictionary/ui/modal-content";
+import { DictionaryInstance } from "shared/api/dictionary/model";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { Box, Button, ButtonIcon, Text } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
 
 type DictionaryCardProps = {
   data:  DictionaryInstance
@@ -26,8 +26,8 @@ export const DictionaryCard = ({ data }: DictionaryCardProps) => {
           column
           grow
           sx={{
-            background: data?.media
-              ? `url(http://localhost:8080/api/media?id=${data?.media})`
+            background: data?.medium
+              ? `url(http://localhost:8080/api/media?id=${data?.medium.id})`
               : "#f9f6fe",
             ...imageSx,
           }}
@@ -46,8 +46,8 @@ export const DictionaryCard = ({ data }: DictionaryCardProps) => {
             />
           )}
           <Box flex column grow>
-            <StyledCaptionText caption={data?.caption} />
-            <StyledDescriptionText caption={data?.description} />
+            <StyledCaptionText caption={data.caption ?? ""} />
+            <StyledDescriptionText caption={data.description ?? ""} />
           </Box>
           <Box flex gap="10px">
             <StyledActionButton

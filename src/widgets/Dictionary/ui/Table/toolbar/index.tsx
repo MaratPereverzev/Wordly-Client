@@ -1,6 +1,6 @@
-import { changeQuerySearch } from "@/entities/Dictionary/store";
-import { InputQueryFilter } from "@/features/ui/input-query-filter";
-import { Box } from "@/shared/ui";
+import { changeQuerySearch } from "entities/Dictionary/store";
+import { InputQueryFilter } from "features/ui/input-query-filter";
+import { Box } from "shared/ui";
 import { ActionsButtons } from "./actions-buttons";
 
 export const Toolbar = () => {
@@ -8,7 +8,7 @@ export const Toolbar = () => {
     <Box
       flex
       jc="space-between"
-      sx={{ p: 1, backgroundColor: ({palette}) => palette.background.default }}
+      sx={{ p: 1, backgroundColor: ({palette}) => palette.background.paper, borderRadius: 2 }}
       ai
     >
       <ActionsButtons />

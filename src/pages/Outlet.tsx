@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Outlet as OutletReact } from "react-router-dom";
 
-import { Box, Loading } from "@/shared/ui";
+import { Box, Loading } from "shared/ui";
 
 export const Outlet = () => {
   return (

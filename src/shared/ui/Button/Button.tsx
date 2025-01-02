@@ -13,9 +13,9 @@ import { CSSProperties } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeOpenState, changePage } from "@/app/store/sidebar";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { getPageHash } from "@/shared/utils";
+import { changeOpenState, changePage } from "app/store/sidebar";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { getPageHash } from "shared/utils";
 import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
 
@@ -82,7 +82,7 @@ export const RouteButton = ({ route, onClick, ...other }: CustomRouteButtonProps
     />
   );
 };
-
+/*
 export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButtonProps) => {
   return (
     <StyledRouteButton
@@ -101,6 +101,7 @@ export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButton
     />
   );
 };
+*/
 
 type CustomSidebarMenuButtonProps = CustomRouteButtonProps & {
   open?: boolean
@@ -156,9 +157,11 @@ const StyledDefaultButton = styled(ButtonMui)(({ theme }) => ({
   textTransform: "capitalize",
 }));
 
+
 const StyledRouteButton = styled(RouteButton)(() => ({
   gap: "5px",
 }));
+
 
 const StyledIconButton = styled(IconButton)(() => ({
   color: "inherit",

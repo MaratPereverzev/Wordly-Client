@@ -8,9 +8,9 @@ import {
   WordDeleteParams,
   WordPostParams,
   WordPutParams,
-} from "@/shared/api/word/model";
-import { useAppSelector } from "@/shared/hooks";
-import { dispatchEvent } from "@/shared/utils";
+} from "shared/api/word/model";
+import { useAppSelector } from "shared/hooks";
+import { dispatchEvent } from "shared/utils";
 import Word from "../api";
 
 export const useGetWord = () => {

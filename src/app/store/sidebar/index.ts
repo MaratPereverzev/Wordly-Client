@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { setLocalStorageValue, getPageHash } from "@/shared/utils";
+import { setLocalStorageValue, getPageHash } from "shared/utils";
 
 type SidebarReducerProps = {
   open?: boolean;

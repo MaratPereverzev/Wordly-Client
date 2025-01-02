@@ -1,15 +1,15 @@
 import { styled } from "@mui/material";
 
-import { Box, EmptyData, Error } from "@/shared/ui";
-import { useGetDictionary } from "@/entities/Dictionary/hooks";
-import { DictionaryCard } from "@/entities/Dictionary/ui/dictionary-card";
+import { Box, EmptyData, Error } from "shared/ui";
+import { useGetDictionary } from "entities/Dictionary/hooks";
+import { DictionaryCard } from "entities/Dictionary/ui/dictionary-card";
 
 export const DataGridLayout = () => {
   const { data, isError } = useGetDictionary();
 
   return (
     <StyledTableContentContainer flex grow column>
-      {/*(isError && <Error />) ||
+      {(isError && <Error />) ||
         (data && data?.rows?.length && (
           <StyledDataContainer grid templateColumns="1fr 1fr 1fr" gap>
             {data.rows.map((dictionary, index) => (
@@ -22,7 +22,7 @@ export const DataGridLayout = () => {
             message="It seems, you don't have any dictionary yet"
             icon="empty"
           />
-        ))*/}
+        ))}
     </StyledTableContentContainer>
   );
 };

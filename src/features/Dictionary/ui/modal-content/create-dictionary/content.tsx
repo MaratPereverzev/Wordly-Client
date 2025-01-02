@@ -2,8 +2,8 @@ import { styled } from "@mui/material";
 import { UseFormReturn } from "react-hook-form";
 import { ChangeEvent, MutableRefObject } from "react";
 
-import { Box, ButtonIcon, Icon, Input, Popover, Text } from "@/shared/ui";
-import { DictionaryPostParams } from "@/shared/api/dictionary/model";
+import { Box, ButtonIcon, Icon, Input, Popover, Text } from "shared/ui";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
 
 type ContentProps = {
   dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>

@@ -1,6 +1,6 @@
-import { Pagination } from "@/features/Dictionary/ui/pagination";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { Box, Text } from "@/shared/ui";
+import { Pagination } from "features/Dictionary/ui/pagination";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { Box, Text } from "shared/ui";
 
 export const Footer = () => {
   const {mode} = useAppSelector(

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   DictionaryInstance,
   DictionaryGetParams,
-} from "@/shared/api/dictionary/model";
+} from "shared/api/dictionary/model";
 
 type DictionaryReducerProps = {
   dictionaries: DictionaryInstance[] | null;
