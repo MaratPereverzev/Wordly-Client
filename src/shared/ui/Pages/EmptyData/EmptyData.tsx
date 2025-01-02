@@ -1,14 +1,18 @@
 import { styled } from "@mui/material";
 
-import { Box } from "@/shared/ui/Box";
-import { Icon } from "@/shared/ui/Icon";
-import { Text } from "@/shared/ui/Text";
+import { Box } from "shared/ui/Box";
+import { Icon, IconListKeys } from "shared/ui/Icon";
+import { Text } from "shared/ui/Text";
 
-export const EmptyData = () => {
+type EmptyDataProps = {
+  icon: IconListKeys,
+  message: string
+}
+export const EmptyData = ({icon, message}: EmptyDataProps) => {
   return (
     <StyledContainer flex grow center column>
-      <StyledIcon icon="empty" />
-      <StyledText caption="It seems, you don't have any dictionary yet" />
+      <StyledIcon icon={icon ?? "empty"} />
+      <StyledText caption={message ?? "It seems, you don't have any dictionary yet"} />
     </StyledContainer>
   );
 };

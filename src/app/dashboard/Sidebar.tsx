@@ -1,11 +1,11 @@
 import { styled, useTheme } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import { changeOpenState } from "@/app/store/sidebar";
-import { loginAction } from "@/app/store/user";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { Box, Button, Divider, SidebarMenuButton } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
+import { changeOpenState } from "app/store/sidebar";
+import { loginAction } from "app/store/user";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { Box, Button, Divider, SidebarMenuButton } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
 
 export const Sidebar = () => {
   const theme = useTheme();
@@ -40,7 +40,6 @@ export const Sidebar = () => {
           caption="logout"
           onClick={() => {
             dispatch(loginAction({ accessToken: "" }));
-            return true;
           }}
         />
       </StyledSidebarButtonContainer>

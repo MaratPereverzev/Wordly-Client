@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 
-import { Box } from "@/shared/ui";
-import { Login as LoginWidget } from "@/widgets/Auth";
+import { Box } from "shared/ui";
+import { Login as LoginWidget } from "widgets/Auth";
 
 export const Login = () => {
   return (

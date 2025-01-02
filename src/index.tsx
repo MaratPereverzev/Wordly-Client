@@ -3,9 +3,9 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
-import { Dashboard } from "@/app/dashboard";
-import { store } from "@/app/store";
-import ThemeProvider from "@/app/theme/ThemeProvider";
+import { Dashboard } from "app/dashboard";
+import { store } from "app/store";
+import ThemeProvider from "app/theme/ThemeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 

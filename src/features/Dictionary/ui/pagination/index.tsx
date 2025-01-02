@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 
-import { changePage } from "@/entities/Dictionary/store";
-import { useAppSelector } from "@/shared/hooks/useSelector";
-import { Pagination as PaginationMui } from "@/shared/ui";
+import { changePage } from "entities/Dictionary/store";
+import { useAppSelector } from "shared/hooks/useSelector";
+import { Pagination as PaginationMui } from "shared/ui";
 
 export const Pagination = () => {
   const {pagination} = useAppSelector(

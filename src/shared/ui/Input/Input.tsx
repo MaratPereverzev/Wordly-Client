@@ -4,6 +4,7 @@ import { CSSProperties } from "react";
 import { Box } from "../Box";
 import { Button, CustomButtonProps } from "../Button";
 import { Icon, IconListKeys } from "../Icon";
+import { FileData } from "shared/types";
 
 //temporary solution
 type InputProps = TextFieldProps & Omit<CustomButtonProps, "onChange" | "variant"> & {
@@ -55,10 +56,10 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputFileProp
         caption="Choose file"
         color="inherit"
         sx={sxButton}
-        /*onClick={() => {
+        onClick={() => {
           const input = document.getElementById("pasteFileButton");
           input?.click();
-        }}*/
+        }}
         {...other}
       />
       <input
@@ -66,25 +67,27 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputFileProp
         type="file"
         accept="image/*"
         style={{ display: "none" }}
-        onChange={(event: any) => {
+        onChange={onChange}
+        /*onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const backgroundPhoto = document.getElementById(
             "dictionaryBackground"
           ) as HTMLImageElement;
           const reader = new FileReader();
+          const file = event.target.files?.[0]!;
 
           reader.onloadend = () => {
             const data = {
-              caption: event.target?.files[0].name,
-              data: event.target?.files[0],
-              type: event.target?.files[0].type,
+              caption: file.name,
+              data: file,
+              type: file.type,
               preview: reader.result,
             };
             backgroundPhoto.src = data.preview as string;
-            //onChange(data);
+            //if(onChange !== undefined) onChange(data);
           };
 
-          reader.readAsDataURL(event.target?.files[0]);
-        }}
+          reader.readAsDataURL(file);
+        }}*/
       />
     </Box>
   );

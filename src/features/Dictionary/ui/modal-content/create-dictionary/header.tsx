@@ -1,15 +1,16 @@
 import { styled } from "@mui/material";
 import { MutableRefObject, useState } from "react";
 
-import { Box, InputFile, ButtonGroup, Button } from "@/shared/ui";
-import { DictionaryPostParams } from "@/shared/api/dictionary/model";
+import { Box, InputFile, ButtonGroup, Button } from "shared/ui";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
+import { FileData } from "shared/types";
 
 type HeaderProps = {
   dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>
 }
 
 export const Header = ({ dictionaryData }: HeaderProps) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<FileData | null>(null);
 
   return (
     <StyledContainer className="createDictionary header">
@@ -17,7 +18,7 @@ export const Header = ({ dictionaryData }: HeaderProps) => {
         id="dictionaryBackground"
         style={{
           width: "100%",
-          display: !selectedImage && "none",
+          display: !selectedImage ? "none" : "flex",
           position: "absolute",
           backgroundSize: "cover",
         }}
@@ -37,12 +38,27 @@ export const Header = ({ dictionaryData }: HeaderProps) => {
             sxText={{
               fontSize: "13px",
             }}
-            /*
-            onChange={(data) => {
-              dictionaryData.current["media"] = data;
-              setSelectedImage(data);
-            }}
-              */
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const backgroundPhoto = document.getElementById(
+                "dictionaryBackground"
+              ) as HTMLImageElement;
+              const reader = new FileReader();
+              const file = event.target.files?.[0]!;
+
+              reader.onloadend = () => {
+                const data: FileData = {
+                  caption: file.name,
+                  data: file,
+                  type: file.type,
+                  preview: reader.result,
+                };
+                backgroundPhoto.src = data.preview as string;
+                //if(onChange !== undefined) onChange(data);
+                reader.readAsDataURL(file);
+                dictionaryData.current.medium = data;
+                setSelectedImage(data);
+              }}
+            } 
           />
           <Button
             caption="Clear"
@@ -64,12 +80,31 @@ export const Header = ({ dictionaryData }: HeaderProps) => {
             display: "inline-block",
           }}
           sxText={{ fontSize: "13px" }}
-          /*
-          onChange={(data) => {
-            dictionaryData.current.media = data;
-            setSelectedImage(data);
-          }}
-            */
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const backgroundPhoto = document.getElementById(
+              "dictionaryBackground"
+            ) as HTMLImageElement;
+            const reader = new FileReader();
+            const file = event.target.files?.[0]!;
+
+            reader.onloadend = () => {
+
+              const data: FileData = {
+                caption: file.name,
+                data: file,
+                type: file.type,
+                preview: reader.result,
+              };
+              console.log(data.preview)
+              backgroundPhoto.src = data.preview as string;
+              //if(onChange !== undefined) onChange(data);
+              
+              dictionaryData.current.medium = data;
+              setSelectedImage(data);
+            }
+            reader.readAsDataURL(file);
+            }
+          }
         />
       )}
     </StyledContainer>

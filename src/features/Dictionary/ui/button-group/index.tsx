@@ -1,6 +1,6 @@
-import { CreateDictionaryDialogContent } from "@/features/Dictionary/ui/modal-content";
-import { Button, ButtonGroup, Popover, Text } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
+import { CreateDictionaryDialogContent } from "features/Dictionary/ui/modal-content";
+import { Button, ButtonGroup, Popover, Text } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
 
 export const ActionGroup = () => {
   return (

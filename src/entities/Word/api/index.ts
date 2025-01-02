@@ -6,13 +6,13 @@ import {
   getWordById,
   postWord,
   putWord,
-} from "@/shared/api/word";
+} from "shared/api/word";
 import {
   WordPutParams,
   WordDeleteParams,
   WordGetParams,
   WordPostParams,
-} from "@/shared/api/word/model";
+} from "shared/api/word/model";
 
 class Word {
   #URL = "http://localhost:8080/api/dictionary";

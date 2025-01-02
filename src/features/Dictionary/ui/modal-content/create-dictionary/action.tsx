@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { MutableRefObject } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { Button, Box } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
-import { usePostDictionary } from "@/entities/Dictionary/hooks";
-import { DictionaryPostParams } from "@/shared/api/dictionary/model";
+import { Button, Box } from "shared/ui";
+import { dispatchEvent } from "shared/utils";
+import { usePostDictionary } from "entities/Dictionary/hooks";
+import { DictionaryPostParams } from "shared/api/dictionary/model";
 
 type ActionProps = {
   dictionaryData: MutableRefObject<Partial<DictionaryPostParams>>

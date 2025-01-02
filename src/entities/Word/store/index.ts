@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { WordGetParams, WordInstance } from "@/shared/api/word/model";
+import { WordGetParams, WordInstance } from "shared/api/word/model";
 
 type WordReducerProps = {
   words: WordInstance[] | null;

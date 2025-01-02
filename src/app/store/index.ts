@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./user";
-import dicitonaryReducer from "@/entities/Dictionary/store";
+import dicitonaryReducer from "entities/Dictionary/store";
 import sidebarReducer from "./sidebar";
-import wordReducer from "@/entities/Word/store";
+import wordReducer from "entities/Word/store";
 
 const rootReducer = combineReducers({
   userReducer,

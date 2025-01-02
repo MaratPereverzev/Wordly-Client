@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "rootDir": "./src",
     "outDir": "./build",
     "target": "ESNext",
@@ -14,13 +14,13 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@/app/*": ["src/app/*"],
-      "@/entities/*": ["src/entities/*"],
-      "@/features/*": ["src/features/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/shared/*": ["src/shared/*"],
-      "@/widgets/*": ["src/widgets/*"]
+      "@/*": ["*"],
+      "@/app/*": ["app/*"],
+      "@/entities/*": ["entities/*"],
+      "@/features/*": ["features/*"],
+      "@/pages/*": ["pages/*"],
+      "@/shared/*": ["shared/*"],
+      "@/widgets/*": ["widgets/*"]
     }
   },
   "include": ["src/**/*"],

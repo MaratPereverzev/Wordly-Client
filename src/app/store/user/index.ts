@@ -4,13 +4,13 @@ import {
   dispatchEvent,
   setLocalStorageValue,
   getLocalStorageValue,
-} from "@/shared/utils";
+} from "shared/utils";
 
 type userReducerProps = {
   accessToken: string | null;
 };
 const initialState: userReducerProps = {
-  accessToken: getLocalStorageValue("accessToken"),
+  accessToken: getLocalStorageValue("accessToken") ?? "",
 };
 
 const userSlice = createSlice({
