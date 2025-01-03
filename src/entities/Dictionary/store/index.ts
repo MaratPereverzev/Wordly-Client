@@ -1,76 +1,71 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import {
-  DictionaryInstance,
   DictionaryGetParams,
-} from "shared/api/dictionary/model";
+  DictionaryInstance,
+} from "@/shared/api/dictionary/model";
+import { create } from "zustand";
 
-type DictionaryReducerProps = {
+type DicitonaryListStoreParams = {
   dictionaries: DictionaryInstance[] | null;
-  query: DictionaryGetParams;
+  query?: DictionaryGetParams;
   loading: boolean;
   error: string | null;
   pagination: {
     currentPage: number;
     totalPages: number;
     recordsCount: number;
+    changeCurrentPage: (currentPage: number) => void;
+    setTotalPages: (count: number) => void;
   };
   selectedDictionary: DictionaryInstance | null;
-  mode: { isSelectMode?: boolean; selectedItems: { id: string }[] };
+  mode: {
+    isSelectMode?: boolean;
+    selectedItems: string[];
+    changeSelectMode: () => void;
+  };
+  changeSelectedDictionaries: (id: string) => void;
+  changeQuerySearch: (data?: { [index: string]: string }) => void;
 };
 
-const initialState: DictionaryReducerProps = {
-  dictionaries: [],
-  query: {
-    limit: 10,
-    offset: 0,
-  },
+export const useDictionaryStore = create<DicitonaryListStoreParams>((set) => ({
+  dictionaries: null,
+  query: undefined,
   loading: false,
   error: null,
   pagination: {
     currentPage: 1,
-    totalPages: 0,
+    totalPages: 1,
     recordsCount: 0,
+    changeCurrentPage: (currentPage: number) =>
+      set((state) => ({
+        ...state,
+        pagination: { ...state.pagination, currentPage },
+      })),
+    setTotalPages: (count: number) =>
+      set((state) => ({
+        ...state,
+        pagination: { ...state.pagination, totalPages: count },
+      })),
   },
   selectedDictionary: null,
-  mode: { isSelectMode: false, selectedItems: [] },
-};
-
-const dictionarySlice = createSlice({
-  name: "dictionaries",
-  initialState,
-  reducers: {
-    setPagination: (store, { payload }: PayloadAction<{ count: number }>) => {
-      store.pagination.totalPages = Math.ceil(
-        (payload.count ?? 1) / store.query.limit!
-      );
-    },
-    changeSelectMode: (state) => {
-      state.mode.isSelectMode = !state.mode.isSelectMode;
-    },
-    changePage: (store, { payload }: PayloadAction<{ pageToShow: number }>) => {
-      store.pagination.currentPage = payload.pageToShow;
-      store.query.offset = (payload.pageToShow - 1) * store.query.limit!;
-    },
-    changeChecked: (store, { payload }) => {
-      const index = store.mode.selectedItems.findIndex(
-        (dictionary) => dictionary.id === payload.id
-      );
-
-      if (index === -1) store.mode!.selectedItems.push(payload);
-      else store.mode.selectedItems.splice(index, 1);
-    },
-    changeQuerySearch: (store, { payload }) => {
-      store.query!.caption = payload.caption;
-    },
+  mode: {
+    isSelectMode: false,
+    selectedItems: [],
+    changeSelectMode: () =>
+      set((state) => ({
+        ...state,
+        mode: { ...state.mode, isSelectMode: !state.mode.isSelectMode },
+      })),
   },
-});
 
-export const {
-  changeSelectMode,
-  changePage,
-  changeChecked,
-  setPagination,
-  changeQuerySearch,
-} = dictionarySlice.actions;
-export default dictionarySlice.reducer;
+  changeSelectedDictionaries: (id: string) =>
+    set((state) => {
+      const foundDictionaryIndex = state.mode.selectedItems.findIndex(
+        (dictionaryId) => dictionaryId === id
+      );
+
+      if (foundDictionaryIndex === -1) state.mode.selectedItems.push(id);
+      else state.mode.selectedItems.splice(foundDictionaryIndex);
+      return { ...state };
+    }),
+  changeQuerySearch: () => {},
+}));

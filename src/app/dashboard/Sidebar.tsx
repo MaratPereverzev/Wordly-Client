@@ -1,22 +1,23 @@
 import { styled, useTheme } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import { changeOpenState } from "app/store/sidebar";
+import { useSidebarStore } from "app/store/sidebar";
 import { loginAction } from "app/store/user";
-import { useAppSelector } from "shared/hooks/useSelector";
 import { Box, Button, Divider, SidebarMenuButton } from "shared/ui";
 import { dispatchEvent } from "shared/utils";
 
 export const Sidebar = () => {
   const theme = useTheme();
-  const sidebar = useAppSelector(store => store.sidebarReducer);
+
+  const {changeIsOpen, open} = useSidebarStore(store => store);
+
   const dispatch = useDispatch();
 
   return (
     <StyledSidebarMainContainer
       flex
       column
-      sx={{ width: sidebar.open ? "180px" : "48px" }}
+      sx={{ width: open ? "180px" : "48px" }}
     >
       <StyledSidebarButtonContainer flex grow gap column>
         <SidebarMenuButton route="/home" caption="home" icon="home" />
@@ -31,7 +32,7 @@ export const Sidebar = () => {
           onClick={() => dispatchEvent("changeTheme")}
           sx={{ gap: "5px" }}
           variant="text"
-          caption={sidebar.open && "Switch"}
+          caption={open && "Switch"}
           icon={theme.palette.mode === "light" ? "dark_mode" : "light_mode"}
         />
         <SidebarMenuButton
@@ -50,14 +51,14 @@ export const Sidebar = () => {
           color="inherit"
           sx={{ gap: "5px" }}
           sxIcon={{
-            transform: sidebar.open ? "rotate(180deg)" : "rotate(0)",
+            transform: open ? "rotate(180deg)" : "rotate(0)",
             transition: "transform 200ms ease-in-out",
           }}
           icon="expand"
           onClick={() => {
-            dispatch(changeOpenState({open: !sidebar.open}));
+            changeIsOpen(!open);
           }}
-          caption={sidebar.open && "close"}
+          caption={open && "close"}
         />
       </StyledSidebarButtonContainer>
     </StyledSidebarMainContainer>

@@ -3,22 +3,22 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
 
+import { useDictionaryStore } from "entities/Dictionary/store";
 import {
   DicitonaryPutParams,
   DictionaryDeleteParams,
   DictionaryPostParams,
 } from "shared/api/dictionary/model";
 import { useAppSelector } from "shared/hooks/useSelector";
-import { setPagination } from "entities/Dictionary/store";
 import { dispatchEvent } from "shared/utils";
 import Dictionary from "../api";
 
 export const useGetDictionary = () => {
-  const query = useAppSelector((state) => state.dicitonaryReducer.query);
-
-  const dispatch = useDispatch();
+  const query = useDictionaryStore((state) => state.query);
+  const setTotalPages = useDictionaryStore(
+    (state) => state.pagination.setTotalPages
+  );
 
   const { isLoading, data, isError } = useSuspenseQuery({
     queryKey: ["get/dictionary", query],
@@ -33,7 +33,7 @@ export const useGetDictionary = () => {
     select: ({ data }) => data,
   });
 
-  dispatch(setPagination({ count: data.count }));
+  setTotalPages(data.count);
 
   return { isLoading, data, isError };
 };

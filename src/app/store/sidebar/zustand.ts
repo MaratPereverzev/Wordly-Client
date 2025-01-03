@@ -1,9 +1,10 @@
+/*
 import { getPageHash, setLocalStorageValue } from "shared/utils";
 import { create } from "zustand";
 
 type SidebarProps = {
   open: boolean;
-  route: string;
+  route?: string;
   changeRoute: (route: string) => void;
   changeIsOpen: (open: boolean) => void;
 };
@@ -22,3 +23,4 @@ export const useSidebarStore = create<SidebarProps>((set) => ({
       return { ...state, open };
     }),
 }));
+*/

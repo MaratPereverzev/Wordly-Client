@@ -1,19 +1,15 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
 
+import { useDictionaryStore } from "entities/Dictionary/store";
 import { ActionGroup } from "features/Dictionary/ui";
-import { useAppSelector } from "shared/hooks";
 import { Box, Button } from "shared/ui";
-import { changeSelectMode } from "entities/Dictionary/store";
 
 export const ActionsButtons = () => {
-  const mode = useAppSelector((state) => state.dicitonaryReducer.mode);
-
-  const dispatch = useDispatch();
+  const {isSelectMode, changeSelectMode} = useDictionaryStore(state => state.mode);
 
   const handleOnClick = useCallback(() => {
-    dispatch(changeSelectMode());
-  }, [dispatch]);
+    changeSelectMode();
+  }, []);
 
   return <Box flex gap="5px">
     <ActionGroup />
@@ -21,8 +17,8 @@ export const ActionsButtons = () => {
     <Button icon="sort" variant="text" />
     <Button
       placement="bottom"
-      icon={mode?.isSelectMode ? "checkboxFilled" : "checkboxEmpty"}
-      title={!mode?.isSelectMode ? "select" : "undo"}
+      icon={isSelectMode ? "checkboxFilled" : "checkboxEmpty"}
+      title={isSelectMode ? "select" : "undo"}
       variant="text"
       onClick={handleOnClick}
     />
