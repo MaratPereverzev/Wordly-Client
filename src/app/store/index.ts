@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import userReducer from "./user";
 import wordReducer from "entities/Word/store";
 
 const rootReducer = combineReducers({
-  userReducer,
   wordReducer,
 });
 

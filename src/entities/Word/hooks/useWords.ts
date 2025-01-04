@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from "shared/hooks";
 import { dispatchEvent } from "shared/utils";
 import Word from "../api";
+import { useUserStore } from "app/store/user";
 
 export const useGetWord = () => {
   const word = useAppSelector((state) => state.wordReducer);
@@ -49,7 +50,7 @@ export const useGetWordById = (id: string) => {
 };
 
 export const usePostWord = (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -59,7 +60,7 @@ export const usePostWord = (id: string) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
         data: wordData,
       }),
@@ -77,7 +78,7 @@ export const usePostWord = (id: string) => {
 };
 
 export const usePutWord = (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -87,7 +88,7 @@ export const usePutWord = (id: string) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
         data: { ...wordData, id },
       }),
@@ -105,7 +106,7 @@ export const usePutWord = (id: string) => {
 };
 
 export const useDeleteWord = (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -115,7 +116,7 @@ export const useDeleteWord = (id: string) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
         data: wordData,
       }),

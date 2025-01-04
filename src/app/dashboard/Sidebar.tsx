@@ -1,17 +1,17 @@
 import { styled, useTheme } from "@mui/material";
-import { useDispatch } from "react-redux";
 
 import { useSidebarStore } from "app/store/sidebar";
-import { loginAction } from "app/store/user";
+import { useUserStore } from "app/store/user";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Divider, SidebarMenuButton } from "shared/ui";
 import { dispatchEvent } from "shared/utils";
 
 export const Sidebar = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
+  const logout = useUserStore(state => state.logout)
 
   const {changeIsOpen, open} = useSidebarStore(store => store);
-
-  const dispatch = useDispatch();
 
   return (
     <StyledSidebarMainContainer
@@ -40,7 +40,8 @@ export const Sidebar = () => {
           icon="logout"
           caption="logout"
           onClick={() => {
-            dispatch(loginAction({ accessToken: "" }));
+            logout();
+            navigate("/login")
           }}
         />
       </StyledSidebarButtonContainer>

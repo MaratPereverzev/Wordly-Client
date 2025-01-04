@@ -24,15 +24,5 @@ export const useUserStore = create<UserStoreProps>((set) => ({
 
       return { ...state, accessToken };
     }),
-  logout: () =>
-    set((state) => {
-      localStorage.removeItem("accessToken");
-
-      dispatchEvent("snackbarTrigger", {
-        message: "Loged out",
-        status: "success",
-      });
-
-      return { ...state, accessToken: "" };
-    }),
+  logout: () => set((state) => state),
 }));

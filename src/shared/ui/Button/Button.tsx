@@ -61,26 +61,6 @@ export const Button =
       );
     }
   }
-/*
-export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButtonProps) => {
-  return (
-    <StyledRouteButton
-      route={route}
-      color="inherit"
-      variant={
-        !!route
-          ? getPageHash() === route.split("/")[1]
-            ? "contained"
-            : "text"
-          : "text"
-      }
-      icon={icon}
-      caption={caption}
-      {...other}
-    />
-  );
-};
-*/
 
 type CustomRouteButtonProps = CustomButtonProps & {
   route: string,
@@ -121,11 +101,6 @@ export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
   );
 };
 
-/*
-type CustomButtonGroupProps = ButtonGroupProps & {
-  caption: string
-}
-*/
 export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
