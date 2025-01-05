@@ -1,3 +1,4 @@
+/*
 import {
   DictionaryGetParams,
   DictionaryInstance,
@@ -62,3 +63,4 @@ export const useDistionaryStore = create<DicitonaryListStoreParams>((set) => ({
     }),
   changeQuerySearch: () => {},
 }));
+*/

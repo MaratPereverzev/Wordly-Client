@@ -3,22 +3,22 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
 
+import { useUserStore } from "app/store/user";
+import { useDictionaryStore } from "entities/Dictionary/store";
 import {
   DicitonaryPutParams,
   DictionaryDeleteParams,
   DictionaryPostParams,
 } from "shared/api/dictionary/model";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { setPagination } from "entities/Dictionary/store";
 import { dispatchEvent } from "shared/utils";
 import Dictionary from "../api";
 
 export const useGetDictionary = () => {
-  const query = useAppSelector((state) => state.dicitonaryReducer.query);
-
-  const dispatch = useDispatch();
+  const query = useDictionaryStore((state) => state.query);
+  const setTotalPages = useDictionaryStore(
+    (state) => state.pagination.setTotalPages
+  );
 
   const { isLoading, data, isError } = useSuspenseQuery({
     queryKey: ["get/dictionary", query],
@@ -33,7 +33,7 @@ export const useGetDictionary = () => {
     select: ({ data }) => data,
   });
 
-  dispatch(setPagination({ count: data.count }));
+  setTotalPages(data.count);
 
   return { isLoading, data, isError };
 };
@@ -56,7 +56,7 @@ export const useGetDictionaryById = (id: string) => {
 };
 
 export const usePostDictionary = (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -67,7 +67,7 @@ export const usePostDictionary = (id: string) => {
         headers: {
           Accept: "multipart/form-data",
           "Content-Type": "multipart/form-data",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
       }),
     onSuccess: () => {
@@ -83,7 +83,7 @@ export const usePostDictionary = (id: string) => {
 };
 
 export const usePutDictionary = async (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -94,7 +94,7 @@ export const usePutDictionary = async (id: string) => {
         headers: {
           Accept: "multipart/form-data",
           "Content-Type": "multipart/form-data",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
       }),
     onSuccess: () => {
@@ -110,7 +110,7 @@ export const usePutDictionary = async (id: string) => {
 };
 
 export const useDeleteDictionary = (id: string) => {
-  const user = useAppSelector((state) => state.userReducer);
+  const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
@@ -121,7 +121,7 @@ export const useDeleteDictionary = (id: string) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: user.accessToken,
+          Authorization: accessToken,
         },
       }),
     onSuccess: () => {

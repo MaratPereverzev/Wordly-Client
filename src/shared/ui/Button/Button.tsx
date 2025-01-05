@@ -10,12 +10,9 @@ import {
   Tooltip
 } from "@mui/material";
 import { CSSProperties } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeOpenState, changePage } from "app/store/sidebar";
-import { useAppSelector } from "shared/hooks/useSelector";
-import { getPageHash } from "shared/utils";
+import { useSidebarStore } from "app/store/sidebar";
 import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
 
@@ -66,65 +63,29 @@ export const Button =
   }
 
 type CustomRouteButtonProps = CustomButtonProps & {
-  route: string
+  route: string,
 }
-
-export const RouteButton = ({ route, onClick, ...other }: CustomRouteButtonProps) => {
-  const navigate = useNavigate();
-
-  return (
-    <Button
-      onClick={() => {
-        if (typeof onClick === "function") //onClick();
-        navigate(route);
-      }}
-      {...other}
-    />
-  );
-};
-/*
-export const MenuButton = ({ icon, route, caption, ...other }: CustomRouteButtonProps) => {
-  return (
-    <StyledRouteButton
-      route={route}
-      color="inherit"
-      variant={
-        !!route
-          ? getPageHash() === route.split("/")[1]
-            ? "contained"
-            : "text"
-          : "text"
-      }
-      icon={icon}
-      caption={caption}
-      {...other}
-    />
-  );
-};
-*/
 
 type CustomSidebarMenuButtonProps = CustomRouteButtonProps & {
   open?: boolean
 }
 
 export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: CustomSidebarMenuButtonProps) => {
-  const sidebar = useAppSelector(store => store.sidebarReducer);
-  const dispatch = useDispatch();
+  const sidebar = useSidebarStore(store => store);
+  const navigate = useNavigate();
 
-  return (
-    <StyledRouteButton
-      route={route}
-      color="inherit"
-      variant={sidebar.route === route ? "contained" : "text"}
-      icon={icon}
-      caption={sidebar.open && caption}
-      onClick={() => {
-        dispatch(changeOpenState({ open: false }));
-        dispatch(changePage({ route }));
-      }}
-      {...other}
-    />
-  );
+  return <StyledRouteButton
+    color="inherit"
+    variant={sidebar.route === route ? "contained" : "text"}
+    icon={icon}
+    caption={sidebar.open && caption}
+    onClick={() => {
+      sidebar.changeIsOpen(false);
+      sidebar.changeRoute(route)
+      navigate(route);
+    }}
+    {...other}
+  />
 };
 
 type ButtonIconProps = ButtonProps & {
@@ -140,11 +101,6 @@ export const ButtonIcon = ({ sxIcon, icon, ...other }: ButtonIconProps) => {
   );
 };
 
-/*
-type CustomButtonGroupProps = ButtonGroupProps & {
-  caption: string
-}
-*/
 export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
@@ -158,7 +114,7 @@ const StyledDefaultButton = styled(ButtonMui)(({ theme }) => ({
 }));
 
 
-const StyledRouteButton = styled(RouteButton)(() => ({
+const StyledRouteButton = styled(Button)(() => ({
   gap: "5px",
 }));
 

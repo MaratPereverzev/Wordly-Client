@@ -2,10 +2,9 @@ import { Checkbox, styled } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeChecked } from "entities/Dictionary/store";
+import { useDictionaryStore } from "entities/Dictionary/store";
 import { DeleteDictionaryDialog } from "features/Dictionary/ui/modal-content";
 import { DictionaryInstance } from "shared/api/dictionary/model";
-import { useAppSelector } from "shared/hooks/useSelector";
 import { Box, Button, ButtonIcon, Text } from "shared/ui";
 import { dispatchEvent } from "shared/utils";
 
@@ -15,8 +14,9 @@ type DictionaryCardProps = {
 
 export const DictionaryCard = ({ data }: DictionaryCardProps) => {
   const navigate = useNavigate();
-  const mode = useAppSelector((state) => state.dicitonaryReducer.mode);
-  const dispatch = useDispatch();
+
+  const mode = useDictionaryStore((state) => state.mode);
+  const changeSelectedDictionaries = useDictionaryStore((state) => state.changeSelectedDictionaries)
 
   return (
     <StyledItemContainer flex jc>
@@ -40,8 +40,8 @@ export const DictionaryCard = ({ data }: DictionaryCardProps) => {
                   (dictionary: any) => dictionary.id === data.id
                 )
               }
-              onChange={(event) => {
-                dispatch(changeChecked(data));
+              onChange={() => {
+                changeSelectedDictionaries(data.id)
               }}
             />
           )}

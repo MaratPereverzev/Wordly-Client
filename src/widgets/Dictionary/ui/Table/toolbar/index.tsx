@@ -1,4 +1,3 @@
-import { changeQuerySearch } from "entities/Dictionary/store";
 import { InputQueryFilter } from "features/ui/input-query-filter";
 import { Box } from "shared/ui";
 import { ActionsButtons } from "./actions-buttons";
@@ -12,7 +11,7 @@ export const Toolbar = () => {
       ai
     >
       <ActionsButtons />
-      <InputQueryFilter queryField="caption" storeDispatchFn={changeQuerySearch}/>
+      <InputQueryFilter queryField="caption"/>
     </Box>
   );
 };

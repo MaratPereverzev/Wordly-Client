@@ -1,25 +1,18 @@
-import { useDispatch } from "react-redux";
-
-import { changePage } from "entities/Dictionary/store";
-import { useAppSelector } from "shared/hooks/useSelector";
+import { useDictionaryStore } from "entities/Dictionary/store";
 import { Pagination as PaginationMui } from "shared/ui";
 
 export const Pagination = () => {
-  const {pagination} = useAppSelector(
-    (state) => state.dicitonaryReducer
-  );
-
-  const dispatch = useDispatch();
+  const {changeCurrentPage, totalPages, currentPage} = useDictionaryStore(state => state.pagination)
 
   return (
     <>
       {
-        pagination.totalPages > 1 ? (
+        totalPages > 1 ? (
           <PaginationMui
-          count={pagination?.totalPages}
-          page={pagination?.totalPages}
-          onChange={(_: any, value: number) => {
-            dispatch(changePage({pageToShow: value}));
+          count={totalPages}
+          page={currentPage}
+          onChange={(_: any, pageToShow: number) => {
+            changeCurrentPage(pageToShow)
           }}
         />     
         ): null

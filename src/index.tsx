@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 import { Dashboard } from "app/dashboard";
-import { store } from "app/store";
 import ThemeProvider from "app/theme/ThemeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
@@ -20,11 +19,9 @@ const queryClient = new QueryClient({
 root.render(
   <StrictMode>
     <ThemeProvider>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Dashboard />
-        </QueryClientProvider>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>
 );

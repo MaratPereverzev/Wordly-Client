@@ -1,36 +1,24 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getPageHash, setLocalStorageValue } from "shared/utils";
+import { create } from "zustand";
 
-import { setLocalStorageValue, getPageHash } from "shared/utils";
-
-type SidebarReducerProps = {
-  open?: boolean;
-  route?: string;
+type SidebarProps = {
+  open: boolean;
+  route: string;
+  changeRoute: (route: string) => void;
+  changeIsOpen: (open: boolean) => void;
 };
 
-const initialState: SidebarReducerProps = {
+export const useSidebarStore = create<SidebarProps>((set) => ({
   open: false,
   route: getPageHash() ?? "/home",
-};
-
-const sidebarSlice = createSlice({
-  name: "sidebar",
-  initialState,
-  reducers: {
-    changePage: (state, { payload }: PayloadAction<SidebarReducerProps>) => {
-      state.route = payload.route;
-
-      setLocalStorageValue("page", payload.route!);
-    },
-    changeOpenState: (
-      state,
-      { payload }: PayloadAction<SidebarReducerProps>
-    ) => {
-      state.open = payload.open;
-
-      setLocalStorageValue("open", String(payload.open));
-    },
-  },
-});
-
-export const { changePage, changeOpenState } = sidebarSlice.actions;
-export default sidebarSlice.reducer;
+  changeRoute: (route: string) =>
+    set((state) => {
+      setLocalStorageValue("page", route);
+      return { ...state, route };
+    }),
+  changeIsOpen: (open: boolean) =>
+    set((state) => {
+      setLocalStorageValue("open", String(open));
+      return { ...state, open };
+    }),
+}));

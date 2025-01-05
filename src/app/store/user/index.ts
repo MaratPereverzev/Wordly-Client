@@ -1,36 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 import {
   dispatchEvent,
-  setLocalStorageValue,
   getLocalStorageValue,
+  setLocalStorageValue,
 } from "shared/utils";
+import { create } from "zustand";
 
-type userReducerProps = {
-  accessToken: string | null;
+type UserStoreProps = {
+  accessToken: string;
+  login: (accessToken: string) => void;
+  logout: () => void;
 };
-const initialState: userReducerProps = {
+
+export const useUserStore = create<UserStoreProps>((set) => ({
   accessToken: getLocalStorageValue("accessToken") ?? "",
-};
+  login: (accessToken: string) =>
+    set((state) => {
+      dispatchEvent("snackbarTrigger", {
+        message: "Access granted",
+        status: "success",
+      });
 
-const userSlice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-    loginAction: (state, { payload }) => {
-      state.accessToken = payload.accessToken;
+      setLocalStorageValue("accessToken", accessToken);
 
-      if (payload.accessToken) {
-        dispatchEvent("snackbarTrigger", {
-          message: "Access granted",
-          status: "success",
-        });
-      }
+      return { ...state, accessToken };
+    }),
+  logout: () =>
+    set((state) => {
+      localStorage.removeItem("accessToken");
 
-      setLocalStorageValue("accessToken", payload.accessToken);
-    },
-  },
-});
+      dispatchEvent("snackbarTrigger", {
+        message: "Loged out",
+        status: "success",
+      });
 
-export const { loginAction } = userSlice.actions;
-export default userSlice.reducer;
+      return { ...state, accessToken: "" };
+    }),
+}));
