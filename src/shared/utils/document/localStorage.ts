@@ -1,8 +1,12 @@
 const getLocalStorageValue = (key: string): string | null => {
   const data = localStorage.getItem(key);
 
-  if (data !== null) return JSON.parse(data);
-  else return data;
+  try {
+    if (data === null) throw data;
+    return JSON.parse(data);
+  } catch {
+    return data;
+  }
 };
 
 const setLocalStorageValue = (key: string, value: string) => {

@@ -4,18 +4,18 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
+import { useUserStore } from "app/store/user";
 import {
   WordDeleteParams,
   WordPostParams,
   WordPutParams,
 } from "shared/api/word/model";
-import { useAppSelector } from "shared/hooks";
 import { dispatchEvent } from "shared/utils";
 import Word from "../api";
-import { useUserStore } from "app/store/user";
+import { useWordStore } from "../store";
 
 export const useGetWord = () => {
-  const word = useAppSelector((state) => state.wordReducer);
+  const word = useWordStore((state) => state);
   const { data, isLoading, isError } = useSuspenseQuery({
     queryKey: ["get/words"],
     queryFn: () =>
