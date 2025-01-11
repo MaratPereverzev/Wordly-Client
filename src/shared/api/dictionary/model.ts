@@ -1,4 +1,4 @@
-import { AxiosBasicRequestParams, FileData } from "shared/types";
+import { AxiosBasicRequestParams, FileData } from "@/shared/types";
 
 export type DictionaryInstance = {
   id: string;

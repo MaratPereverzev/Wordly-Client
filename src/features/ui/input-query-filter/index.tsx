@@ -1,8 +1,8 @@
 import { ChangeEvent, useRef } from "react";
 
-import { useTimeout } from "shared/hooks";
-import { Input } from "shared/ui";
-import { useDictionaryStore } from "entities/Dictionary";
+import { useTimeout } from"@/shared/hooks";
+import { Input } from"@/shared/ui";
+import { useDictionaryStore } from"@/entities/Dictionary";
 
 type InputQueryFilterProps = {
   queryField: string

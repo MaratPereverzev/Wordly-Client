@@ -12,7 +12,7 @@ import {
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useSidebarStore } from "app/store/sidebar";
+import { useSidebarStore } from"@/app/store/sidebar";
 import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
 

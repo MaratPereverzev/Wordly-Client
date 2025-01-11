@@ -1,8 +1,8 @@
 import { styled } from "@mui/material";
 
-import { Box } from "shared/ui/Box";
-import { Icon, IconListKeys } from "shared/ui/Icon";
-import { Text } from "shared/ui/Text";
+import { Box } from"@/shared/ui/Box";
+import { Icon, IconListKeys } from"@/shared/ui/Icon";
+import { Text } from"@/shared/ui/Text";
 
 type EmptyDataProps = {
   icon: IconListKeys,

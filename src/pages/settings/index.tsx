@@ -1,9 +1,9 @@
 import { useTheme, Slider } from "@mui/material"
 
-import { dispatchEvent } from "shared/utils"
-import { Box, Button, ButtonGroup, Text } from "shared/ui"
-import { useSidebarStore } from "@/app/store/sidebar";
-import { useSettingsStore } from "entities/Settings/store";
+import { dispatchEvent } from"@/shared/utils"
+import { Box, Button, ButtonGroup, Text } from"@/shared/ui"
+import { useSidebarStore } from"@/app/store/sidebar";
+import { useSettingsStore } from"@/entities/Settings/store";
 
 const SettingsPage = () => {
   const theme = useTheme();

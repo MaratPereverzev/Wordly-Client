@@ -2,7 +2,7 @@
 import {
   DictionaryGetParams,
   DictionaryInstance,
-} from "@/shared/api/dictionary/model";
+} from"@/shared/api/dictionary/model";
 import { create } from "zustand";
 
 type DicitonaryListStoreParams = {

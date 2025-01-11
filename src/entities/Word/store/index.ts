@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { WordGetParams, WordInstance } from "shared/api/word/model";
+import { WordGetParams, WordInstance } from "@/shared/api/word/model";
 
 type WordStoreProps = {
   words: WordInstance[] | null;

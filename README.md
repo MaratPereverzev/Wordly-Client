@@ -1,54 +1,50 @@
-# How to launch the project
+# React + TypeScript + Vite
 
-- Open a code editor
-- Clone this repo by running the command
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-```
-git clone https://github.com/MaratPereverzev/Wordly.git
-```
+Currently, two official plugins are available:
 
-- Open the cloned repo
-- Run these commands the right order
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-```
-cd server & npm i
-```
+## Expanding the ESLint configuration
 
-```
-cd ..
-```
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-```
-cd client & npm i
-```
+- Configure the top-level `parserOptions` property like this:
 
-```
-cd ..
-```
-
-```
-npm i
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-- There'll be a Test DB for demo with TestDB filename. To get the test database go the the following path
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-server/client
-```
-
-- Then, open pgAdmin 4 and with right mouse click import this test database by clicking `Restore` button. After that just put a path where this test database is located.
-
-- Launch the project by running a command
-
-```
-npm start
-```
-
-If you aren't able to launch the project here's a video for you
-
-Part 1: https://youtu.be/fPpskLnaqIM \
-Part 2: https://youtu.be/jMLRQBixRZQ \
-Part 3: https://youtu.be/J_kmxcBQvfY \
-Part 4: https://youtu.be/EIiiys1n4R8 \
-Part 5: https://youtu.be/LmNKcJeQGxs \
-Part 6: https://youtu.be/3SMQYLiL8-o

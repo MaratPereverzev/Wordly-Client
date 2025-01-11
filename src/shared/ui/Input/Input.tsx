@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 import { Box } from "../Box";
 import { Button, CustomButtonProps } from "../Button";
 import { Icon, IconListKeys } from "../Icon";
-import { FileData } from "shared/types";
+import { FileData } from"@/shared/types";
 
 //temporary solution
 type InputProps = TextFieldProps & Omit<CustomButtonProps, "onChange" | "variant"> & {

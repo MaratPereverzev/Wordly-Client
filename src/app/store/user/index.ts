@@ -2,7 +2,7 @@ import {
   dispatchEvent,
   getLocalStorageValue,
   setLocalStorageValue,
-} from "shared/utils";
+} from "@/shared/utils";
 import { create } from "zustand";
 
 type UserStoreProps = {

@@ -1,4 +1,4 @@
-import { getPageHash, setLocalStorageValue } from "shared/utils";
+import { getPageHash, setLocalStorageValue } from "@/shared/utils";
 import { create } from "zustand";
 
 type SidebarProps = {

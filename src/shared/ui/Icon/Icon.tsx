@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 import { Box } from "../Box";
-import { useSettingsStore } from "entities/Settings/store";
+import { useSettingsStore } from"@/entities/Settings/store";
 
 const iconList = {
   delete: "delete",

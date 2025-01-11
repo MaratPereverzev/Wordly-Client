@@ -1,10 +1,10 @@
 import { styled } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import { useGetDictionaryById } from "entities/Dictionary/hooks";
-import { CreateWordDialog } from "features/Word/ui/createWord";
-import { Box, Button, Text } from "shared/ui";
-import { dispatchEvent } from "shared/utils";
+import { useGetDictionaryById } from"@/entities/Dictionary/hooks";
+import { CreateWordDialog } from"@/features/Word/ui/createWord";
+import { Box, Button, Text } from"@/shared/ui";
+import { dispatchEvent } from"@/shared/utils";
 
 /*
 {data?.words?.rows.length > 0 && (

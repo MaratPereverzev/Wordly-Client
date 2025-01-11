@@ -4,13 +4,13 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import { useUserStore } from "app/store/user";
+import { useUserStore } from "@/app/store/user";
 import {
   WordDeleteParams,
   WordPostParams,
   WordPutParams,
-} from "shared/api/word/model";
-import { dispatchEvent } from "shared/utils";
+} from "@/shared/api/word/model";
+import { dispatchEvent } from "@/shared/utils";
 import Word from "../api";
 import { useWordStore } from "../store";
 

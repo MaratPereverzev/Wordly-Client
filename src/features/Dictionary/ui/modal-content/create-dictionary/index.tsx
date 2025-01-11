@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
-import { DictionaryPostParams } from "shared/api/dictionary/model";
-import { Box } from "shared/ui";
+import { DictionaryPostParams } from"@/shared/api/dictionary/model";
+import { Box } from"@/shared/ui";
 import { Action } from "./action";
 import { Content } from "./content";
 import { Header } from "./header";

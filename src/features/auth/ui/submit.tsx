@@ -1,9 +1,9 @@
 import { styled } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useAuth } from "entities/Auth/hooks/useAuth";
-import { Box, Button, Input } from "shared/ui";
-import { AuthPostParams } from "shared/api/auth/model";
+import { useAuth } from"@/entities/Auth/hooks/useAuth";
+import { Box, Button, Input } from"@/shared/ui";
+import { AuthPostParams } from"@/shared/api/auth/model";
 
 export const LoginSubmitForm = () => {
   const {

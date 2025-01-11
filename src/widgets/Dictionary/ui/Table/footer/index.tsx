@@ -1,6 +1,6 @@
-import { useDictionaryStore } from "entities/Dictionary/store";
-import { Pagination } from "features/Dictionary/ui/pagination";
-import { Box, Text } from "shared/ui";
+import { useDictionaryStore } from"@/entities/Dictionary/store";
+import { Pagination } from"@/features/Dictionary/ui/pagination";
+import { Box, Text } from"@/shared/ui";
 
 export const Footer = () => {
   const {selectedItems, isSelectMode} = useDictionaryStore(state => state.mode)
