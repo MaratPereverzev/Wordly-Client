@@ -66,11 +66,12 @@ type CustomRouteButtonProps = CustomButtonProps & {
   route: string,
 }
 
-type CustomSidebarMenuButtonProps = CustomRouteButtonProps & {
-  open?: boolean
+type CustomSidebarMenuButtonProps = Omit<CustomRouteButtonProps, "onClick"> & {
+  open?: boolean,
+  onClick?: () => void
 }
 
-export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: CustomSidebarMenuButtonProps) => {
+export const SidebarMenuButton = ({ icon, route, open, caption, onClick, ...other }: CustomSidebarMenuButtonProps) => {
   const sidebar = useSidebarStore(store => store);
   const navigate = useNavigate();
 
@@ -80,6 +81,7 @@ export const SidebarMenuButton = ({ icon, route, open, caption, ...other }: Cust
     icon={icon}
     caption={sidebar.open && caption}
     onClick={() => {
+      if(onClick) onClick();
       sidebar.changeIsOpen(false);
       sidebar.changeRoute(route)
       navigate(route);

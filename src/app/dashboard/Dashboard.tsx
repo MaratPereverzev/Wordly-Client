@@ -6,6 +6,7 @@ import { Login, Outlet } from "pages";
 import { Box, Dialog, Snackbar } from "shared/ui";
 import { Sidebar } from "./Sidebar";
 
+const LazySettings = lazy(() => import("pages/settings"))
 const LazyDictionaries = lazy(() => import("pages/dictionary-list"));
 const LazyDictionary = lazy(() => import("pages/dictionary"));
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       { path: "dictionaries", element: <LazyDictionaries /> },
       { path: "dictionaries/:id", element: <LazyDictionary /> },
       { path: "home", element: <div>home</div> },
+      { path: "settings", element: <LazySettings />}
     ],
   },
 ]);
