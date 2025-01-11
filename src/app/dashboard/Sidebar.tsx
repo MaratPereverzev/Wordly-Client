@@ -2,16 +2,12 @@ import { styled, useTheme } from "@mui/material";
 
 import { useSidebarStore } from "app/store/sidebar";
 import { useUserStore } from "app/store/user";
-import { useNavigate } from "react-router-dom";
 import { Box, Button, Divider, SidebarMenuButton } from "shared/ui";
-import { dispatchEvent } from "shared/utils";
 
 export const Sidebar = () => {
-  const navigate = useNavigate();
-  const theme = useTheme();
   const logout = useUserStore(state => state.logout)
 
-  const {changeIsOpen, open} = useSidebarStore(store => store);
+  const {changeIsOpen, open, route} = useSidebarStore(store => store);
 
   return (
     <StyledSidebarMainContainer
@@ -28,21 +24,20 @@ export const Sidebar = () => {
         />
       </StyledSidebarButtonContainer>
       <StyledSidebarButtonContainer flex column gap>
-        <Button
-          onClick={() => dispatchEvent("changeTheme")}
-          sx={{ gap: "5px" }}
-          variant="text"
-          caption={open && "Switch"}
-          icon={theme.palette.mode === "light" ? "dark_mode" : "light_mode"}
+        <SidebarMenuButton
+          sxIcon={{
+            rotate: route === "/settings" ? "70deg": "0deg",
+            transition: "rotate 200ms ease-in-out"
+          }}
+          route="/settings"
+          caption="settings" 
+          icon="settings"
         />
         <SidebarMenuButton
           route="/login"
           icon="logout"
           caption="logout"
-          onClick={() => {
-            logout();
-            navigate("/login")
-          }}
+          onClick={logout}
         />
       </StyledSidebarButtonContainer>
       <StyledSidebarButtonContainer flex gap="5px" column>

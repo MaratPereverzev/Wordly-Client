@@ -9,18 +9,20 @@ type ThemeProviderProps = {
 }
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const isLightTheme = () => window.matchMedia("(prefers-color-scheme: light)").matches
   const [theme, setTheme] = useState("light");
 
   useEffect(
     () =>
-      addEventListener("changeTheme", () => {
-        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+      addEventListener<{theme: string} | undefined>("changeTheme", (detail) => {
+        if(detail?.theme) setTheme(() => detail.theme)
+        else setTheme((prev) => (prev === "light" ? "dark" : "light"));
       }),
     []
   );
 
   return (
-    <MuiThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <MuiThemeProvider theme={theme === "light" || (theme === "system" && isLightTheme()) ? lightTheme : darkTheme}>
       {children}
     </MuiThemeProvider>
   );
