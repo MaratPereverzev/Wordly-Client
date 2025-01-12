@@ -12,7 +12,7 @@ import {
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useSidebarStore } from "app/store/sidebar";
+import { useSidebarStore } from"@/app/store/sidebar";
 import { Icon, IconListKeys } from "../Icon";
 import { Text } from "../Text";
 
@@ -107,7 +107,7 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
 
-const StyledDefaultButton = styled(ButtonMui)(({ theme }) => ({
+const StyledDefaultButton = styled(ButtonMui)((/*{ theme }*/) => ({
   //color: theme.palette.primary.contrastText,
   padding: "4px",
   justifyContent: "flex-start",

@@ -1,16 +1,15 @@
-import { useTheme, Slider } from "@mui/material"
+import { Slider, useTheme } from "@mui/material";
 
-import { dispatchEvent } from "shared/utils"
-import { Box, Button, ButtonGroup, Text } from "shared/ui"
-import { useSidebarStore } from "@/app/store/sidebar";
-import { useSettingsStore } from "entities/Settings/store";
+import { useSettingsStore } from "@/entities/Settings/store";
+import { Box, Button, ButtonGroup, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
 
 const SettingsPage = () => {
   const theme = useTheme();
 
   const changeIconSize = useSettingsStore(state => state.changeIconSize)
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
     changeIconSize(newValue as number);
   };
 

@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 
-import { LoginSubmitForm } from "features/auth/ui/submit";
-import { Box, Text } from "shared/ui";
+import { LoginSubmitForm } from"@/features/auth/ui/submit";
+import { Box, Text } from"@/shared/ui";
 
 export const Login = () => {
   return <StyledContentContainer flex column center>

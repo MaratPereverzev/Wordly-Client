@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Snackbar as SnackbarMui, Alert, SnackbarProps } from "@mui/material";
 
-import { addEventListener } from "shared/utils";
+import { addEventListener } from"@/shared/utils";
 
 type SnackbarPayload = {message?: string, status?: "success" | "warning" | "error" | "info"}
 
@@ -34,6 +34,7 @@ export const Snackbar = (props: SnackbarProps): React.JSX.Element => {
 
   return (
     <SnackbarMui
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       autoHideDuration={2000}
       open={state.open}
       onClose={handleClose}

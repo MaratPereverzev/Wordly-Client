@@ -1,8 +1,8 @@
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 
-import { darkTheme, lightTheme } from "app/theme";
-import { addEventListener } from "shared/utils";
+import { darkTheme, lightTheme } from"@/app/theme";
+import { addEventListener } from"@/shared/utils";
 
 type ThemeProviderProps = {
   children?: JSX.Element

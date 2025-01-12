@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { WordGetParams, WordInstance } from "shared/api/word/model";
+import { WordGetParams, WordInstance } from "@/shared/api/word/model";
 
 type WordStoreProps = {
   words: WordInstance[] | null;
@@ -14,7 +14,7 @@ type WordStoreProps = {
   };
 };
 
-export const useWordStore = create<WordStoreProps>((set) => ({
+export const useWordStore = create<WordStoreProps>((/*set*/) => ({
   words: [],
   query: {
     limit: 10,

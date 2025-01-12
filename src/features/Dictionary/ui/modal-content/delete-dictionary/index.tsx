@@ -1,4 +1,4 @@
-import { Box } from "shared/ui";
+import { Box } from"@/shared/ui";
 import { Actions } from "./actions";
 import { Content } from "./content";
 import { Header } from "./header";

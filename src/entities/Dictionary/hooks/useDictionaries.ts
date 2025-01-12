@@ -4,14 +4,14 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import { useUserStore } from "app/store/user";
-import { useDictionaryStore } from "entities/Dictionary/store";
+import { useUserStore } from "@/app/store/user";
+import { useDictionaryStore } from "@/entities/Dictionary/store";
 import {
   DicitonaryPutParams,
   DictionaryDeleteParams,
   DictionaryPostParams,
-} from "shared/api/dictionary/model";
-import { dispatchEvent } from "shared/utils";
+} from "@/shared/api/dictionary/model";
+import { dispatchEvent } from "@/shared/utils";
 import Dictionary from "../api";
 
 export const useGetDictionary = () => {
@@ -72,7 +72,7 @@ export const usePostDictionary = (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "created successfully",
       });
@@ -99,7 +99,7 @@ export const usePutDictionary = async (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "created successfully",
       });
@@ -126,7 +126,7 @@ export const useDeleteDictionary = (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "deleted successfully",
       });

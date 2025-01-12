@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 
-import { useDictionaryStore } from "entities/Dictionary/store";
-import { ActionGroup } from "features/Dictionary/ui";
-import { Box, Button } from "shared/ui";
+import { useDictionaryStore } from"@/entities/Dictionary/store";
+import { ActionGroup } from"@/features/Dictionary/ui";
+import { Box, Button } from"@/shared/ui";
 
 export const ActionsButtons = () => {
   const {isSelectMode, changeSelectMode} = useDictionaryStore(state => state.mode);

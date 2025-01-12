@@ -1,18 +1,16 @@
-import { useParams } from "react-router-dom";
 import { UseFormReturn } from "react-hook-form";
 
-import { Box, Button } from "shared/ui";
-import {usePostWord} from "entities/Word/hooks"
-import { dispatchEvent } from "shared/utils";
-import { WordPostParams } from "shared/api/word/model";
+import { usePostWord } from "@/entities/Word/hooks";
+import { WordPostParams } from "@/shared/api/word/model";
+import { Box, Button } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
 
 type ActionsButtonsProps = {
   form: UseFormReturn<Partial<WordPostParams>, any, undefined>
 }
 
 export const ActionsButtons = ({ form: { handleSubmit, getValues } }: ActionsButtonsProps) => {
-  const id = useParams();
-  const { mutate } = usePostWord(String(id));
+  const { mutate } = usePostWord();
 
   const onSubmit = () => {
     mutate(getValues() as WordPostParams);

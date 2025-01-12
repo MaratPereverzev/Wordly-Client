@@ -23,7 +23,7 @@ type DicitonaryListStoreParams = {
     changeSelectMode: () => void;
   };
   changeSelectedDictionaries: (id: string) => void;
-  changeQuerySearch: (data?: { [index: string]: string }) => void;
+  changeQuerySearch: (data?: { [index: string]: string | undefined }) => void;
 };
 
 export const useDictionaryStore = create<DicitonaryListStoreParams>((set) => ({
@@ -67,5 +67,13 @@ export const useDictionaryStore = create<DicitonaryListStoreParams>((set) => ({
       else state.mode.selectedItems.splice(foundDictionaryIndex);
       return { ...state };
     }),
-  changeQuerySearch: () => {},
+  changeQuerySearch: (data?: { [index: string]: string | undefined }) => {
+    set((state) => ({
+      ...state,
+      query: {
+        ...state.query,
+        ...data,
+      },
+    }));
+  },
 }));

@@ -1,8 +1,8 @@
 import { styled } from "@mui/material";
 
-import { Box } from "shared/ui/Box";
-import { Icon, IconListKeys } from "shared/ui/Icon";
-import { Text } from "shared/ui/Text";
+import { Box } from"@/shared/ui/Box";
+import { Icon, IconListKeys } from"@/shared/ui/Icon";
+import { Text } from"@/shared/ui/Text";
 
 type EmptyDataProps = {
   icon: IconListKeys,
@@ -19,6 +19,6 @@ export const EmptyData = ({icon, message}: EmptyDataProps) => {
 
 const StyledContainer = styled(Box)(() => ({ color: "grey" }));
 
-const StyledIcon = styled(Icon)(() => ({ ".span": { fontSize: "70px" } }));
+const StyledIcon = styled(Icon)(() => ({ ".span": { fontSize: "70px !important" } }));
 
 const StyledText = styled(Text)(() => ({ fontSize: "25px" }));

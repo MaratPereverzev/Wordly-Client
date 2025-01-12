@@ -1,7 +1,7 @@
 import { Popover as PopoverMui, PopoverProps, SxProps } from "@mui/material";
 import { JSX, MouseEvent, useState } from "react";
 
-import { Box, Button, CustomBoxProps } from "shared/ui";
+import { Box, Button, CustomBoxProps } from"@/shared/ui";
 
 type CustomPopoverProps = Omit<PopoverProps, "open" | "children"> & {
   button?: React.JSX.Element,

@@ -2,13 +2,13 @@ import { styled } from "@mui/material";
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Login, Outlet } from "pages";
-import { Box, Dialog, Snackbar } from "shared/ui";
+import { Login, Outlet } from"@/pages";
+import { Box, Dialog, Snackbar } from"@/shared/ui";
 import { Sidebar } from "./Sidebar";
 
-const LazySettings = lazy(() => import("pages/settings"))
-const LazyDictionaries = lazy(() => import("pages/dictionary-list"));
-const LazyDictionary = lazy(() => import("pages/dictionary"));
+const LazySettings = lazy(() => import("@/pages/settings"))
+const LazyDictionaries = lazy(() => import("@/pages/dictionary-list"));
+const LazyDictionary = lazy(() => import("@/pages/dictionary"));
 
 const DashboardSkeleton = () => {
   return (

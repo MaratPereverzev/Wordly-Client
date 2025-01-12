@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import DictionaryDetail from "pages/dictionary";
-import DictionaryList from "pages/dictionary-list";
+import DictionaryDetail from"@/pages/dictionary";
+import DictionaryList from"@/pages/dictionary-list";
 import { Dashboard } from "../dashboard";
 
 export const router = createBrowserRouter([

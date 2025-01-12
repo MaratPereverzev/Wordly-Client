@@ -1,4 +1,5 @@
-import { AxiosBasicRequestParams, FileData } from "shared/types";
+import { AxiosBasicRequestParams, FileData } from "@/shared/types";
+import { WordInstance } from "../word/model";
 
 export type DictionaryInstance = {
   id: string;
@@ -10,6 +11,7 @@ export type DictionaryInstance = {
     description: string | null;
     path: string;
   };
+  words: WordInstance[];
 };
 
 export type DictionaryGetParams = Partial<

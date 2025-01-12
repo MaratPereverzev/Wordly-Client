@@ -1,4 +1,4 @@
-import { Box, Icon } from "shared/ui";
+import { Box, Icon } from"@/shared/ui";
 
 export const Header = () => {
   return (
@@ -7,7 +7,7 @@ export const Header = () => {
         icon="error"
         sx={{ 
           color: "red",
-          fontSize: "70px"
+          fontSize: "70px",
          }}
       />
     </Box>
