@@ -34,6 +34,7 @@ export const Snackbar = (props: SnackbarProps): React.JSX.Element => {
 
   return (
     <SnackbarMui
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       autoHideDuration={2000}
       open={state.open}
       onClose={handleClose}

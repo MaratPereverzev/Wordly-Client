@@ -14,7 +14,7 @@ type WordStoreProps = {
   };
 };
 
-export const useWordStore = create<WordStoreProps>((set) => ({
+export const useWordStore = create<WordStoreProps>((/*set*/) => ({
   words: [],
   query: {
     limit: 10,

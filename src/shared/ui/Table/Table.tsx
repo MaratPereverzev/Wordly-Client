@@ -1,10 +1,11 @@
+import { WordInstance } from "@/shared/api/word/model";
 import type { TableProps } from "@mui/material";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 type BasicTableProps = TableProps & {
   alignHeadCell ?: "center" | "left" | "right" | "inherit" | "justify",
   alignBodyCell ?: "center" | "left" | "right" | "inherit" | "justify",
-  bodyRows?: JSX.Element[],
+  bodyRows?: WordInstance[],
   headRows?: JSX.Element[]
 }
 

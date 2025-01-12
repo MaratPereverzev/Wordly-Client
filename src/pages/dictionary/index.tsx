@@ -3,27 +3,16 @@ import { useParams } from "react-router-dom";
 
 import { useGetDictionaryById } from"@/entities/Dictionary/hooks";
 import { CreateWordDialog } from"@/features/Word/ui/createWord";
-import { Box, Button, Text } from"@/shared/ui";
+import { BasicTable, Box, Button, Text } from"@/shared/ui";
 import { dispatchEvent } from"@/shared/utils";
 
-/*
-{data?.words?.rows.length > 0 && (
-        <Box sx={{ p: 2 }}>
-          <BasicTable
-            bodyRows={data.words.rows}
-            headRows={headRows}
-            alignHeadCell="center"
-            alignBodyCell="center"
-          />
-        </Box>
-      )}
-        */
 const DictionaryDetail = () => {
   const { id } = useParams();
   const { data } = useGetDictionaryById(id!);
 
+
   return (
-    <Box sx={{ p: 1, overflowY: "scroll" }}>
+    <Box sx={{ p: 1, overflowY: "auto" }}>
       <Box
         sx={{
           borderRadius: 1,
@@ -62,7 +51,16 @@ const DictionaryDetail = () => {
           />
         </Box>
       </StyledContainer>
-      <>Words</>
+      {data?.words?.length > 0 && (
+        <Box sx={{ p: 2 }}>
+          <BasicTable
+            bodyRows={data.words}
+            headRows={Object.keys(data.words[0]).map(key => <Text caption={`${key}`} />)}
+            alignHeadCell="center"
+            alignBodyCell="center"
+          />
+        </Box>
+      )}
     </Box>
   );
 };

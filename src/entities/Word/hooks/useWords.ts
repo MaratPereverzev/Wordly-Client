@@ -13,6 +13,7 @@ import {
 import { dispatchEvent } from "@/shared/utils";
 import Word from "../api";
 import { useWordStore } from "../store";
+import { useParams } from "react-router-dom";
 
 export const useGetWord = () => {
   const word = useWordStore((state) => state);
@@ -43,13 +44,14 @@ export const useGetWordById = (id: string) => {
           "Content-Type": "application/json",
         },
       }),
-    select: (data) => data.data,
+    select: ({ data }) => data,
   });
 
   return { data, isLoading, isError };
 };
 
-export const usePostWord = (id: string) => {
+export const usePostWord = () => {
+  const { id } = useParams();
   const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
@@ -62,14 +64,14 @@ export const usePostWord = (id: string) => {
           "Content-Type": "application/json",
           Authorization: accessToken,
         },
-        data: wordData,
+        data: { ...wordData, dictionaryId: id! },
       }),
     onSuccess: () => {
-      dispatchEvent("snackbarTrigger", {
+      queryClient.invalidateQueries({ queryKey: [`get/dictionary/${id}`] });
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "A new word added successfully",
       });
-      queryClient.invalidateQueries({ queryKey: [`get/word`] });
       dispatchEvent("dialogTrigger", { opened: false });
     },
   });
@@ -93,11 +95,12 @@ export const usePutWord = (id: string) => {
         data: { ...wordData, id },
       }),
     onSuccess: () => {
-      dispatchEvent("snackbarTrigger", {
+      console.log("ok");
+      /*dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "A new word added successfully",
-      });
-      queryClient.invalidateQueries({ queryKey: [`get/word`] });
+      });*/
+      queryClient.invalidateQueries({ queryKey: [`get/words`] });
       dispatchEvent("dialogTrigger", { opened: false });
     },
   });
@@ -121,7 +124,7 @@ export const useDeleteWord = (id: string) => {
         data: wordData,
       }),
     onSuccess: () => {
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "A new word added successfully",
       });

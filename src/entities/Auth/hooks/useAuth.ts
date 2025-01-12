@@ -18,7 +18,7 @@ export const useAuth = () => {
       navigate("/dictionaries"); //correct the route
     },
     onError: (err) => {
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         message: err.message,
         status: "error",
       });

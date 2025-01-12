@@ -1,8 +1,8 @@
-import { styled, useTheme } from "@mui/material";
+import { styled } from "@mui/material";
 
-import { useSidebarStore } from"@/app/store/sidebar";
-import { useUserStore } from"@/app/store/user";
-import { Box, Button, Divider, SidebarMenuButton } from"@/shared/ui";
+import { useSidebarStore } from "@/app/store/sidebar";
+import { useUserStore } from "@/app/store/user";
+import { Box, Button, Divider, SidebarMenuButton } from "@/shared/ui";
 
 export const Sidebar = () => {
   const logout = useUserStore(state => state.logout)

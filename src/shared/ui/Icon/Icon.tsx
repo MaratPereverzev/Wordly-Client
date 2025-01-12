@@ -43,9 +43,10 @@ type IconProps = {
 
 export const Icon = ({ icon, sx, ...other }: IconProps) => {
   const iconSize = useSettingsStore(state => state.iconSize);
+
   return (
     <Box flex ai {...other}>
-      <span className="material-symbols-rounded span" style={{...sx, fontSize: `${iconSize}px`}}>
+      <span className="material-symbols-rounded span" style={{fontSize: `${iconSize}px`, ...sx}}>
         {iconList[icon ?? "default"]}
       </span>
     </Box>

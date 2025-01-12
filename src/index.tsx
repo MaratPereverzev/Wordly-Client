@@ -24,3 +24,5 @@ root.render(
     </ThemeProvider>
   </StrictMode>
 );
+
+/*tsc -b && */

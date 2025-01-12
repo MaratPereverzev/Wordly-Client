@@ -72,7 +72,7 @@ export const usePostDictionary = (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "created successfully",
       });
@@ -99,7 +99,7 @@ export const usePutDictionary = async (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "created successfully",
       });
@@ -126,7 +126,7 @@ export const useDeleteDictionary = (id: string) => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get/dictionary"] });
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "deleted successfully",
       });

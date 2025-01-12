@@ -7,7 +7,7 @@ export const Header = () => {
         icon="error"
         sx={{ 
           color: "red",
-          fontSize: "70px"
+          fontSize: "70px",
          }}
       />
     </Box>

@@ -15,8 +15,8 @@ import {
 } from "@/shared/api/word/model";
 
 class Word {
-  #URL = "http://localhost:8080/api/dictionary";
-  #URL_PRIVATE = "http://localhost:8080/api/private/dictionary";
+  #URL = "http://localhost:8080/api/word";
+  #URL_PRIVATE = "http://localhost:8080/api/private/word";
 
   async getAll(params: AxiosRequestConfig<WordGetParams>) {
     return await getAllWords(params, this.#URL);

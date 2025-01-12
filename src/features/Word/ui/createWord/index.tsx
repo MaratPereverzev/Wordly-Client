@@ -6,7 +6,7 @@ import { Box } from"@/shared/ui";
 import { ActionsButtons } from "./actionsButtons";
 import { WordInput } from "./wordInput";
 
-const defaultValues: Partial<WordPostParams> = { caption: undefined, description: undefined, dictionaryId: undefined }
+const defaultValues: Partial<WordPostParams> = { caption: undefined, description: undefined }
 
 export const CreateWordDialog = () => {
   const form = useForm<typeof defaultValues>({

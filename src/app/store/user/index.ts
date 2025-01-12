@@ -15,7 +15,7 @@ export const useUserStore = create<UserStoreProps>((set) => ({
   accessToken: getLocalStorageValue("accessToken") ?? "",
   login: (accessToken: string) =>
     set((state) => {
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         message: "Access granted",
         status: "success",
       });
@@ -28,7 +28,7 @@ export const useUserStore = create<UserStoreProps>((set) => ({
     set((state) => {
       localStorage.removeItem("accessToken");
 
-      dispatchEvent("snackbarTrigger", {
+      dispatchEvent("snackbar/trigger", {
         message: "Loged out",
         status: "success",
       });

@@ -19,6 +19,6 @@ export const EmptyData = ({icon, message}: EmptyDataProps) => {
 
 const StyledContainer = styled(Box)(() => ({ color: "grey" }));
 
-const StyledIcon = styled(Icon)(() => ({ ".span": { fontSize: "70px" } }));
+const StyledIcon = styled(Icon)(() => ({ ".span": { fontSize: "70px !important" } }));
 
 const StyledText = styled(Text)(() => ({ fontSize: "25px" }));

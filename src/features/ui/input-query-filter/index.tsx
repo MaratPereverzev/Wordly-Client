@@ -10,7 +10,7 @@ type InputQueryFilterProps = {
 }
 
 export const InputQueryFilter = ({queryField, caseSensitive = false}: InputQueryFilterProps) => {
-  const data = useRef<string>("");
+  const data = useRef<string | undefined>("");
   const changeQuerySearch = useDictionaryStore(state => state.changeQuerySearch)
 
   const { timeoutReset } = useTimeout(() => {
@@ -25,7 +25,7 @@ export const InputQueryFilter = ({queryField, caseSensitive = false}: InputQuery
       name="input_query_filter"
       onChange={(event: ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
-        data.current = inputValue ? (caseSensitive? inputValue : `%${inputValue}%`) : "";
+        data.current = inputValue ? (caseSensitive? inputValue : `%${inputValue}%`) : undefined;
         timeoutReset();
       }}
     />
