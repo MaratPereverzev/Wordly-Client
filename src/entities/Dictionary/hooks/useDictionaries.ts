@@ -82,7 +82,7 @@ export const usePostDictionary = (id: string) => {
   return hook;
 };
 
-export const usePutDictionary = async (id: string) => {
+export const usePutDictionary = (id: string) => {
   const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 

@@ -95,11 +95,10 @@ export const usePutWord = (id: string) => {
         data: { ...wordData, id },
       }),
     onSuccess: () => {
-      console.log("ok");
-      /*dispatchEvent("snackbar/trigger", {
+      dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "A new word added successfully",
-      });*/
+      });
       queryClient.invalidateQueries({ queryKey: [`get/words`] });
       dispatchEvent("dialogTrigger", { opened: false });
     },

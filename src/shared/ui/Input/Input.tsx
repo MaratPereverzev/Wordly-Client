@@ -1,5 +1,5 @@
 import { styled, SxProps, TextField, TextFieldProps } from "@mui/material";
-import { CSSProperties } from "react";
+import React, { CSSProperties, forwardRef } from "react";
 
 import { Box } from "../Box";
 import { Button, CustomButtonProps } from "../Button";
@@ -23,7 +23,7 @@ type InputFileProps = Omit<TextFieldProps, "variant"> & Omit<CustomButtonProps, 
 }
 
 
-export const Input = ({
+export const Input = forwardRef(({
   icon,
   sxIcon,
   sxBox,
@@ -31,9 +31,10 @@ export const Input = ({
   errorMessage,
   helperText,
   ...other
-}: InputProps) => {
+}: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
   return (
     <TextField
+      ref={ref}
       variant={variant}
       size="small"
       error={errorMessage && errorMessage !== "" ? true : false}
@@ -46,7 +47,7 @@ export const Input = ({
       {...other}
     />
   );
-};
+});
 
 export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputFileProps) => {
   return (

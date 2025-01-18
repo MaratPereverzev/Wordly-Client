@@ -1,8 +1,8 @@
 import { styled } from "@mui/material";
 
-import { Box, EmptyData, Error } from"@/shared/ui";
-import { useGetDictionary } from"@/entities/Dictionary/hooks";
-import { DictionaryCard } from"@/entities/Dictionary/ui/dictionary-card";
+import { useGetDictionary } from "@/entities/Dictionary/hooks";
+import { DictionaryCard } from "@/entities/Dictionary/ui/dictionary-card";
+import { Box, EmptyData, Error } from "@/shared/ui";
 
 export const DataGridLayout = () => {
   const { data, isError } = useGetDictionary();
