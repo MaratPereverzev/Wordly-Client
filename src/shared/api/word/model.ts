@@ -5,6 +5,7 @@ export type WordInstance = {
   caption: string;
   description: string;
   dictionaryId: string;
+  createdAt: string;
 };
 
 export type WordGetParams = Partial<

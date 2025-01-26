@@ -2,10 +2,11 @@ import { styled } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import { useGetDictionaryById } from "@/entities/Dictionary/hooks";
-import { CreateWordDialog } from "@/widgets/Word/ui/createWord";
-import { BasicTable, Box, Button, Text } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
 import { Result } from "@/features/Word/ui/background-preview.tsx";
+import { Box, Button, Text } from "@/shared/ui";
+import { dispatchEvent } from "@/shared/utils";
+import { DictionaryDetailTable } from "@/widgets/Dictionary-detail/ui";
+import { CreateWordDialog } from "@/widgets/Word/ui/createWord";
 
 const DictionaryDetail = () => {
   const { id } = useParams();
@@ -42,12 +43,9 @@ const DictionaryDetail = () => {
         </Box>
       </StyledContainer>
       {data?.words?.length > 0 && (
-        <Box sx={{ p: 2 }}>
-          <BasicTable
-            bodyRows={data.words}
-            headRows={Object.keys(data.words[0]).map(key => <Text caption={`${key}`} />)}
-            alignHeadCell="center"
-            alignBodyCell="center"
+        <Box flex center sx={{ p: 2 }}>
+          <DictionaryDetailTable
+            data={data}
           />
         </Box>
       )}

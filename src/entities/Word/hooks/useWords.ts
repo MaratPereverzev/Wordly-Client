@@ -84,7 +84,7 @@ export const usePutWord = (id: string) => {
   const queryClient = useQueryClient();
 
   const hook = useMutation({
-    mutationKey: [`post/word/${id}`],
+    mutationKey: [`post/word`],
     mutationFn: (wordData: WordPutParams) =>
       Word.put({
         headers: {
@@ -107,12 +107,13 @@ export const usePutWord = (id: string) => {
   return hook;
 };
 
-export const useDeleteWord = (id: string) => {
+export const useDeleteWord = () => {
+  const { id } = useParams();
   const accessToken = useUserStore((state) => state.accessToken);
   const queryClient = useQueryClient();
 
   const hook = useMutation({
-    mutationKey: [`post/word/${id}`],
+    mutationKey: [`delete/word`],
     mutationFn: (wordData: WordDeleteParams) =>
       Word.delete({
         headers: {
@@ -127,6 +128,7 @@ export const useDeleteWord = (id: string) => {
         status: "success",
         message: "A new word added successfully",
       });
+      queryClient.invalidateQueries({ queryKey: [`get/dictionary/${id}`] });
       queryClient.invalidateQueries({ queryKey: [`get/word`] });
       dispatchEvent("dialogTrigger", { opened: false });
     },
