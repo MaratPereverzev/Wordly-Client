@@ -12,6 +12,8 @@ export type DictionaryInstance = {
     path: string;
   };
   words: WordInstance[];
+  dictionarySetting: { padding: number };
+  createdAt: string;
 };
 
 export type DictionaryGetParams = Partial<

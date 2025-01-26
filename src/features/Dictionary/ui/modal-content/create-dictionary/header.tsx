@@ -95,7 +95,6 @@ export const Header = ({ dictionaryData }: HeaderProps) => {
                 type: file.type,
                 preview: reader.result,
               };
-              console.log(data.preview)
               backgroundPhoto.src = data.preview as string;
               //if(onChange !== undefined) onChange(data);
               

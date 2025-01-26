@@ -5,6 +5,7 @@ import { WordPostParams } from"@/shared/api/word/model";
 import { Box } from"@/shared/ui";
 import { ActionsButtons } from "./actionsButtons";
 import { WordInput } from "./wordInput";
+import { useEffect } from "react";
 
 const defaultValues: Partial<WordPostParams> = { caption: undefined, description: undefined }
 
@@ -12,6 +13,10 @@ export const CreateWordDialog = () => {
   const form = useForm<typeof defaultValues>({
     defaultValues,
   });
+
+  useEffect(() => {
+    form.setFocus("caption");
+  },[])
 
   return (
     <StyledContainer flex column gap="20px">

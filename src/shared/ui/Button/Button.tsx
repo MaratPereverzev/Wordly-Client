@@ -107,8 +107,7 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
   return <StyledGroupButton {...props} />;
 };
 
-const StyledDefaultButton = styled(ButtonMui)((/*{ theme }*/) => ({
-  //color: theme.palette.primary.contrastText,
+const StyledDefaultButton = styled(ButtonMui)(() => ({
   padding: "4px",
   justifyContent: "flex-start",
   minWidth: "min-content",

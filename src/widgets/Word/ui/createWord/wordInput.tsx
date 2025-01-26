@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 
-import { Box, Input } from"@/shared/ui";
-import { WordPostParams } from"@/shared/api/word/model";
+import { WordPostParams } from "@/shared/api/word/model";
+import { Box, Input } from "@/shared/ui";
 
 type WordInputParams = {
   form: UseFormReturn<Partial<WordPostParams>, any, undefined>

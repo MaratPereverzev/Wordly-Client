@@ -1,55 +1,38 @@
 import { WordInstance } from "@/shared/api/word/model";
 import type { TableProps } from "@mui/material";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { flexRender, Header, Row } from "@tanstack/react-table";
 
 type BasicTableProps = TableProps & {
+  //table: Table<WordInstance>,
   alignHeadCell ?: "center" | "left" | "right" | "inherit" | "justify",
   alignBodyCell ?: "center" | "left" | "right" | "inherit" | "justify",
-  bodyRows?: WordInstance[],
-  headRows?: JSX.Element[]
+  bodyRows?: Row<WordInstance>[],
+  headRows?: Header<WordInstance, unknown>[]
 }
 
 export const BasicTable = ({
+  //table,
   bodyRows = [],
   headRows = [],
-  alignHeadCell = "left",
-  alignBodyCell = "left",
 }: BasicTableProps) => {
   return (
-    <TableContainer
-      sx={{
-        borderRadius: 1,
-        boxShadow: "none",
-      }}
-    >
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer sx={{overflow: "auto"}} component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            {headRows.map((row) => (
-              <TableCell key={row.key} align={alignHeadCell}>
-                {row}
-              </TableCell>
-            ))}
+            {headRows.map((headRow) => <TableCell align={headRow.id === "id" ? "left": "center"}key={headRow.id} colSpan={headRow.colSpan} sx={{width: headRow.column.getSize()}}>{flexRender(headRow.column.columnDef.header, headRow.getContext())}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
-          {bodyRows.map((row: any) => (
+          {bodyRows.map(row => (
             <TableRow
-              key={row.key}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             >
-              {Object.keys(row).map((key) => (
-                <TableCell
-                  component="th"
-                  scope="row"
-                  key={`${row.name}/${row[key]}`}
-                  align={alignBodyCell}
-                >
-                  {row[key]}
-                </TableCell>
+              {row.getVisibleCells().map((cell, index) => (
+                <TableCell align={index === 0 ? "left" : "center"} sx={{width: cell.column.getSize()}}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
-            </TableRow>
-          ))}
+            </TableRow>))}
         </TableBody>
       </Table>
     </TableContainer>
