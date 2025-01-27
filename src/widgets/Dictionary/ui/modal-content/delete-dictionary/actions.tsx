@@ -1,13 +1,13 @@
-import { useDeleteWord } from "@/entities/Word";
-import { Box, Button } from "@/shared/ui";
-import { dispatchEvent } from "@/shared/utils";
+import { useDeleteDictionary } from"@/entities/Dictionary/hooks";
+import { dispatchEvent } from"@/shared/utils";
+import { Box, Button } from"@/shared/ui";
 
 type ActionsProps ={
   id: string
 }
 
 export const Actions = ({id}: ActionsProps) => {
-  const { mutate } = useDeleteWord();
+  const { mutate } = useDeleteDictionary(id);
 
   const onClick = () => {
     mutate({id});
@@ -20,7 +20,7 @@ export const Actions = ({id}: ActionsProps) => {
         caption="Delete"
         sxText={{ px: 1 }}
         onClick={() => {
-          dispatchEvent("dialogTrigger", { opened: false });
+          dispatchEvent("dialog/trigger", { opened: false });
           onClick();
         }}
       />
@@ -29,7 +29,7 @@ export const Actions = ({id}: ActionsProps) => {
         variant="text"
         sxText={{ px: 1 }}
         onClick={() => {
-          dispatchEvent("dialogTrigger", { opened: false });
+          dispatchEvent("dialog/trigger", { opened: false });
         }}
       />
     </Box>

@@ -4,7 +4,7 @@ import { BasicTable, ButtonIcon } from "@/shared/ui"
 import { dispatchEvent } from "@/shared/utils"
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { JSX } from "react"
-import { DeleteWordDialog } from "./modal/delete-word"
+import { DeleteWordDialog } from "./modal-content/delete-word"
 
 type DictionaryDetailTableParams = {
   data: DictionaryInstance

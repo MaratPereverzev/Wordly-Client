@@ -50,6 +50,8 @@ export const useGetWordById = (id: string) => {
   return { data, isLoading, isError };
 };
 
+type ClientWordPostParams = Omit<WordPostParams, "dictionaryId">;
+
 export const usePostWord = () => {
   const { id } = useParams();
   const accessToken = useUserStore((state) => state.accessToken);
@@ -57,7 +59,7 @@ export const usePostWord = () => {
 
   const hook = useMutation({
     mutationKey: [`post/word/${id}`],
-    mutationFn: (wordData: WordPostParams) =>
+    mutationFn: (wordData: ClientWordPostParams) =>
       Word.post({
         headers: {
           Accept: "application/json",
@@ -72,7 +74,7 @@ export const usePostWord = () => {
         status: "success",
         message: "A new word added successfully",
       });
-      dispatchEvent("dialogTrigger", { opened: false });
+      dispatchEvent("dialog/trigger", { opened: false });
     },
   });
 
@@ -100,7 +102,7 @@ export const usePutWord = (id: string) => {
         message: "A new word added successfully",
       });
       queryClient.invalidateQueries({ queryKey: [`get/words`] });
-      dispatchEvent("dialogTrigger", { opened: false });
+      dispatchEvent("dialog/trigger", { opened: false });
     },
   });
 
@@ -130,7 +132,7 @@ export const useDeleteWord = () => {
       });
       queryClient.invalidateQueries({ queryKey: [`get/dictionary/${id}`] });
       queryClient.invalidateQueries({ queryKey: [`get/word`] });
-      dispatchEvent("dialogTrigger", { opened: false });
+      dispatchEvent("dialog/trigger", { opened: false });
     },
   });
 
