@@ -30,7 +30,8 @@ const iconList = {
   add: "add",
   light_mode: "light_mode",
   dark_mode: "dark_mode",
-  light_or_dark_mode: "contrast"
+  light_or_dark_mode: "contrast",
+  download: "download",
 };
 
 export type IconListKeys = keyof typeof iconList

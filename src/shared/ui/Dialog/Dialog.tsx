@@ -20,7 +20,7 @@ export const Dialog = () => {
 
   useEffect(
     () =>
-      addEventListener<{opened: boolean}>("dialogTrigger", (detail) => {
+      addEventListener<{opened: boolean}>("dialog/trigger", (detail) => {
         if (detail?.opened !== null) setOpen((prev) => (prev = detail.opened));
       }),
     []

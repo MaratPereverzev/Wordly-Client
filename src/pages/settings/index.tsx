@@ -45,7 +45,7 @@ const SettingsPage = () => {
     </ButtonGroup>
     <Box sx={{width: "300px"}}>
       <Text caption="Icon size" />
-      <Slider min={12} max={30} defaultValue={50} aria-label="Default" valueLabelDisplay="auto" onChange={handleSliderChange} />
+      <Slider min={12} max={30} defaultValue={24} aria-label="Default" valueLabelDisplay="auto" onChange={handleSliderChange} />
     </Box>
   </Box>
 }

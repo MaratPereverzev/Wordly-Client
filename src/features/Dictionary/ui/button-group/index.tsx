@@ -1,4 +1,4 @@
-import { CreateDictionaryDialogContent } from"@/features/Dictionary/ui/modal-content";
+import { CreateDictionaryDialogContent } from"@/widgets/Dictionary/ui/modal-content";
 import { Button, ButtonGroup, Popover, Text } from"@/shared/ui";
 import { dispatchEvent } from"@/shared/utils";
 

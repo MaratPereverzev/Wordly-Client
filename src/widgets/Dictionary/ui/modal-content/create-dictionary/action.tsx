@@ -19,7 +19,7 @@ export const Action = ({ dictionaryData, form }: ActionProps) => {
   const { handleSubmit } = form;
 
   const onSubmit = () => {
-    dispatchEvent("dialogTrigger", { opened: false });
+    dispatchEvent("dialog/trigger", { opened: false });
     mutate(dictionaryData.current as DictionaryPostParams);
   };
 
@@ -36,7 +36,7 @@ export const Action = ({ dictionaryData, form }: ActionProps) => {
         caption="Cancel"
         sxText={{ px: 1 }}
         onClick={() => {
-          dispatchEvent("dialogTrigger", { opened: false });
+          dispatchEvent("dialog/trigger", { opened: false });
         }}
       />
     </Box>
