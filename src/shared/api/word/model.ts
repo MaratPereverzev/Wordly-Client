@@ -12,7 +12,7 @@ export type WordGetParams = Partial<
   Omit<WordInstance, "media"> & AxiosBasicRequestParams
 >;
 
-export type WordPostParams = Omit<WordInstance, "id">;
+export type WordPostParams = Omit<WordInstance, "id" | "createdAt">;
 
 export type WordPutParams = Partial<WordPostParams>;
 

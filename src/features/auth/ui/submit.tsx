@@ -1,9 +1,19 @@
 import { styled } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {z} from "zod"
 
-import { useAuth } from"@/entities/Auth/hooks/useAuth";
-import { Box, Button, Input } from"@/shared/ui";
-import { AuthPostParams } from"@/shared/api/auth/model";
+import { useAuth } from "@/entities/Auth/hooks/useAuth";
+import { AuthPostParams } from "@/shared/api/auth/model";
+import { Box, Button, Input } from "@/shared/ui";
+
+const AuthPostParamsSchema = z.object({
+  login: z.string().nonempty({ message: "Login can't be empty" }),
+  password: z
+    .string()
+    .nonempty({ message: "Password can't be empty" })
+    .min(6, { message: "Password must contain at least 6 character(s)" }),
+});
 
 export const LoginSubmitForm = () => {
   const {
@@ -11,9 +21,10 @@ export const LoginSubmitForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<AuthPostParams>({
-    defaultValues: { login: undefined, password: undefined },
+  } = useForm({
+    defaultValues: { login: "", password: "" },
     mode: "onChange",
+    resolver: zodResolver(AuthPostParamsSchema)
   });
 
   const {mutate} = useAuth();

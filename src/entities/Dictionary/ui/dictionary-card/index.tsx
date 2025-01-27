@@ -2,7 +2,7 @@ import { Checkbox, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { useDictionaryStore } from "@/entities/Dictionary/store";
-import { DeleteDictionaryDialog } from "@/features/Dictionary/ui/modal-content";
+import { DeleteDictionaryDialog } from "@/widgets/Dictionary/ui/modal-content";
 import { DictionaryInstance } from "@/shared/api/dictionary/model";
 import { Box, Button, ButtonIcon, Text } from "@/shared/ui";
 import { dispatchEvent } from "@/shared/utils";

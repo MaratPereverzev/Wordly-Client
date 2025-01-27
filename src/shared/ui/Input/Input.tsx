@@ -34,16 +34,16 @@ export const Input = forwardRef(({
 }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
   return (
     <TextField
+      sx={{
+        ">.MuiFormHelperText-root":{
+          marginX: 0
+        }
+      }}
       ref={ref}
       variant={variant}
       size="small"
       error={errorMessage && errorMessage !== "" ? true : false}
       helperText={errorMessage ?? helperText ?? ""}
-      InputProps={{
-        startAdornment: icon && (
-          <StyledDefaultInputIcon icon={icon} sx={sxIcon} />
-        ),
-      }}
       {...other}
     />
   );
