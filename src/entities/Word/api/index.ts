@@ -4,6 +4,7 @@ import {
   deleteWord,
   getAllWords,
   getWordById,
+  importWord,
   postWord,
   putWord,
 } from "@/shared/api/word";
@@ -24,6 +25,12 @@ class Word {
 
   async getById(params: AxiosRequestConfig<{ id: string }>) {
     return await getWordById(params, this.#URL);
+  }
+
+  async import(
+    params: AxiosRequestConfig<{ id: string; dictionaryId: number }>
+  ) {
+    return await importWord(params, `${this.#URL_PRIVATE}/import`);
   }
 
   async post(params: AxiosRequestConfig<WordPostParams>) {

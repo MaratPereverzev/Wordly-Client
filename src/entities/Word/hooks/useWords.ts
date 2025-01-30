@@ -59,7 +59,7 @@ export const usePostWord = () => {
 
   const hook = useMutation({
     mutationKey: [`post/word/${id}`],
-    mutationFn: (wordData: ClientWordPostParams) =>
+    mutationFn: (wordData: ClientWordPostParams & { id?: string }) =>
       Word.post({
         headers: {
           Accept: "application/json",
@@ -73,6 +73,35 @@ export const usePostWord = () => {
       dispatchEvent("snackbar/trigger", {
         status: "success",
         message: "A new word added successfully",
+      });
+      dispatchEvent("dialog/trigger", { opened: false });
+    },
+  });
+
+  return hook;
+};
+
+export const useImportWord = () => {
+  const { id } = useParams();
+  const accessToken = useUserStore((state) => state.accessToken);
+  const queryClient = useQueryClient();
+
+  const hook = useMutation({
+    mutationKey: [`import/word`],
+    mutationFn: (data: { id: string }) =>
+      Word.import({
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+        data: { ...data, dictionaryId: +id! },
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`get/dictionary/${id}`] });
+      dispatchEvent("snackbar/trigger", {
+        status: "success",
+        message: "The word imported successfully",
       });
       dispatchEvent("dialog/trigger", { opened: false });
     },

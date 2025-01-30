@@ -24,6 +24,15 @@ export async function getWordById(
   });
 }
 
+export async function importWord(
+  { data, headers }: AxiosRequestConfig<{ id: string; dictionaryId: number }>,
+  url: string
+) {
+  return await axios.post<{ id: string; dictionaryId: number }>(url, data, {
+    headers,
+  });
+}
+
 export async function postWord(
   { data, headers }: AxiosRequestConfig<WordPostParams>,
   url: string

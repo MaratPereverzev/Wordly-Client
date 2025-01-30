@@ -1,6 +1,7 @@
 import { usePutDictionarySettings } from "@/entities/Dictionary-settings/hooks/useDictionarySettings";
 import { DictionaryInstance } from "@/shared/api/dictionary/model";
-import { Box, Button, ButtonGroup } from "@/shared/ui";
+import { FileData } from "@/shared/types";
+import { Box, Button, ButtonGroup, InputFile } from "@/shared/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type ResultType = {
@@ -45,7 +46,7 @@ export const Result = ({data: {medium, id, dictionarySetting}}: ResultType) => {
 
   return (
     <Box sx={{position: "relative", userSelect: "none"}}>
-      <img src={medium?.id ? `http://localhost:8080/api/media?id=${medium.id}` : "#"} style={{
+      <img id="dictionary-background-detail" src={medium?.id ? `http://localhost:8080/api/media?id=${medium.id}` : "#"} style={{
         display: "block",
         objectFit: "cover",
         width: "100%",
@@ -79,6 +80,25 @@ export const Result = ({data: {medium, id, dictionarySetting}}: ResultType) => {
           }}
           color="inherit"
         >
+          <InputFile onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const backgroundPhoto = document.getElementById(
+              "dictionary-background-detail"
+            ) as HTMLImageElement;
+            const reader = new FileReader();
+            const file = event.target.files?.[0]!;
+
+            reader.onloadend = () => {
+              const data: FileData = {
+                caption: file.name,
+                data: file,
+                type: file.type,
+                preview: reader.result,
+              };
+              backgroundPhoto.src = data.preview as string;
+              //if(onChange !== undefined) onChange(data);
+              reader.readAsDataURL(file);
+              //setSelectedImage(data);
+          }}}/>
           <Button caption={isChangeMode ? "Save": "Switch"} onClick={() => {
             if(isChangeMode) {
               mutate({dictionaryId: +id, padding})

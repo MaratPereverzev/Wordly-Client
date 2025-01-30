@@ -69,26 +69,6 @@ export const InputFile = ({ sxBox, sxButton, onChange, ...other }: InputFileProp
         accept="image/*"
         style={{ display: "none" }}
         onChange={onChange}
-        /*onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const backgroundPhoto = document.getElementById(
-            "dictionaryBackground"
-          ) as HTMLImageElement;
-          const reader = new FileReader();
-          const file = event.target.files?.[0]!;
-
-          reader.onloadend = () => {
-            const data = {
-              caption: file.name,
-              data: file,
-              type: file.type,
-              preview: reader.result,
-            };
-            backgroundPhoto.src = data.preview as string;
-            //if(onChange !== undefined) onChange(data);
-          };
-
-          reader.readAsDataURL(file);
-        }}*/
       />
     </Box>
   );

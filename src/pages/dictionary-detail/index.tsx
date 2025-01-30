@@ -7,6 +7,7 @@ import { Box, Button, ButtonIcon, Popover, Text } from "@/shared/ui";
 import { dispatchEvent } from "@/shared/utils";
 import { DictionaryDetailTable } from "@/widgets/Dictionary-detail/ui";
 import { CreateWordDialog } from "@/widgets/Dictionary-detail/ui/modal-content/createWord";
+import { ImportWordDialog } from "@/widgets/Dictionary-detail/ui/modal-content/import-word";
 
 const DictionaryDetail = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const DictionaryDetail = () => {
         <Box flex gap ai>
           <StyledActionButton
             icon="add"
-            caption="Add Translation"
+            caption="Add"
             onClick={() => {
               dispatchEvent("onOpenDialog", {
                 dialogContent: <CreateWordDialog />,
@@ -33,8 +34,15 @@ const DictionaryDetail = () => {
           <Popover
             button={<ButtonIcon icon="more"/>}
             sxPopover={{padding: 1}}
+            closeOnClick
           >
-            <Button variant="text" caption="import" icon="download"/>
+            {
+              [<Button variant="text" caption="import" icon="download" onClick={() => {
+                dispatchEvent("onOpenDialog", {
+                  dialogContent: <ImportWordDialog />,
+                });
+              }}/>]
+            }
           </Popover>
         </Box>
       </StyledContainer>
@@ -67,7 +75,7 @@ const StyledContainer = styled(Box)(() => ({
   padding: "16px",
   display: "flex",
   alignItems: "center",
-  justifyCOntent: "space-between",
+  justifyContent: "space-between",
 }));
 
 export default DictionaryDetail;
